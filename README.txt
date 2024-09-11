@@ -1,3 +1,5 @@
+Các thư viện hiện có: React Navigation, Fontawesome icon, Realm
+
 1. Dùng lệnh npm i để tải các thư viện trước khi chạy dự án
 
 2. Để chạy dự án không cần dùng máy ảo, tải app Expo Go trên điện thoại Android từ CH Play sau đó dùng lệnh npx expo start để chạy rồi scan QR code hoặc nhập URL vào app Expo Go
