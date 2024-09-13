@@ -16,6 +16,7 @@
     "@fortawesome/react-native-fontawesome": "^0.3.2",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
+    "@realm/react": "^0.10.1",
     "expo": "~51.0.28",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
