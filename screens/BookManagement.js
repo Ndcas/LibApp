@@ -10,7 +10,7 @@ export default function App({ navigation }) {
     const [listBook, setListBook] = useState([]);
 
     async function getBooks() {
-        let data = await fetch("http://1192.168.1.8:8080/dauSach/get")
+        let data = await fetch("http://192.168.1.8:8080/dauSach/get")
         // let data = await fetch("http://192.168.1.9:8080/dauSach/get")
         if (data.ok) {
             let books = await data.json();

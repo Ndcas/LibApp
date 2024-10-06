@@ -14,7 +14,7 @@ export default function App({ navigation }) {
     const [listChuyenNganh, setListChuyenNganh] = useState([]);
 
     async function getBook() {
-        let data = await fetch("http://10.10.78.157:8080/dauSach/getCoSan")
+        let data = await fetch("http://192.168.1.8:8080/dauSach/getCoSan")
         if (data.ok) {
             let book = await data.json();
         }
