@@ -10,11 +10,11 @@ export default function App({ navigation }) {
     const [listBook, setListBook] = useState([]);
 
     async function getBook() {
-        let data = await fetch("http://10.10.78.157:8080/dauSach/get")
+        let data = await fetch("http://192.168.1.8:8080/dauSach/get")
         if (data.ok) {
             let books = await data.json();
             for (let i = 0; i < books.length; i++) {
-                let img = await fetch(`http://10.10.78.157:8080/hinhAnh/getById?id=${books[i].hinhAnh}`);
+                let img = await fetch(`http://192.168.1.8:8080/hinhAnh/getById?id=${books[i].hinhAnh}`);
                 
                 if(img.ok){
                     img = await img.json();

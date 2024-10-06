@@ -26,7 +26,7 @@ export default function App({ navigation }) {
     })
 
     async function getChuyenNganh() {
-        let data = await fetch("http://10.10.78.157:8080/chuyenNganh/get");
+        let data = await fetch("http://192.168.1.8:8080/chuyenNganh/get");
         if (data.ok) {
             let chuyenNganhs = await data.json();
             setListChuyenNganh(chuyenNganhs);

@@ -15,7 +15,7 @@ export default function App({ navigation }) {
     }
 
     async function createTheMuon() {
-        let dats = await fetch("http://10.10.78.141:8080/theMuon/create", {
+        let dats = await fetch("http://192.168.1.8:8080/theMuon/create", {
         // let dats = await fetch("http://192.168.1.9:8080/theMuon/create", {
             method: "post",
             body: JSON.stringify({

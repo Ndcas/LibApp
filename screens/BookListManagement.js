@@ -19,7 +19,7 @@ export default function App({ navigation }) {
 
     async function createNewBook() {
         // let dats = await fetch("http://192.168.1.9:8080/sach/create", {
-        let dats = await fetch("http://10.10.78.141:8080/sach/create", {
+        let dats = await fetch("http://192.168.1.8:8080/sach/create", {
             method: "post",
             body: JSON.stringify({ dauSachId: route.params?.dauSachId }),
             headers: {
@@ -42,7 +42,7 @@ export default function App({ navigation }) {
     }
 
     async function getBooks() {
-        let data = await fetch(`http://10.10.78.141:8080/sach/get?dauSach=${route.params?.dauSachId}`);
+        let data = await fetch(`http://192.168.1.8:8080/sach/get?dauSach=${route.params?.dauSachId}`);
         if (data.ok) {
             let books = await data.json();
             setListBook(books);

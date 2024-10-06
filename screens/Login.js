@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View ,ImageBackground,Icon} from 'react-native';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { BlurView } from '@react-native-community/blur';
 
 export default function App({ navigation }) {
 
@@ -12,7 +11,7 @@ export default function App({ navigation }) {
 
     async function login() {
         console.log("1215");
-        let dats = await fetch("http://10.10.78.157:8080/login", {
+        let dats = await fetch("http://192.168.1.8:8080/login", {
             method: "post",
             body: JSON.stringify({
                 taiKhoan: userName,
