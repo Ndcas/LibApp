@@ -3,27 +3,48 @@ import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextI
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMagnifyingGlass, width } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 import { faRefresh } from '@fortawesome/free-solid-svg-icons/faRefresh';
+import { useRoute } from "@react-navigation/native";
 
 
 export default function App({ navigation }) {
 
+    const route = useRoute();
+
     const [listBook, setListBook] = useState([]);
 
+    function test() {
+        console.log("testing");
+
+    }
+
+    async function createNewBook() {
+        // let dats = await fetch("http://192.168.1.9:8080/sach/create", {
+        let dats = await fetch("http://10.10.78.141:8080/sach/create", {
+            method: "post",
+            body: JSON.stringify({ dauSachId: route.params?.dauSachId }),
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        });
+
+        // console.log(route.params?.dauSachId);
+
+        console.log(dats.ok);
+
+
+        if (dats.ok) {
+            console.log(dats);
+        }
+
+        getBooks();
+
+    }
+
     async function getBooks() {
-        let data = await fetch("http://10.10.78.141:8080/dauSach/get")
-        // let data = await fetch("http://192.168.1.9:8080/dauSach/get")
+        let data = await fetch(`http://10.10.78.141:8080/sach/get?dauSach=${route.params?.dauSachId}`);
         if (data.ok) {
             let books = await data.json();
-            for (let i = 0; i < books.length; i++) {
-                let img = await fetch(`http://10.10.78.141:8080/hinhAnh/getById?id=${books[i].hinhAnh}`);
-                // let img = await fetch(`http://192.168.1.9:8080/hinhAnh/getById?id=${books[i].hinhAnh}`);
-
-                if (img.ok) {
-                    img = await img.json();
-
-                    books[i].hinhAnh = "data:image/" + img.format + ";base64," + img.dataUrl;
-                }
-            }
             setListBook(books);
         }
     }
@@ -41,36 +62,27 @@ export default function App({ navigation }) {
                 </View>
             </View>
 
-            <Pressable style={styles.addBook}>
-                <Text style={{}}>+ Thêm đầu sách</Text>
+            <Pressable style={styles.addBook} onPress={() => createNewBook()}>
+                <Text style={{}}>+ Thêm sách</Text>
             </Pressable>
 
             <View style={styles.bookList}>
                 {
                     listBook.map((book) =>
-                        <Pressable style={styles.book} onPress={() => navigation.navigate("BookListManagement", {dauSachId: book._id})}>
-                            <View style={{ flex: 1 }}>
-                                <Image style={styles.img} source={{uri: book.hinhAnh}} />
-                            </View>
+                        <Pressable style={styles.book}>
                             <View style={{ flex: 2, marginLeft: 10, marginTop: 10, gap: 10, justifyContent: "center" }}>
                                 <Text>
-                                    <Text style={styles.myText}>Tên sách:</Text>
-                                    {"\t" + book.tenDauSach}
-                                </Text>
-
-                                <Text>
-                                    <Text style={styles.myText}>Mã:</Text>
+                                    <Text style={styles.myText}>ID:</Text>
                                     {"\t" + book._id}
                                 </Text>
-
                                 <Text>
-                                    <Text style={styles.myText}>Số trang:</Text>
-                                    {"\t" + book.soTrang}
+                                    <Text style={styles.myText}>Tình trạng:</Text>
+                                    {"\t" + book.tinhTrang}
                                 </Text>
                             </View>
                         </Pressable>
-                    )
 
+                    )
                 }
             </View>
         </View>

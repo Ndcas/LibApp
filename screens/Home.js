@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View, Image } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMagnifyingGlass, width } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
@@ -5,30 +6,55 @@ import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
 
 export default function App({ navigation }) {
+
+    const [listBook, setListBook] = useState([]);
+
+    async function getBook() {
+        let data = await fetch("http://10.10.78.157:8080/dauSach/get")
+        if (data.ok) {
+            let books = await data.json();
+            for (let i = 0; i < books.length; i++) {
+                let img = await fetch(`http://10.10.78.157:8080/hinhAnh/getById?id=${books[i].hinhAnh}`);
+                
+                if(img.ok){
+                    img = await img.json();
+                    
+                    books[i].hinhAnh = "data:image/" + img.format + ";base64," +  img.dataUrl;
+                }
+            }
+            setListBook(books);
+        }
+    }
+
+    useEffect(() => {
+        getBook();
+    })
+
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.search}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} style={styles.icon} />
-                    <TextInput style={{ flex: 1 }} placeholder='Tìm kiếm' placeholderTextColor="#000000" clearTextOnFocus={true}/>
+                    <TextInput style={{ flex: 1 }} placeholder='Tìm kiếm' placeholderTextColor="#000000" clearTextOnFocus={true} />
                 </View>
                 <View style={styles.profile}>
                     <Pressable style={styles.profileBtn} onPress={() => navigation.navigate("ProfileMember")}>
-                        <FontAwesomeIcon icon={faUser} style={styles.user} size={35}/>
+                        <FontAwesomeIcon icon={faUser} style={styles.user} size={35} />
                     </Pressable>
                 </View>
             </View>
 
             <Text style={styles.category}>
-                Kỹ thuật phần mềm
+                Tất cả sách
             </Text>
 
-            <View style={styles.bookList}>
+            {/* <View style={styles.bookList}>
 
                 <View style={{ flex: 1 }}>
                     <Pressable onPress={() => navigation.navigate("BookDetail")}>
                         <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
-                        <Text>Name</Text>
+                        <Text>sc</Text>
                     </Pressable>
                 </View>
 
@@ -45,61 +71,22 @@ export default function App({ navigation }) {
                         <Text>Name</Text>
                     </Pressable>
                 </View>
-            </View>
-
-            <Text style={styles.category}>
-                Ngôn ngữ Anh
-            </Text>
+            </View> */}
 
             <View style={styles.bookList}>
-                <View style={{ flex: 1 }}>
-                    <Pressable onPress={() => navigation.navigate("BookDetail")}>
-                        <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
-                        <Text>Name</Text>
-                    </Pressable>
-                </View>
+                {
+                    listBook.map((book) =>
+                        <Pressable onPress={() => navigation.navigate("BookDetail", {book: book})}>
+                            <Image style={{height: 100, width: 50}} source={{uri: book.hinhAnh}}/>
+                            <Text>{book.tenDauSach}</Text>
+                        </Pressable>
+                    )
 
-                <View style={{ flex: 1 }}>
-                    <Pressable onPress={() => navigation.navigate("BookDetail")}>
-                        <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
-                        <Text>Name</Text>
-                    </Pressable>
-                </View>
-
-                <View style={{ flex: 1 }}>
-                    <Pressable onPress={() => navigation.navigate("BookDetail")}>
-                        <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
-                        <Text>Name</Text>
-                    </Pressable>
-                </View>
+                }
             </View>
 
-            <Text style={styles.category}>
-                Sư phạm
-            </Text>
 
-            <View style={styles.bookList}>
-                <View style={{ flex: 1 }}>
-                    <Pressable onPress={() => navigation.navigate("BookDetail")}>
-                        <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
-                        <Text>Name</Text>
-                    </Pressable>
-                </View>
 
-                <View style={{ flex: 1 }}>
-                    <Pressable onPress={() => navigation.navigate("BookDetail")}>
-                        <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
-                        <Text>Name</Text>
-                    </Pressable>
-                </View>
-
-                <View style={{ flex: 1 }}>
-                    <Pressable onPress={() => navigation.navigate("BookDetail")}>
-                        <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
-                        <Text>Name</Text>
-                    </Pressable>
-                </View>
-            </View>
         </View>
     )
 }
@@ -110,14 +97,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: "center"
     },
 
     header: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        paddingLeft: 10
+        paddingLeft: 10,
+        marginTop: 20
     },
 
     search: {

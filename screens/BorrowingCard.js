@@ -45,7 +45,7 @@ export default function App({ navigation }) {
 
             <View style={styles.buttonBox}>
                 <Pressable style={styles.btnBorrow}>
-                    <Text style={styles.btnText}>Duyệt</Text>
+                    <Text style={styles.btnText}>Mượn</Text>
                 </Pressable>
                 <Pressable style={styles.btnCancel}>
                     <Text style={styles.btnText}>Hủy</Text>

@@ -1,103 +1,140 @@
-import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View, Image } from 'react-native';
+import { Alert, Button, KeyboardAvoidingView, Pressable, Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faMagnifyingGlass, width } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
-import { faRefresh } from '@fortawesome/free-solid-svg-icons/faRefresh';
+import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
 
 
 export default function App({ navigation }) {
+
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <View style={styles.search}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} style={styles.icon} />
-                    <TextInput style={{ flex: 1 }} placeholder='Tìm kiếm' placeholderTextColor="#000000" clearTextOnFocus={true}></TextInput>
+            <Text style={{ fontWeight: "bold", fontSize: 18, textAlign: "left", paddingLeft: 35, marginTop: 10 }}>Thông tin người mượn</Text>
+            <View style={styles.box}>
+                <View style={styles.leftBox}>
+                    <Text style={styles.leftBoxText}>Username</Text>
+                    <Text style={styles.leftBoxText}>ID:</Text>
+                </View>
+                <View style={styles.rightBox}>
+                    <Text style={styles.rightBoxText}>{global.user.hoTen}</Text>
+                    <Text style={styles.rightBoxText}>{global.user.maDocGia}</Text>
                 </View>
             </View>
 
-            <Pressable style={styles.update}>
-                <FontAwesomeIcon icon={faRefresh} style={{ paddingTop: 23 }} />
-                <Text style={{}}> Cập nhật</Text>
-            </Pressable>
+            <Text style={{ fontWeight: "bold", fontSize: 18, textAlign: "left", paddingLeft: 35, marginTop: 10 }}>Sách mượn</Text>
+            <View style={styles.borrowedBox}>
+                <Image style={styles.img} source={{ uri: book.hinhAnh }} />
+            </View>
 
-            <View style={styles.cardList}>
-                <Pressable style={styles.card} onPress={() => navigation.navigate("BorrowingCardApprove")}>
-                    <Text style={{flex: 1, fontSize: 18, fontWeight: "bold", textAlign: "left"}}>#1</Text>
-                    <Text style={{flex: 1, fontSize: 15, textAlign: "right"}}>Đã duyệt</Text>
-                </Pressable>
-
-                <Pressable style={styles.card} onPress={() => navigation.navigate("BorrowingCardApprove")}>
-                    <Text style={{flex: 1, fontSize: 18, fontWeight: "bold", textAlign: "left"}}>#1</Text>
-                    <Text style={{flex: 1, fontSize: 15, textAlign: "right"}}>Đã duyệt</Text>
-                </Pressable>
-
-                <Pressable style={styles.card} onPress={() => navigation.navigate("BorrowingCardApprove")}>
-                    <Text style={{flex: 1, fontSize: 18, fontWeight: "bold", textAlign: "left"}}>#1</Text>
-                    <Text style={{flex: 1, fontSize: 15, textAlign: "right"}}>Chờ duyệt</Text>
+            <View style={styles.buttonBox}>
+                <Pressable style={styles.btnBorrow} onPress={() => navigation.navigate("ProfileMember")}>
+                    <Text style={styles.btnText}>Mượn</Text>
                 </Pressable>
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
-
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        paddingTop: 40,
-        paddingHorizontal: 20
+        paddingTop: 50
     },
 
-    header: {
-        flexDirection: "row",
+    box: {
+        width: "80%",
+        height: 150,
+        backgroundColor: "#fff",
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: "#b5b5b5",
         alignItems: "center",
-        justifyContent: "center",
-    },
-
-    search: {
-        flexDirection: "row",
-        flex: 5,
-        width: 345,
-        height: 40,
-        marginTop: 15,
-        borderWidth: 1,
-        borderColor: "#000000",
-        borderRadius: 20,
-        paddingLeft: 10,
-        fontSize: 15,
-    },
-
-    icon: {
-        flex: 1,
-        paddingTop: 39,
-        paddingLeft: 5,
-    },
-
-    update: {
-        flexDirection: "row",
-        marginTop: 10
-    },
-
-    cardList: {
-        gap: 10,
-        marginTop: 25,
-        height: "80%"
-    },
-
-    card: {
-        width: "100%",
-        borderWidth: 1,
-        borderRadius: 12,
-        borderColor: "#c1c1c1",
+        alignSelf: "center",
         padding: 10,
-        flexDirection: "row",
-        height: 70,
-        alignItems: "center"
+        marginTop: 10,
+        flexDirection: "row"
     },
 
-    myText: {
-        fontSize: 18,
-        fontWeight: "bold",
+    leftBox: {
         flex: 1,
+        flexDirection: "column",
     },
-})
+
+    rightBox: {
+        flex: 1.2,
+        flexDirection: "column",
+    },
+
+    leftBoxText: {
+        flex: 1,
+        fontWeight: "bold",
+        textAlignVertical: "center",
+    },
+
+    rightBoxText: {
+        flex: 1,
+        textAlign: "right",
+        textAlignVertical: "center",
+    },
+
+    borrowedBox: {
+        width: "80%",
+        height: 180,
+        marginTop: 10,
+        padding: 10,
+        borderWidth: 1,
+        alignSelf: "center",
+        flexDirection: "row",
+        gap: 10,
+    },
+
+    img: {
+        flex: 1,
+        height: undefined,
+        width: "30%",
+        borderRadius: 5
+    },
+
+    timeBox: {
+        width: "80%",
+        height: 100,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        alignSelf: "center",
+        padding: 10,
+        marginTop: 20,
+        flexDirection: "row",
+    },
+
+    buttonBox: {
+        flexDirection: "row",
+        width: "80%",
+        marginTop: 30,
+        alignSelf: "center",
+        gap: 10,
+    },
+
+    btnBorrow: {
+        flex: 2,
+        backgroundColor: "#ff914d",
+        borderRadius: 50,
+        height: 70,
+        alignItems: "center",
+        alignSelf: "center",
+        justifyContent: "center"
+    },
+
+    btnCancel: {
+        flex: 1,
+        backgroundColor: "#ff914d",
+        borderRadius: 50,
+        height: 70,
+        alignItems: "center",
+        alignSelf: "center",
+        justifyContent: "center"
+    },
+
+    btnText: {
+        fontSize: 25,
+        fontWeight: "bold"
+    },
+});
