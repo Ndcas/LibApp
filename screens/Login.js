@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View ,ImageBackground,Icon} from 'react-native';
+import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View ,ImageBackground,Icon,Platform,ScrollView} from 'react-native';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 
 export default function App({ navigation }) {
 
@@ -38,6 +40,10 @@ export default function App({ navigation }) {
     }
 
         return (
+            <KeyboardAvoidingView 
+            style={{flex :1}}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+            > 
             <ImageBackground 
               source={require('../assets/img/Screenshot (18).png')} // Đường dẫn tới hình ảnh của bạn
               style={styles.container}>
@@ -55,7 +61,7 @@ export default function App({ navigation }) {
 
                 <View style={styles.inputBoxPassword}>
                 <View style ={styles.icon}>
-                <FontAwesomeIcon icon ={faUser} size={23} style ={{paddingLeft :15}}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faEye} size={23} style={{paddingLeft:15}}/>
                 </View>
                 <View style = {styles.id}>
                 <Text style = {{fontSize : 12,opacity :0.5,fontWeight :'bold'}}>Mật khẩu</Text>
@@ -63,11 +69,12 @@ export default function App({ navigation }) {
                 </View>
                 </View>
                 <Pressable style={styles.button} onPress={() => login()}>
-                    <Text style={{ fontWeight: "bold", fontSize: 15 }}>Đăng nhập</Text>
+                    <Text style={{ fontWeight: "bold", fontSize: 25 }}>Đăng nhập</Text>
                 </Pressable>
 
     
             </ImageBackground>
+            </KeyboardAvoidingView>
           );
         };
     
@@ -78,6 +85,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffbd59',
         alignItems: 'flex-start',
         justifyContent: 'center',
+    },
+    loginBox : {
+        width : 370,
+        height :60,
+        marginTop : 20,
+        borderRadius : 15,
+        backgroundColor : "#FCDE70",
     },
 
     box: {
@@ -99,24 +113,24 @@ const styles = StyleSheet.create({
         paddingLeft:10,
         flexDirection:'row',
         width: 370,
-        height: 55,
+        height: 65,
         borderWidth: 1,
         borderColor: "white",
-        borderRadius: 10,
+        borderRadius: 15,
         backgroundColor :'white',
         marginLeft :20,
         alignItems :'center',
         elevation :7,
     },
     inputBoxPassword: {
-        marginTop: 15,
+        marginTop: 12,
         paddingLeft:10,
         flexDirection:'row',
         width: 370,
-        height: 55,
+        height: 65,
         borderWidth: 1,
         borderColor: "white",
-        borderRadius: 10,
+        borderRadius: 15,
         backgroundColor :'white',
         marginLeft :20,
         alignItems :'center',
@@ -132,16 +146,19 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        fontSize: 15,
+        fontSize: 17,
        
     },
 
     button: {
-        marginTop: 30,
-        width: 120,
-        backgroundColor: "#ff914d",
-        alignItems: "center",
-        borderRadius: 10,
-        padding: 5
+        width : 370,
+        height :70,
+        marginTop : 60,
+        borderRadius : 20,
+        backgroundColor : "#FCDE70",
+        alignItems : "center",
+        justifyContent :'center',
+        marginLeft :20,
+
     },
 });

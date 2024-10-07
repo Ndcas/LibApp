@@ -1,27 +1,55 @@
+import { useState, useEffect } from 'react';
 import { Alert, Button, KeyboardAvoidingView, Pressable, Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
-
+import { useRoute } from "@react-navigation/native";
 
 export default function App({ navigation }) {
+
+    const route = useRoute();
+
+    const [docGia, setDocGia] = useState({});
+
+    async function getBorrowingCardDetails(){
+        console.log(route.params?.borrowingCard);
+        
+        const data = await fetch(`http://192.168.1.9:8080/docGia/get?_id=${route.params?.borrowingCard.docGia}`);
+        if(data.ok){
+            let docGiatemp = await data.json();
+            setDocGia(docGiatemp);
+            
+        }
+    }
+
+    useEffect(() => {
+        getBorrowingCardDetails();
+    }, []);
+
+    async function traSach(){
+        let data = await fetch(`http://192.168.1.8::8080/theMuon/traSach?id=${route.params?.borrowingCard._id}`);
+        if(data.ok){
+            console.log(data);
+        }
+    }
+
 
     return (
         <View style={styles.container}>
             <Text style={{ fontWeight: "bold", fontSize: 18, textAlign: "left", paddingLeft: 35 }}>Thông tin người mượn</Text>
             <View style={styles.box}>
                 <View style={styles.leftBox}>
+                    <Text style={styles.leftBoxText}>Mã độc giả</Text>
                     <Text style={styles.leftBoxText}>Họ và tên</Text>
-                    <Text style={styles.leftBoxText}>Username</Text>
-                    <Text style={styles.leftBoxText}>ID:</Text>
+                    <Text style={styles.leftBoxText}>Giới tính</Text>
                 </View>
                 <View style={styles.rightBox}>
-                    <Text style={styles.rightBoxText}>John Does</Text>
-                    <Text style={styles.rightBoxText}>SuperIdol2024</Text>
-                    <Text style={styles.rightBoxText}>1</Text>
+                    {/* <Text style={styles.rightBoxText}>{docGia[0].maDocGia}</Text>
+                    <Text style={styles.rightBoxText}>{docGia[0].hoTen}</Text>
+                    <Text style={styles.rightBoxText}>{docGia[0].gioiTinh}</Text> */}
                 </View>
             </View>
 
-            <Text style={{ fontWeight: "bold", fontSize: 18, textAlign: "left", paddingLeft: 35, marginTop: 10 }}>Sách mượn</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 18, textAlign: "left", paddingLeft: 35, marginTop: 10 }}>Sách muọn</Text>
             <View style={styles.borrowedBox}>
                 <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
                 <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
@@ -39,8 +67,8 @@ export default function App({ navigation }) {
                 </View>
             </View>
 
-            <Pressable style={styles.button}>
-                <Text style={styles.btnText}>Duyệt</Text>
+            <Pressable style={styles.button} onPress={() => traSach()}>
+                <Text style={styles.btnText}>Trả sách</Text>
             </Pressable>
         </View>
     );

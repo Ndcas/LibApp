@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 
@@ -8,19 +8,29 @@ export default function App({ navigation }) {
     const [idDocGia, setIdDocGia] = useState("");
     const [idSach, setIdSach] = useState("");
     const [idSachs, setIdSachs] = useState([]);
+    const [idThuThu, setidThuThu] = useState("");
 
     function addBook(){
         idSachs.push(idSach);
-        console.log( idDocGia + " " + global.user.maThuThu + " " + idSachs);
+        console.log(idDocGia + " " + idThuThu + " " + idSachs);
+    }
+
+    async function getIdThuThu(){
+        let dats = await fetch(`http://192.168.1.8:8080/thuThu/get?maThuThu=${global.user.maThuThu}`);
+        if(dats.ok){
+            let thuThu = await dats.json();
+            // console.log(thuThu[0]._id);            
+            setidThuThu(thuThu[0]._id);
+        }
     }
 
     async function createTheMuon() {
+        // let dats = await fetch("http://192.168.1.8:8080/theMuon/create", {
         let dats = await fetch("http://192.168.1.8:8080/theMuon/create", {
-        // let dats = await fetch("http://192.168.1.9:8080/theMuon/create", {
             method: "post",
             body: JSON.stringify({
                 docGiaId: idDocGia,
-                thuThuId: global.user.maThuThu,
+                thuThuId: idThuThu,
                 sachIds: idSachs
             }),
             headers: {
@@ -28,6 +38,10 @@ export default function App({ navigation }) {
                 "Content-Type": "application/json"
             }
         });
+        
+
+        console.log(idThuThu);
+        
         
         setIdSachs([]);
 
@@ -37,6 +51,10 @@ export default function App({ navigation }) {
             console.log(dats);
         }
     }
+
+    useEffect(() => {
+        getIdThuThu();
+    }, []);
 
     return (
         <KeyboardAvoidingView style={styles.container}>
