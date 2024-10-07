@@ -38,11 +38,11 @@ export default function App({ navigation }) {
             getBook();
         }
         else {
-            let data = await fetch(`http://192.168.1.9:8080/dauSach/get?tenDauSach=${txtSearch}`)
+            let data = await fetch(`http://192.168.1.8:8080/dauSach/get?tenDauSach=${txtSearch}`)
             if (data.ok) {
                 let books = await data.json();
                 for (let i = 0; i < books.length; i++) {
-                    let img = await fetch(`http://192.168.1.9:8080/hinhAnh/getById?id=${books[i].hinhAnh}`);
+                    let img = await fetch(`http://192.168.1.8:8080/hinhAnh/getById?id=${books[i].hinhAnh}`);
 
                     if (img.ok) {
                         img = await img.json();
@@ -57,36 +57,57 @@ export default function App({ navigation }) {
 
 
     return (
+       
         <View style ={styles.container}>
+            <View style = {styles.descriptionAndSearch}>
             <Pressable style={styles.profileBtn} onPress={() => navigation.navigate("ProfileMember")}>
-                        <FontAwesomeIcon icon={faUser} style={styles.user} size={25} />
+                        <FontAwesomeIcon icon={faUser} style={styles.user} size={20} />
                     </Pressable>
-                <Text style = {{fontSize :35,fontWeight :'bold',marginLeft :15,marginTop :10}}>Khám phá</Text>
+                <Text style = {{fontSize :35,fontWeight :'bold',marginLeft :15,marginTop :10}}>My Library</Text>
                 <Text style = {{fontSize :14,opacity :0.3,marginLeft :15,fontStyle :'italic',marginRight :15}}>"Những người khôn ngoan tìm được sự an ủi khỏi những rắc rối của cuộc đời chính từ sách" - Victor Hugo</Text>
                 <View style={styles.search}>
-                <FontAwesomeIcon icon={faMagnifyingGlass} style={{marginLeft :1,marginRight :10}} />
-                <TextInput style={{ flex: 1 }} placeholder='Tìm kiếm' placeholderTextColor="#000000" clearTextOnFocus={true} value={txtSearch} onChangeText={text => setTxtSearch(text)} />
+                <Pressable onPress={() => searchBook()}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} style ={{marginRight :10}} />
+                    </Pressable>
+                <TextInput style={{ flex: 1,opacity :0.7 }} placeholder='Bạn muốn đọc gì ?' placeholderTextColor="#000000" clearTextOnFocus={true} value={txtSearch} onChangeText={text => setTxtSearch(text)} />
                 </View>
+            </View>
+                
+
+
+            <KeyboardAvoidingView
+             style={styles.booklist}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <Text style={styles.category}>
                 Tất cả sách
             </Text>
-
+            <ScrollView style ={{marginTop :15}}>
             <View style={styles.bookList}>
                 {
                     listBook.map((book) =>
                         <Pressable style={styles.book} onPress={() => navigation.navigate("BookDetail", {book: book})}>
-                            <Image style={{height: 100, width: 50}} source={{uri: book.hinhAnh}}/>
+                            <View style ={styles.bookPart}>
+                            <Image style={{height: 150, width: 100,borderRadius :20}} source={{uri: book.hinhAnh}}/>
+                            </View>
+                            <View style = {styles.descriptionPart}>
+                                <Text style ={{fontSize : 17,fontWeight : 'bold'}}>{book.tenDauSach}</Text>
+                                <Text style ={{fontSize : 12,opacity :0.5}}> Bởi {book.tacGia}</Text>
+
+                            </View>
                         </Pressable>
                     )
 
                 }
             </View>
+            </ScrollView>
+            </KeyboardAvoidingView>
 
 
 
 
             
         </View>
+        
     )
 }
 
@@ -94,13 +115,20 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
+    },
+ 
+    descriptionAndSearch : {
+        flex :4,
         backgroundColor: '#ffe699',
         alignItems :'flex-start',
         justifyContent : 'flex-start',
     },
-    description : {
-        flex : 3,
-        backgroundColor : "#ffe699",
+    booklist : {
+        flex :6,
+        backgroundColor : "white",
+        borderTopLeftRadius : 30,
+        borderTopRightRadius :30,
+        marginTop : -30,
     },
 
 
@@ -125,17 +153,17 @@ const styles = StyleSheet.create({
     search: {
         flexDirection:'row',
         width: 370,
-        height: 45,
+        height: 60,
         marginTop: 25,
-        borderWidth: 1,
         borderColor: "#000000",
-        borderRadius: 10,
+        borderRadius: 23,
         paddingLeft: 15,
         fontSize: 17,
         marginLeft :15,
         alignItems :'center',
         justifyContent :'center',
-        backgroundColor :"white"
+        backgroundColor :"white",
+        elevation : 5
 
 
     },
@@ -166,11 +194,11 @@ const styles = StyleSheet.create({
     },
 
     profileBtn: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         borderWidth: 1,
         borderRadius: 25,
-        marginTop :90,
+        marginTop :60,
         marginLeft :15,
         alignItems :'center',
         justifyContent : 'center'
@@ -183,21 +211,31 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         marginTop: 15
     },
+    bookPart : {
+        flex : 3
+    },
+    descriptionPart : {
+        flex : 7,
+        alignItems : 'flex-start',
+        justifyContent : 'flex-start',
+        padding : 10
+    },
 
     /******************************************************** */
     bookList: {
-        flexDirection: "row",
-        flexWrap: "wrap",
         marginHorizontal: 20,
-        marginTop: 10,
         justifyContent: "center",
     },
 
     book: {
         flex: 1,
-        minWidth: 100,
-        borderWidth: 1,
-        alignItems: "center"
+        marginBottom : 25,
+        borderRadius : 20,
+        flexDirection : 'row',
+        backgroundColor : "white",
+        elevation : 10,
+        overflow : 'visible'
+
     },
 
     /****************flexwrap + minWidth = grid **************/

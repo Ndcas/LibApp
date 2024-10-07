@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View,Image } from 'react-native';
+import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View,Image, ScrollView } from 'react-native';
 import { useRoute } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -14,7 +14,7 @@ export default function App({ navigation }) {
     const [listChuyenNganh, setListChuyenNganh] = useState([]);
 
     async function getBook() {
-        let data = await fetch("http://192.168.1.8:8080/dauSach/getCoSan")
+        let data = await fetch("http://192.168.1.8::8080/dauSach/getCoSan")
         if (data.ok) {
             let book = await data.json();
         }
@@ -26,7 +26,7 @@ export default function App({ navigation }) {
     })
 
     async function getChuyenNganh() {
-        let data = await fetch("http://192.168.1.8:8080/chuyenNganh/get");
+        let data = await fetch("http://192.168.1.8::8080/chuyenNganh/get");
         if (data.ok) {
             let chuyenNganhs = await data.json();
             setListChuyenNganh(chuyenNganhs);
@@ -40,10 +40,32 @@ export default function App({ navigation }) {
     }
 
     return (
+
         <View style={styles.container}>
-            <Image style={styles.img} source={{uri: route.params?.book.hinhAnh}} resizeMode="contain"/>
+           <View style = {styles.bookView}>
+            <Image style={styles.img} source={{uri: route.params?.book.hinhAnh}} />
             <Text style = {styles.title}>{route.params?.book.tenDauSach}</Text>
-            <View style = {styles.descriptionFrame}>
+            </View>
+
+
+
+
+
+
+
+           <View style = {styles.discriptionView}>
+            <View style = {{
+                flexDirection : 'row',
+                height :70,
+                width : 390,
+                alignItems : 'center',
+                marginBottom :10,
+                elevation : 5,
+                borderRadius :20,
+                backgroundColor : "white",
+                marginLeft :10,
+                marginTop : 80
+            }}>
                 <View style ={styles.icon}>
                 <Icon name="user" size={30} style={{paddingLeft :10}} />
                 </View>
@@ -78,7 +100,7 @@ export default function App({ navigation }) {
                 <Icon name="print" size={30} style={{paddingLeft :10}} />
                 </View>
                 <View style ={styles.detail}>
-                    <Text style={{opacity :0.5}}>Tác giả</Text>
+                    <Text style={{opacity :0.5}}>Nhà xuất bản</Text>
                     <Text style={styles.detailDescription}>{route.params?.book.nhaXuatBan}</Text>
                 </View>
 
@@ -94,18 +116,17 @@ export default function App({ navigation }) {
                 </View>
 
             </View>
+            </View>
+            <View style = {styles.bottomView}></View>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        paddingLeft: 25,
-        paddingRight: 25,
         backgroundColor: "#fff",
-        paddingTop: 50
     },
     icon : {
         flex : 1,
@@ -115,8 +136,28 @@ const styles = StyleSheet.create({
     },
     detailDescription :{
         fontSize:15,
-        fontWeight:'bold'
+        fontWeight:'bold',
 
+    },
+    bookView : {
+        flex : 4,
+        backgroundColor : '#ffe699', 
+        justifyContent : 'center',
+        alignItems : "center",
+        flexDirection :'row',
+        overflow: 'visible',
+        borderRadius : 30,
+        elevation : 5
+    },
+    discriptionView : {
+        flex : 5.3,
+    },
+    bottomView : {
+        flex : 0.7,
+        backgroundColor : "#FFEEAD",
+        borderTopLeftRadius :40,
+        borderTopRightRadius : 40,
+        elevation : 5
     },
     
    
@@ -130,38 +171,39 @@ const styles = StyleSheet.create({
 
     },
     descriptionFrame: {
-        borderRadius : 5,
-        borderColor: "black",
-        borderWidth : 1,
         flexDirection : 'row',
-        height :60,
-        width : "100%",
+        height :70,
+        width : 390,
         alignItems : 'center',
-        marginBottom :5,
-        borderColor: 'rgba(0, 0, 0, 0.3)'
-
+        marginBottom :10,
+        elevation : 5,
+        borderRadius :20,
+        backgroundColor : "white",
+        marginLeft :10,
 
     },
 
     img: {
-        width: '100%',
-        height: '50%',
-        borderRadius : 5,
-        fontWeight :'bold',
-        borderWidth : 1,
-        borderColor : 'black',
-        marginTop : 30,
-        borderColor: 'rgba(0, 0, 0, 0.3)'
+        width: '45%',
+        height: '90%',
+        marginLeft :40,
+        borderRadius : 25,
+        position: 'absolute',
+        top : 65,
+        left : -10,
+        elevation  : 10
+
+
 
 
        
     },
 
     title: {
-        fontSize: 30,
-        paddingBottom :30,
-        paddingLeft : 5,
-        paddingTop : 7,
+        fontSize: 25,
+        paddingBottom :20,
+        paddingLeft : 230,
+        paddingTop : 120,
         fontWeight : 'bold',
     },
 

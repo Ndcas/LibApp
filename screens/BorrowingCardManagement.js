@@ -8,14 +8,15 @@ import { faRefresh } from '@fortawesome/free-solid-svg-icons/faRefresh';
 export default function App({ navigation }) {
 
     const [listTheMuon, setListTheMuon] = useState([]);
+    const [count, setCount] = useState(1);
 
     async function getListTheMuon() {
+        // let data = await fetch("http://10.10.78.141:8080/theMuon/get");
         let data = await fetch("http://192.168.1.8:8080/theMuon/get");
-        // let data = await fetch("http://192.168.1.9:8080/theMuon/get");
 
         
         if (data.ok) {
-            let theMuons = await data.json();
+            let theMuons = await data.json();            
             setListTheMuon(theMuons);
         }
         
@@ -44,12 +45,19 @@ export default function App({ navigation }) {
 
             <View style={styles.cardList}>
                 {
-                    listTheMuon.map((theMuon) => (
-                        <Pressable style={styles.card} onPress={() => navigation.navigate("BorrowingCardApprove")}>
-                            <Text style={{ flex: 1, fontSize: 18, fontWeight: "bold", textAlign: "left" }}>#1</Text>
-                            <Text style={{ flex: 1, fontSize: 15, textAlign: "right" }}>Đã duyệt</Text>
-                        </Pressable>
-                    ))
+                    listTheMuon.map((theMuon) => {
+                        return(
+                            <Pressable style={styles.card} onPress={() => navigation.navigate("BorrowingCardApprove", {borrowingCard: theMuon})}>
+                                <Text style={{ flex: 1, fontSize: 18, fontWeight: "bold", textAlign: "left" }}>#{count}</Text>
+                                <Text style={{ flex: 1, fontSize: 15, textAlign: "right" }}>{theMuon.tinhTrang}</Text>
+                            </Pressable>
+                        )
+                    }
+                        
+                        
+                        
+                    
+                    )
                 }
             </View>
         </View>
