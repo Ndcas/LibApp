@@ -1,30 +1,19 @@
 import { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { API_URL } from '@env';
+import AutocompleteInput from 'react-native-autocomplete-input';
 
 export default function App({ navigation }) {
 
-    const [idDocGia, setIdDocGia] = useState("");
-    const [idSach, setIdSach] = useState("");
+    const [docGias, setDocGias] = useState([]);
+    const [maDocGia, setMaDocGia] = useState('');
+    const filteredDocGias = filterDocGia();
+    const [dauSachs, setDauSachs] = useState([]);
+    const [tenDauSach, setTenDauSach] = useState('');
+    const filteredDauSachs = filterDauSach();
     const [idSachs, setIdSachs] = useState([]);
-    const [idThuThu, setidThuThu] = useState("");
-
-    function addBook(){
-        idSachs.push(idSach);
-        console.log(idDocGia + " " + idThuThu + " " + idSachs);
-    }
-
-    async function getIdThuThu(){
-        let dats = await fetch(API_URL + `/thuThu/get?maThuThu=${global.user.maThuThu}`);
-        if(dats.ok){
-            let thuThu = await dats.json();
-            // console.log(thuThu[0]._id);            
-            setidThuThu(thuThu[0]._id);
-        }
-    }
 
     async function createTheMuon() {
-        // let dats = await fetch("http://192.168.1.8:8080/theMuon/create", {
         let dats = await fetch(API_URL + "/theMuon/create", {
             method: "post",
             body: JSON.stringify({
@@ -37,32 +26,89 @@ export default function App({ navigation }) {
                 "Content-Type": "application/json"
             }
         });
-        
-
         console.log(idThuThu);
-        
-        
         setIdSachs([]);
-
         console.log(dats);
-        
         if (dats.ok) {
             console.log(dats);
         }
     }
 
     useEffect(() => {
-        getIdThuThu();
+        getDocGias();
+        getDauSachs();
     }, []);
+
+    async function getDocGias() {
+        let response = await fetch(API_URL + '/docGia/get');
+        if (response.ok) {
+            setDocGias(await response.json());
+        }
+    }
+
+    function filterDocGia() {
+        if (maDocGia.trim().length <= 1)  {
+            return [];
+        }
+        let result = docGias.filter(docGia => docGia.maDocGia.toLowerCase().includes(maDocGia.toLowerCase().trim()));
+        if (result.length == 1 && result[0].maDocGia == maDocGia) {
+            return [];
+        }
+        return result;
+    }
+
+    async function getDauSachs() {
+        let response = await fetch(API_URL + '/dauSach/getCoSan');
+        if (response.ok) {
+            setDauSachs(await response.json());
+        }
+    }
+
+    function filterDauSach() {
+        if (tenDauSach.trim().length <= 2) {
+            return [];
+        }
+        let result = dauSachs.filter(dauSach => dauSach.tenDauSach.toLowerCase().includes(tenDauSach.toLowerCase().trim()));
+        if (result.length == 1 && result[0].tenDauSach == tenDauSach) {
+            return [];
+        }
+        return result;
+    }
 
     return (
         <KeyboardAvoidingView style={styles.container}>
             <View style={styles.box}>
                 <View style={styles.inputBox}>
-                    <TextInput style={styles.input} placeholder='ID độc giả' placeholderTextColor="#c5c5c5" clearTextOnFocus={true} value={idDocGia} onChangeText={text => setIdDocGia(text)}></TextInput>
-                    <TextInput style={styles.input} placeholder='ID sách' placeholderTextColor="#c5c5c5" clearTextOnFocus={true} value={idSach} onChangeText={text => setIdSach(text)}></TextInput>
+                    <AutocompleteInput
+                        data={filteredDocGias}
+                        value={maDocGia}
+                        onChangeText={text => setMaDocGia(text)}
+                        placeholder='Mã độc giả'
+                        flatListProps={{
+                            keyboardShouldPersistTaps: 'always',
+                            renderItem: ({item}) => (
+                                <Pressable onPress={() => setMaDocGia(item.maDocGia)}>
+                                    <Text>{item.maDocGia + ' ' + item.hoTen}</Text>
+                                </Pressable>
+                            )
+                        }}
+                    />
+                    <AutocompleteInput
+                        data={filteredDauSachs}
+                        value={tenDauSach}
+                        onChangeText={text => setTenDauSach(text)}
+                        placeholder='Tên đầu sách'
+                        flatListProps={{
+                            keyboardShouldPersistTaps: 'always',
+                            renderItem: ({item}) => (
+                                <Pressable onPress={() => setTenDauSach(item.tenDauSach)}>
+                                    <Text>{item.tenDauSach}</Text>
+                                </Pressable>
+                            )
+                        }}
+                    />
                 </View>
-                <Pressable style={styles.button} onPress={() => addBook()}>
+                <Pressable style={styles.button} onPress={() => {}}>
                     <Text style={{ fontWeight: "bold", fontSize: 15 }}>Thêm sách</Text>
                 </Pressable>
                 <Pressable style={styles.button} onPress={() => createTheMuon()}>
