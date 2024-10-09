@@ -1,4 +1,4 @@
-Các thư viện hiện có: React Navigation, Fontawesome icon, Realm, Realm/React
+Các thư viện hiện có: React Navigation, Fontawesome icon, Realm, Realm/React, react-native-dotenv
 
 1. Dùng lệnh npm i để tải các thư viện trước khi chạy dự án
 

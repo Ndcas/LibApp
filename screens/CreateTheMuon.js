@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-
-
+import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { API_URL } from '@env';
 
 export default function App({ navigation }) {
 
@@ -16,7 +15,7 @@ export default function App({ navigation }) {
     }
 
     async function getIdThuThu(){
-        let dats = await fetch(`http://192.168.1.8:8080/thuThu/get?maThuThu=${global.user.maThuThu}`);
+        let dats = await fetch(API_URL + `/thuThu/get?maThuThu=${global.user.maThuThu}`);
         if(dats.ok){
             let thuThu = await dats.json();
             // console.log(thuThu[0]._id);            
@@ -26,7 +25,7 @@ export default function App({ navigation }) {
 
     async function createTheMuon() {
         // let dats = await fetch("http://192.168.1.8:8080/theMuon/create", {
-        let dats = await fetch("http://192.168.1.8:8080/theMuon/create", {
+        let dats = await fetch(API_URL + "/theMuon/create", {
             method: "post",
             body: JSON.stringify({
                 docGiaId: idDocGia,

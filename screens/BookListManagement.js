@@ -1,48 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View, Image } from 'react-native';
+import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View, Image, ScrollView } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMagnifyingGlass, width } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
-import { faRefresh } from '@fortawesome/free-solid-svg-icons/faRefresh';
+import { API_URL } from '@env';
 import { useRoute } from "@react-navigation/native";
 
 
 export default function App({ navigation }) {
 
-    const route = useRoute();
+    const dauSachId = useRoute().params.dauSachId;
 
     const [listBook, setListBook] = useState([]);
 
-    function test() {
-        console.log("testing");
-
-    }
-
     async function createNewBook() {
-        // let dats = await fetch("http://192.168.1.9:8080/sach/create", {
-        let dats = await fetch("http://192.168.1.8:8080/sach/create", {
+        let dats = await fetch(API_URL + '/sach/create', {
             method: "post",
-            body: JSON.stringify({ dauSachId: route.params?.dauSachId }),
+            body: JSON.stringify({ dauSachId: dauSachId }),
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             }
         });
-
-        // console.log(route.params?.dauSachId);
-
         console.log(dats.ok);
-
-
         if (dats.ok) {
             console.log(dats);
         }
-
         getBooks();
-
     }
 
     async function getBooks() {
-        let data = await fetch(`http://10.10.78.141:8080/sach/get?dauSach=${route.params?.dauSachId}`);
+        let data = await fetch(API_URL + `/sach/get?dauSach=${dauSachId}`);
         if (data.ok) {
             let books = await data.json();
             setListBook(books);
@@ -66,7 +53,7 @@ export default function App({ navigation }) {
                 <Text style={{}}>+ Thêm sách</Text>
             </Pressable>
 
-            <View style={styles.bookList}>
+            <ScrollView style={styles.bookList}>
                 {
                     listBook.map((book) =>
                         <Pressable style={styles.book}>
@@ -81,10 +68,9 @@ export default function App({ navigation }) {
                                 </Text>
                             </View>
                         </Pressable>
-
                     )
                 }
-            </View>
+            </ScrollView>
         </View>
     )
 }

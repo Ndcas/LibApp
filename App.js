@@ -1,5 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from "./screens/Home";
@@ -14,28 +12,31 @@ import BorrowingCardApprove from "./screens/BorrowingCardApprove";
 import CreateTheMuon from "./screens/CreateTheMuon";
 import BookListManagement from "./screens/BookListManagement";
 import test from "./screens/test";
-
+import { RealmProvider } from '@realm/react';
+import LoginInfo from './realmSchemas/LoginInfo';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Login" component={Login}/>
-        <Stack.Screen name="Home" component={Home}/>
-        <Stack.Screen name="BookDetail" component={BookDetail}/>
-        <Stack.Screen name="ProfileMember" component={ProfileMember}/>
-        <Stack.Screen name="ProfileLibrarian" component={ProfileLibrarian}/>
-        <Stack.Screen name="BookManagement" component={BookManagement}/>
-        <Stack.Screen name="BookListManagement" component={BookListManagement}/>
-        <Stack.Screen name="BorrowingCard" component={BorrowingCard}/>
-        <Stack.Screen name="BorrowingCardManagement" component={BorrowingCardManagement}/>
-        <Stack.Screen name="BorrowingCardApprove" component={BorrowingCardApprove}/>
-        <Stack.Screen name="CreateTheMuon" component={CreateTheMuon}/>
-        <Stack.Screen name="test" component={test}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <RealmProvider schema={[LoginInfo]}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="BookDetail" component={BookDetail} />
+          <Stack.Screen name="ProfileMember" component={ProfileMember} />
+          <Stack.Screen name="ProfileLibrarian" component={ProfileLibrarian} />
+          <Stack.Screen name="BookManagement" component={BookManagement} />
+          <Stack.Screen name="BookListManagement" component={BookListManagement} />
+          <Stack.Screen name="BorrowingCard" component={BorrowingCard} />
+          <Stack.Screen name="BorrowingCardManagement" component={BorrowingCardManagement} />
+          <Stack.Screen name="BorrowingCardApprove" component={BorrowingCardApprove} />
+          <Stack.Screen name="CreateTheMuon" component={CreateTheMuon} />
+          <Stack.Screen name="test" component={test} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </RealmProvider>
   );
 }
 

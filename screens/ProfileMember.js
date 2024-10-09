@@ -1,9 +1,23 @@
-import { Alert, Button, KeyboardAvoidingView, Pressable, Image, StyleSheet, Text, TextInput, View } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
-
+import { useQuery, useRealm } from '@realm/react';
+import { Pressable, Image, StyleSheet, Text, View } from 'react-native';
+import LoginInfo from '../realmSchemas/LoginInfo';
+import { CommonActions } from '@react-navigation/native';
 
 export default function App({ navigation }) {
+    const realm = useRealm();
+    const loginInfos = useQuery(LoginInfo);
+
+    function logout() {
+        realm.write(() => {
+            realm.delete(loginInfos);
+            navigation.dispatch(CommonActions.reset({
+                index: 0,
+                routes: [{
+                    name: 'Login'
+                }]
+            }));
+        });
+    }
 
     return (
         <View style={styles.container}>
@@ -42,6 +56,11 @@ export default function App({ navigation }) {
                     <Image style={styles.book} source={require("../assets/img/Blank_img.png")} />
                     <Image style={styles.book} source={require("../assets/img/Blank_img.png")} />
                 </View>
+            </View>
+            <View>
+                <Pressable onPress={() => logout()}>
+                    <Text>Đăng xuất</Text>
+                </Pressable>
             </View>
         </View>
     );

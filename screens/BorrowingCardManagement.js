@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View, Image } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faMagnifyingGlass, width } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
-import { faRefresh } from '@fortawesome/free-solid-svg-icons/faRefresh';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
+import { API_URL } from '@env';
 
 
 export default function App({ navigation }) {
 
     const [listTheMuon, setListTheMuon] = useState([]);
-    const [count, setCount] = useState(1);
 
     async function getListTheMuon() {
-        // let data = await fetch("http://10.10.78.141:8080/theMuon/get");
-        let data = await fetch("http://192.168.1.8:8080/theMuon/get");
+        let data = await fetch(API_URL + "/theMuon/get");
 
         
         if (data.ok) {
@@ -45,10 +43,10 @@ export default function App({ navigation }) {
 
             <View style={styles.cardList}>
                 {
-                    listTheMuon.map((theMuon) => {
+                    listTheMuon.map((theMuon, index) => {
                         return(
                             <Pressable style={styles.card} onPress={() => navigation.navigate("BorrowingCardApprove", {borrowingCard: theMuon})}>
-                                <Text style={{ flex: 1, fontSize: 18, fontWeight: "bold", textAlign: "left" }}>#{count}</Text>
+                                <Text style={{ flex: 1, fontSize: 18, fontWeight: "bold", textAlign: "left" }}>#{index + 1}</Text>
                                 <Text style={{ flex: 1, fontSize: 15, textAlign: "right" }}>{theMuon.tinhTrang}</Text>
                             </Pressable>
                         )

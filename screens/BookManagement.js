@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View, Image } from 'react-native';
+import { Alert, Button, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View, Image, ScrollView } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMagnifyingGlass, width } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 import { faRefresh } from '@fortawesome/free-solid-svg-icons/faRefresh';
+import { API_URL } from '@env';
 
 
 export default function App({ navigation }) {
@@ -10,19 +11,12 @@ export default function App({ navigation }) {
     const [listBook, setListBook] = useState([]);
 
     async function getBooks() {
-        let data = await fetch("http://192.168.1.8:8080/dauSach/get")
-        // let data = await fetch("http://192.168.1.9:8080/dauSach/get")
+        let data = await fetch(API_URL + "/dauSach/get")
         if (data.ok) {
             let books = await data.json();
             for (let i = 0; i < books.length; i++) {
-                let img = await fetch(`http://192.168.1.8:8080/hinhAnh/getById?id=${books[i].hinhAnh}`);
-                // let img = await fetch(`http://192.168.1.9:8080/hinhAnh/getById?id=${books[i].hinhAnh}`);
-
-                if (img.ok) {
-                    img = await img.json();
-
-                    books[i].hinhAnh = "data:image/" + img.format + ";base64," + img.dataUrl;
-                }
+                let img = await fetch(API_URL + `/hinhAnh/getById?id=${books[i].hinhAnh}`);
+                books[i].hinhAnh = await img.json();
             }
             setListBook(books);
         }
@@ -45,12 +39,12 @@ export default function App({ navigation }) {
                 <Text style={{}}>+ Thêm đầu sách</Text>
             </Pressable>
 
-            <View style={styles.bookList}>
+            <ScrollView style={styles.bookList}>
                 {
-                    listBook.map((book) =>
-                        <Pressable style={styles.book} onPress={() => navigation.navigate("BookListManagement", {dauSachId: book._id})}>
+                    listBook.map((book, index) =>
+                        <Pressable key={index} style={styles.book} onPress={() => navigation.navigate("BookListManagement", {dauSachId: book._id})}>
                             <View style={{ flex: 1 }}>
-                                <Image style={styles.img} source={{uri: book.hinhAnh}} />
+                                <Image style={styles.img} source={{uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl}} />
                             </View>
                             <View style={{ flex: 2, marginLeft: 10, marginTop: 10, gap: 10, justifyContent: "center" }}>
                                 <Text>
@@ -70,9 +64,8 @@ export default function App({ navigation }) {
                             </View>
                         </Pressable>
                     )
-
                 }
-            </View>
+            </ScrollView>
         </View>
     )
 }

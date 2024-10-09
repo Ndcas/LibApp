@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Alert, Button, KeyboardAvoidingView, Pressable, Image, StyleSheet, Text, TextInput, View } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
+import { Pressable, Image, StyleSheet, Text, View } from 'react-native';
 import { useRoute } from "@react-navigation/native";
+import { API_URL } from '@env';
 
 export default function App({ navigation }) {
 
@@ -13,7 +12,7 @@ export default function App({ navigation }) {
     async function getBorrowingCardDetails(){
         console.log(route.params?.borrowingCard);
         
-        const data = await fetch(`http://192.168.1.9:8080/docGia/get?_id=${route.params?.borrowingCard.docGia}`);
+        const data = await fetch(API_URL + `/docGia/get?_id=${route.params?.borrowingCard.docGia}`);
         if(data.ok){
             let docGiatemp = await data.json();
             setDocGia(docGiatemp);
@@ -26,7 +25,7 @@ export default function App({ navigation }) {
     }, []);
 
     async function traSach(){
-        let data = await fetch(`http://192.168.1.8::8080/theMuon/traSach?id=${route.params?.borrowingCard._id}`);
+        let data = await fetch(API_URL + `/theMuon/traSach?id=${route.params?.borrowingCard._id}`);
         if(data.ok){
             console.log(data);
         }
