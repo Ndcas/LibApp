@@ -19,3 +19,5 @@ Các thư viện hiện có: React Navigation, Fontawesome icon, Realm, Realm/Re
     git push
 
 6. Nếu khi pull về xuất hiện thông báo conflict, hãy xem các file bị conflict và sửa sau đó thực hiện cập nhật lại lên GitHub, nếu không biết sửa thì lên nhóm thảo luận
+
+7. Ghi API URL vào file .env
