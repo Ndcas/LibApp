@@ -16,7 +16,7 @@ export default function App({ navigation }) {
     const loginInfos = useQuery(LoginInfo);
 
     useEffect(() => {
-        tryLogin()
+        tryLogin();
     }, []);
 
     async function tryLogin() {
@@ -60,7 +60,7 @@ export default function App({ navigation }) {
         });
         if (dats.ok) {
             global.user = await dats.json();
-            if (global.user.message = 'Dang nhap thanh cong') {
+            if (global.user.message == 'Dang nhap thanh cong') {
                 if (global.user.vaiTro == "Thu thu") {
                     realm.write(() => {
                         realm.delete(loginInfos);
@@ -82,9 +82,7 @@ export default function App({ navigation }) {
                     navigation.replace("Home");
                 } 
             }
-            else if (global.user.message == 'Dang nhap that bai') {
-                setShowMessage(true);
-            }
+            setShowMessage(true);
         }
     }
 

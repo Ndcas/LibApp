@@ -1,38 +1,17 @@
 import { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { API_URL } from '@env';
 import AutocompleteInput from 'react-native-autocomplete-input';
 
 export default function App({ navigation }) {
-
     const [docGias, setDocGias] = useState([]);
     const [maDocGia, setMaDocGia] = useState('');
     const filteredDocGias = filterDocGia();
     const [dauSachs, setDauSachs] = useState([]);
     const [tenDauSach, setTenDauSach] = useState('');
     const filteredDauSachs = filterDauSach();
-    const [idSachs, setIdSachs] = useState([]);
-
-    async function createTheMuon() {
-        let dats = await fetch(API_URL + "/theMuon/create", {
-            method: "post",
-            body: JSON.stringify({
-                docGiaId: idDocGia,
-                thuThuId: idThuThu,
-                sachIds: idSachs
-            }),
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            }
-        });
-        console.log(idThuThu);
-        setIdSachs([]);
-        console.log(dats);
-        if (dats.ok) {
-            console.log(dats);
-        }
-    }
+    const [dauSachMuon, setDauSachMuon] = useState([]);
+    const [showMessage, setShowMessage] = useState(false);
 
     useEffect(() => {
         getDocGias();
@@ -47,14 +26,14 @@ export default function App({ navigation }) {
     }
 
     function filterDocGia() {
-        if (maDocGia.trim().length <= 1)  {
+        if (maDocGia.trim().length <= 1) {
             return [];
         }
         let result = docGias.filter(docGia => docGia.maDocGia.toLowerCase().includes(maDocGia.toLowerCase().trim()));
         if (result.length == 1 && result[0].maDocGia == maDocGia) {
             return [];
         }
-        return result;
+        return result.slice(0, 5);
     }
 
     async function getDauSachs() {
@@ -72,7 +51,18 @@ export default function App({ navigation }) {
         if (result.length == 1 && result[0].tenDauSach == tenDauSach) {
             return [];
         }
-        return result;
+        return result.slice(0, 5);
+    }
+
+    function addSach() {
+        let sach = dauSachs.find((dauSach) => dauSach.tenDauSach == tenDauSach);
+        if (sach && !dauSachMuon.find((dauSach) => dauSach == sach)) {
+            setDauSachMuon([...dauSachMuon, sach]);
+        }
+    }
+
+    function create() {
+
     }
 
     return (
@@ -86,7 +76,7 @@ export default function App({ navigation }) {
                         placeholder='Mã độc giả'
                         flatListProps={{
                             keyboardShouldPersistTaps: 'always',
-                            renderItem: ({item}) => (
+                            renderItem: ({ item }) => (
                                 <Pressable onPress={() => setMaDocGia(item.maDocGia)}>
                                     <Text>{item.maDocGia + ' ' + item.hoTen}</Text>
                                 </Pressable>
@@ -100,7 +90,7 @@ export default function App({ navigation }) {
                         placeholder='Tên đầu sách'
                         flatListProps={{
                             keyboardShouldPersistTaps: 'always',
-                            renderItem: ({item}) => (
+                            renderItem: ({ item }) => (
                                 <Pressable onPress={() => setTenDauSach(item.tenDauSach)}>
                                     <Text>{item.tenDauSach}</Text>
                                 </Pressable>
@@ -108,12 +98,19 @@ export default function App({ navigation }) {
                         }}
                     />
                 </View>
-                <Pressable style={styles.button} onPress={() => {}}>
+                <Pressable style={styles.button} onPress={() => addSach()}>
                     <Text style={{ fontWeight: "bold", fontSize: 15 }}>Thêm sách</Text>
                 </Pressable>
-                <Pressable style={styles.button} onPress={() => createTheMuon()}>
+                <Pressable style={styles.button} onPress={() => create()}>
                     <Text style={{ fontWeight: "bold", fontSize: 15 }}>Tạo thẻ mượn</Text>
                 </Pressable>
+                {
+                    showMessage ?
+                    <View>
+                        <Text>Có sách không thể mượn</Text>
+                    </View> :
+                    <View></View>
+                }
             </View>
         </KeyboardAvoidingView>
     );

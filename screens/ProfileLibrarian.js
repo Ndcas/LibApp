@@ -1,6 +1,7 @@
 import { Pressable, Image, StyleSheet, Text, View } from 'react-native';
 import { useRealm, useQuery } from '@realm/react';
 import LoginInfo from '../realmSchemas/LoginInfo';
+import { CommonActions } from '@react-navigation/native';
 
 export default function App({ navigation }) {
     const realm = useRealm();
