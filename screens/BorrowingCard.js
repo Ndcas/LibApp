@@ -1,9 +1,24 @@
-import { Alert, Button, KeyboardAvoidingView, Pressable, Image, StyleSheet, Text, TextInput, View } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
-
+import { Pressable, Image, StyleSheet, Text, View } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import { API_URL } from '@env';
 
 export default function App({ navigation }) {
+    const theMuon = useRoute().params.borrowingCard;
+    const [docGia, setDocGia] = useState({});
+    const ngayMuon = new Date(theMuon.ngayMuon);
+    const [sachMuon, setSachMuon] = useState([]);
+
+    useEffect(() => {
+        getInfo();
+    }, []);
+
+    async function getInfo() {
+        let docGia = await fetch (API_URL + `/docGia/get?_id=${theMuon.docGia}`);
+        let chiTiet = await fetch(API_URL + `/chiTietTheMuon/getByTheMuon?id=${theMuon._id}`);
+        chiTiet = (await chiTiet.json());
+        setDocGia((await docGia.json())[0]);
+    }
 
     return (
         <View style={styles.container}>
@@ -11,13 +26,11 @@ export default function App({ navigation }) {
             <View style={styles.box}>
                 <View style={styles.leftBox}>
                     <Text style={styles.leftBoxText}>Họ và tên</Text>
-                    <Text style={styles.leftBoxText}>Username</Text>
-                    <Text style={styles.leftBoxText}>ID:</Text>
+                    <Text style={styles.leftBoxText}>Mã độc giả</Text>
                 </View>
                 <View style={styles.rightBox}>
-                    <Text style={styles.rightBoxText}>John Does</Text>
-                    <Text style={styles.rightBoxText}>SuperIdol2024</Text>
-                    <Text style={styles.rightBoxText}>1</Text>
+                    <Text style={styles.rightBoxText}>{docGia.hoTen}</Text>
+                    <Text style={styles.rightBoxText}>{docGia.maDocGia}</Text>
                 </View>
             </View>
 
@@ -45,10 +58,7 @@ export default function App({ navigation }) {
 
             <View style={styles.buttonBox}>
                 <Pressable style={styles.btnBorrow}>
-                    <Text style={styles.btnText}>Mượn</Text>
-                </Pressable>
-                <Pressable style={styles.btnCancel}>
-                    <Text style={styles.btnText}>Hủy</Text>
+                    <Text style={styles.btnText}>Trả sách</Text>
                 </Pressable>
             </View>
         </View>

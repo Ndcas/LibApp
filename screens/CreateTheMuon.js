@@ -12,6 +12,7 @@ export default function App({ navigation }) {
     const filteredDauSachs = filterDauSach();
     const [dauSachMuon, setDauSachMuon] = useState([]);
     const [showMessage, setShowMessage] = useState(false);
+    const [messge, setMessge] = useState('');
 
     useEffect(() => {
         getDocGias();
@@ -61,8 +62,70 @@ export default function App({ navigation }) {
         }
     }
 
-    function create() {
-
+    async function create() {
+        let newDauSachs = await fetch(API_URL + '/dauSach/getCoSan');
+        newDauSachs = await newDauSachs.json();
+        let sachIds = [];
+        let ok = true;
+        for (let i = 0; i < dauSachMuon.length; i++) {
+            let dauSach = newDauSachs.find(dauSach => dauSach._id == dauSachMuon[i]._id);
+            if (dauSach) {
+                let sach = dauSach.sachs.find(sach => sach.tinhTrang == 'Co san');
+                if (sach) {
+                    sachIds.push(sach._id);
+                }
+                else {
+                    ok = false;
+                    break;
+                }
+            }
+            else {
+                ok = false;
+                break;
+            }
+        }
+        if (sachIds.length == 0) {
+            setShowMessage(true);
+            setMessge('Hãy thêm sách cần mượn');
+        }
+        else if (ok) {
+            let docGia = await fetch(API_URL + `/docGia/get?maDocGia=${maDocGia}`);
+            docGia = await docGia.json();
+            if (docGia.length == 1) {
+                let thuThu = await fetch(API_URL + `/thuThu/get?maThuThu=${global.user.maThuThu}`);
+                thuThu = await thuThu.json();
+                let response = await fetch(API_URL + '/theMuon/create', {
+                    method: 'post',
+                    body: JSON.stringify({
+                        docGiaId: docGia[0]._id,
+                        thuThuId: thuThu[0]._id,
+                        sachIds: sachIds
+                    }),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                response = await response.json();
+                if (response.message == 'Tao thanh cong') {
+                    navigation.popToTop();
+                }
+                else {
+                    setShowMessage(true);
+                    setMessge('Không thể tạo thẻ mượn, hãy thử lại');
+                }
+            }
+            else {
+                setShowMessage(true);
+                setMessge('Không tìm thấy độc giả');
+            }
+        }
+        else {
+            setShowMessage(true);
+            setMessge('Có sách không thể mượn');
+        }
+        setDauSachs(newDauSachs);
+        setDauSachMuon([]);
     }
 
     return (
@@ -107,7 +170,7 @@ export default function App({ navigation }) {
                 {
                     showMessage ?
                     <View>
-                        <Text>Có sách không thể mượn</Text>
+                        <Text>{messge}</Text>
                     </View> :
                     <View></View>
                 }

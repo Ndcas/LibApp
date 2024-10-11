@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 import { API_URL } from '@env';
@@ -11,13 +11,15 @@ export default function App({ navigation }) {
 
     async function getListTheMuon() {
         let data = await fetch(API_URL + "/theMuon/get");
-
-        
         if (data.ok) {
-            let theMuons = await data.json();            
+            let theMuons = await data.json();
+            theMuons.sort((a, b) => {
+                let d1 = new Date(a.ngayMuon);
+                let d2 = new Date(b.ngayMuon);
+                return d2 - d1;
+            });
             setListTheMuon(theMuons);
         }
-        
     }
 
     useEffect(() => {
@@ -42,21 +44,18 @@ export default function App({ navigation }) {
             </Pressable>
 
             <View style={styles.cardList}>
-                {
-                    listTheMuon.map((theMuon, index) => {
-                        return(
-                            <Pressable style={styles.card} onPress={() => navigation.navigate("BorrowingCardApprove", {borrowingCard: theMuon})}>
-                                <Text style={{ flex: 1, fontSize: 18, fontWeight: "bold", textAlign: "left" }}>#{index + 1}</Text>
-                                <Text style={{ flex: 1, fontSize: 15, textAlign: "right" }}>{theMuon.tinhTrang}</Text>
-                            </Pressable>
-                        )
+                <ScrollView>
+                    {
+                        listTheMuon.map((theMuon, index) => {
+                            return(
+                                <Pressable key={index} style={styles.card} onPress={() => navigation.navigate("BorrowingCard", {borrowingCard: theMuon})}>
+                                    <Text style={{ flex: 1, fontSize: 18, fontWeight: "bold", textAlign: "left" }}>#{index + 1}</Text>
+                                    <Text style={{ flex: 1, fontSize: 15, textAlign: "right" }}>{theMuon.tinhTrang}</Text>
+                                </Pressable>
+                            )
+                        })
                     }
-                        
-                        
-                        
-                    
-                    )
-                }
+                </ScrollView>
             </View>
         </View>
     )
