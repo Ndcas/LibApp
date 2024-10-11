@@ -13,13 +13,6 @@ export default function App({ navigation }) {
                 <Image style={styles.img} source={{ uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl }} />
                 <Text style={styles.title}>{book.tenDauSach}</Text>
             </View>
-
-
-
-
-
-
-
             <View style={styles.discriptionView}>
                 <View style={{
                     flexDirection: 'row',

@@ -1,4 +1,4 @@
-import { Pressable, Image, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Image, StyleSheet, Text, View, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { API_URL } from '@env';
@@ -6,7 +6,6 @@ import { API_URL } from '@env';
 export default function App({ navigation }) {
     const theMuon = useRoute().params.borrowingCard;
     const [docGia, setDocGia] = useState({});
-    const ngayMuon = new Date(theMuon.ngayMuon);
     const [sachMuon, setSachMuon] = useState([]);
 
     useEffect(() => {
@@ -14,10 +13,38 @@ export default function App({ navigation }) {
     }, []);
 
     async function getInfo() {
-        let docGia = await fetch (API_URL + `/docGia/get?_id=${theMuon.docGia}`);
+        let docGia = await fetch(API_URL + `/docGia/get?_id=${theMuon.docGia}`);
         let chiTiet = await fetch(API_URL + `/chiTietTheMuon/getByTheMuon?id=${theMuon._id}`);
         chiTiet = (await chiTiet.json());
+        let sachs = await fetch(API_URL + `/dauSach/getByTheMuon?id=${theMuon._id}`);
         setDocGia((await docGia.json())[0]);
+        setSachMuon(await sachs.json());
+    }
+
+    function formatDate(dateStr) {
+        let date = new Date(dateStr);
+        let hh = String(date.getHours()).padStart(2, '0');
+        let MM = String(date.getMinutes()).padStart(2, '0');
+        let ss = String(date.getSeconds()).padStart(2, '0');
+        let dd = String(date.getDate()).padStart(2, '0');
+        let mm = String(date.getMonth() + 1).padStart(2, '0');
+        let yyyy = date.getFullYear();
+        return `${hh}:${MM}:${ss} ${dd}/${mm}/${yyyy}`;
+    }
+
+    async function traSach() {
+        let result = await fetch(API_URL + `/theMuon/traSach?id=${theMuon._id}`);
+        result = await result.json();
+        if (result.message == 'Tra sach thanh cong') {
+            routes = navigation.getState().routes.slice(0, -2);
+            routes = [...routes, {
+                name: 'BorrowingCardManagement'
+            }];
+            navigation.reset({
+                index: routes.length - 1,
+                routes: routes
+            });
+        }
     }
 
     return (
@@ -36,28 +63,26 @@ export default function App({ navigation }) {
 
             <Text style={{ fontWeight: "bold", fontSize: 18, textAlign: "left", paddingLeft: 35, marginTop: 10 }}>Sách mượn</Text>
             <View style={styles.borrowedBox}>
-                <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
-                <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
-                <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
+                {
+                    sachMuon.map((sach, index) =>
+                        <Image key={index} style={styles.img} source={{ uri: 'data:image/' + sach.hinhAnh.format + ';base64,' + sach.hinhAnh.dataUrl }} />
+                    )
+                }
             </View>
 
             <View style={styles.timeBox}>
                 <View style={styles.leftBox}>
                     <Text style={styles.leftBoxText}>Trạng thái</Text>
                     <Text style={styles.leftBoxText}>Thời gian mượn</Text>
-                    <Text style={styles.leftBoxText}>Thời gian trả</Text>
                 </View>
                 <View style={styles.rightBox}>
-                    <Text style={styles.rightBoxText}>Đăng ký</Text>
-                    {/* <Text style={styles.rightBoxText}>Chờ duyệt</Text>
-                    <Text style={styles.rightBoxText}>Đã duyệt</Text> */}
-                    <Text style={styles.rightBoxText}>17:00pm 24/10/2024</Text>
-                    <Text style={styles.rightBoxText}>17:00pm 25/10/2024</Text>
+                    <Text style={styles.rightBoxText}>{theMuon.tinhTrang}</Text>
+                    <Text style={styles.rightBoxText}>{formatDate(theMuon.ngayMuon)}</Text>
                 </View>
             </View>
 
             <View style={styles.buttonBox}>
-                <Pressable style={styles.btnBorrow}>
+                <Pressable style={styles.btnBorrow} onPress={() => traSach()}>
                     <Text style={styles.btnText}>Trả sách</Text>
                 </Pressable>
             </View>
@@ -137,7 +162,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
 
-    buttonBox:{
+    buttonBox: {
         flexDirection: "row",
         width: "80%",
         marginTop: 30,

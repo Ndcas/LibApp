@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Image, KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Pressable, StyleSheet, Text, View } from 'react-native';
 import { API_URL } from '@env';
 import AutocompleteInput from 'react-native-autocomplete-input';
 
@@ -59,6 +59,7 @@ export default function App({ navigation }) {
         let sach = dauSachs.find((dauSach) => dauSach.tenDauSach == tenDauSach);
         if (sach && !dauSachMuon.find((dauSach) => dauSach == sach)) {
             setDauSachMuon([...dauSachMuon, sach]);
+            setTenDauSach('');
         }
     }
 

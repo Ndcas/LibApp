@@ -1,7 +1,6 @@
 import { useQuery, useRealm } from '@realm/react';
 import { Pressable, Image, StyleSheet, Text, View } from 'react-native';
 import LoginInfo from '../realmSchemas/LoginInfo';
-import { CommonActions } from '@react-navigation/native';
 
 export default function App({ navigation }) {
     const realm = useRealm();
@@ -10,12 +9,12 @@ export default function App({ navigation }) {
     function logout() {
         realm.write(() => {
             realm.delete(loginInfos);
-            navigation.dispatch(CommonActions.reset({
+            navigation.reset({
                 index: 0,
                 routes: [{
                     name: 'Login'
                 }]
-            }));
+            });
         });
     }
 
@@ -26,21 +25,18 @@ export default function App({ navigation }) {
                     <Image style={styles.img} source={require("../assets/img/Blank_profile.webp")} />
                     <View style={styles.topLeftBox}>
                         <View style={{ flex: 3, justifyContent: "center" }}>
-                            <Text style={styles.userName}>SuperIdol2024</Text>
+                            <Text style={styles.userName}>{global.user.hoTen}</Text>
                         </View>
-                        <Pressable style={styles.button}>
-                            <Text style={styles.btnText}>Chỉnh sửa</Text>
-                        </Pressable>
                     </View>
                 </View>
                 <View style={styles.bottomBox}>
                     <View style={styles.bottomLeft}>
-                        <Text style={styles.bottomLeftText}>John Does</Text>
-                        <Text style={styles.bottomLeftText}>ID: 1</Text>
+                        <Text style={styles.bottomLeftText}>Mã độc giả</Text>
+                        <Text style={styles.bottomLeftText}>{global.user.maDocGia}</Text>
                     </View>
 
                     <View style={styles.bottomRight}>
-                        <Text style={styles.bottomRightText}>Member</Text>
+                        <Text style={styles.bottomRightText}>Độc giả</Text>
                     </View>
                 </View>
             </View>
