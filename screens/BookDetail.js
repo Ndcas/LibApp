@@ -10,17 +10,13 @@ export default function App({ navigation }) {
 
         <View style={styles.container}>
             <View style={styles.bookView}>
-                <Image style={styles.img} source={{ uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl }} />
-                <Text style={styles.title}>{book.tenDauSach}</Text>
+            <Image style={styles.img} source={{ uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl }} />
+
             </View>
 
-
-
-
-
-
-
             <View style={styles.discriptionView}>
+                <Text style ={styles.title}>Tên sách</Text>
+                <Text style={{paddingLeft:30,fontSize:30,fontWeight:'bold'}}>{book.tenDauSach}</Text>
                 <View style={{
                     flexDirection: 'row',
                     height: 70,
@@ -31,8 +27,9 @@ export default function App({ navigation }) {
                     borderRadius: 20,
                     backgroundColor: "white",
                     marginLeft: 10,
-                    marginTop: 80
+                    marginTop: 50
                 }}>
+
                     <View style={styles.icon}>
                         <Icon name="user" size={30} style={{ paddingLeft: 10 }} />
                     </View>
@@ -40,6 +37,7 @@ export default function App({ navigation }) {
                         <Text style={{ opacity: 0.5 }}>Tác giả</Text>
                         <Text style={styles.detailDescription}>{book.tacGia}</Text>
                     </View>
+
 
                 </View>
 
@@ -49,7 +47,7 @@ export default function App({ navigation }) {
                     </View>
                     <View style={styles.detail}>
                         <Text style={{ opacity: 0.5 }}>Chuyên ngành</Text>
-                        <Text style={styles.detailDescription}>{book.chuyenNganh.tenChuyenNganh}</Text>
+                                <Text style={styles.detailDescription}>{book.chuyenNganh.tenChuyenNganh}</Text>
                     </View>
 
                 </View>
@@ -99,23 +97,24 @@ const styles = StyleSheet.create({
 
     },
     bookView: {
-        flex: 4,
-        backgroundColor: '#ffe699',
+        flex: 3,
+        backgroundColor: '#fff2cc',
         justifyContent: 'center',
         alignItems: "center",
         flexDirection: 'row',
         overflow: 'visible',
-        borderRadius: 30,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
         elevation: 5
     },
     discriptionView: {
-        flex: 5.3,
+        flex: 7,
     },
     bottomView: {
-        flex: 0.7,
-        backgroundColor: "#FFEEAD",
-        borderTopLeftRadius: 40,
-        borderTopRightRadius: 40,
+        flex: 0,
+        backgroundColor: "#fff2cc",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
         elevation: 5
     },
 
@@ -144,12 +143,12 @@ const styles = StyleSheet.create({
 
     img: {
         width: '45%',
-        height: '90%',
+        height: '95%',
         marginLeft: 40,
-        borderRadius: 25,
+        borderRadius: 20,
         position: 'absolute',
-        top: 65,
-        left: -10,
+        top: 55,
+        left: -20,
         elevation: 10
 
 
@@ -159,11 +158,11 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 25,
-        paddingBottom: 20,
-        paddingLeft: 230,
-        paddingTop: 120,
-        fontWeight: 'bold',
+        fontSize: 13,
+        paddingLeft: 30,
+        paddingTop: 50,
+        paddingRight: 25,
+        opacity:0.5,
     },
 
     author: {

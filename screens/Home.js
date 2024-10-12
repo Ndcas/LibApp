@@ -65,16 +65,18 @@ export default function App({ navigation }) {
                     <View style={styles.bookList}>
                         {
                             displayBooks.map((book, index) =>
-                                <Pressable key={index} style={styles.book} onPress={() => navigation.navigate("BookDetail", { book: book })}>
+                                <Pressable style={styles.book} key={index} onPress={() => navigation.navigate("BookDetail", { book: book })}>
                                     <View style={styles.bookPart}>
                                         <Image style={{ height: 150, width: 100, borderRadius: 20 }} source={{ uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl }} />
                                     </View>
                                     <View style={styles.descriptionPart}>
                                         <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{book.tenDauSach}</Text>
                                         <Text style={{ fontSize: 12, opacity: 0.5 }}> Bởi {book.tacGia}</Text>
+
                                     </View>
                                 </Pressable>
                             )
+
                         }
                     </View>
                 </ScrollView>
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
 
     descriptionAndSearch: {
         flex: 4,
-        backgroundColor: '#ffe699',
+        backgroundColor: '#fff2cc',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
     },
