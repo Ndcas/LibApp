@@ -53,7 +53,7 @@ export default function App({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.upperPart}>
+            <View style ={styles.description}>
                 <View style={styles.bookDescription}>
                     {/* Phần hình ảnh trong view */}
                     <View style={styles.imagePart}>
@@ -76,7 +76,7 @@ export default function App({ navigation }) {
 
                         <View style={styles.descriptionDetailFrame}>
                             <View style={styles.icon1}>
-                                <Icon name="user" size={20} />
+                            <Icon name="book" size={20} />
                             </View>
                             <View style={styles.detail1}>
                                 <Text style={{ opacity: 0.5, fontSize: 10, paddingLeft: 5, paddingTop: 5 }}>Chuyên ngành</Text>
@@ -105,18 +105,21 @@ export default function App({ navigation }) {
                         </View>
 
                     </View>
+                    </View>
+                    <View style = {styles.titleDescription}>
+                    <Text style={{ fontSize: 12, fontWeight: 'bold', paddingLeft: 20, opacity: 0.5, paddingTop: 13 }}>Tên sách</Text>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', paddingLeft: 20 }}>{book.tenDauSach}</Text>
+                    </View>
                 </View>
-                <Text style={{ fontSize: 12, fontWeight: 'bold', paddingLeft: 20, opacity: 0.5, paddingTop: 13 }}>Tên sách</Text>
-                <Text style={{ fontSize: 25, fontWeight: 'bold', paddingLeft: 20 }}>{book.tenDauSach}</Text>
-            </View>
-            <View style={styles.lowerPart}>
+                
+                <View style ={styles.booklist}>
                 <View style={{ flexDirection: "row" }}>
-                    <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold', marginTop: 15, paddingLeft: 20 }}>Danh sách sách</Text>
+                    <Text style={{ flex: 1, fontSize: 24, fontWeight: 'bold', marginTop: 15, paddingLeft: 15 }}>Danh sách sách</Text>
                     <Pressable style={{ flex: 1, justifyContent: "flex-end", alignItems: "flex-end", paddingRight: 10}} onPress={() => createNewBook()}>
-                        <Text style={{ fontSize: 15, fontWeight: 'bold', marginTop: 15, paddingLeft: 20 }}>+ Thêm sách</Text>
+                        <Text style={{ fontSize: 13, marginTop: 15 }}>Thêm sách</Text>
                     </Pressable>
                 </View>
-                <ScrollView style={{ flexDirection: 'column', borderWidth: 1 }}>
+                <ScrollView style={styles.bookScrollView}>
                     {
                         listBook &&
                         listBook.map((book) =>
@@ -138,8 +141,10 @@ export default function App({ navigation }) {
 
 
                 </ScrollView>
-            </View>
+         
+                </View>
         </View>
+        
     )
 }
 
@@ -147,41 +152,67 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: 'white',
-    },
-    upperPart: {
-        flex: 4.5,
+        justifyContent : 'center',
+        alignItems :'center',
         backgroundColor: '#fff2cc',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
+        padding :10
     },
-    lowerPart: {
-        flex: 5.5,
-        backgroundColor: 'white',
+    booklist :{
+        width : 390,
+        height : "60%",
+        backgroundColor :'white',
+        marginTop: 10,
+        borderRadius :25,
+        elevation : 5,
+    },
+    bookScrollView :{
+        flexDirection: 'column',
+        marginTop : 14 ,
+        padding :10,
+    },
+    description : {
+        width : 390,
+        height : "30%",
+        flexDirection :'column',
+        backgroundColor :'white',
+        marginTop: 15,
+        borderRadius :25,
+        elevation : 5,
+        marginBottom :7
 
     },
 
     bookDescription: {
         flexDirection: 'row',
-        height: "70%",
-        width: 375,
-        marginLeft: 16,
+        flex : 7,
+        marginLeft: 10,
         marginTop: 20,
-
+        justifyContent: 'center',
+        alignItems :'center',
+    },
+    titleDescription : {
+        flex : 3
     },
     imagePart: {
-        flex: 4,
-        justifyContent: 'flex-end',
+        flex: 3.5,
     },
     descriptionPart: {
-        flex: 6,
+        flex: 6.5,
         flexDirection: 'column',
-        paddingLeft: 12,
-        paddingTop: 7,
-        alignItems: 'flex-start',
-        justifyContent: 'flex-end'
+        paddingTop: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
+    descriptionDetailFrame: {
+        flexDirection: 'row',
+        height: 45,
+        width: 210,
+        alignItems: 'center',
+        marginBottom: 3,
+        borderRadius: 10,
+
+
     },
 
 
@@ -217,10 +248,11 @@ const styles = StyleSheet.create({
     },
 
     img: {
-        height: "90%",
+        height: "100%",
         width: undefined,
-        backgroundColor: "#ff914d",
-        borderRadius: 10
+        backgroundColor: "white",
+        borderRadius: 15,
+        elevation :5
     },
 
     addBook: {
@@ -237,29 +269,23 @@ const styles = StyleSheet.create({
     },
 
     book: {
+        alignItems :'center',
         width: "100%",
-        height: 180,
-        borderWidth: 1,
-        borderColor: "#c1c1c1",
+        height: 70,
         padding: 5,
+        backgroundColor :'white',
+        marginBottom : 10,
         flexDirection: "row",
+        elevation :5,
+        borderRadius :20,
+        borderColor :'black'
     },
 
     myText: {
         fontSize: 15,
         fontWeight: "bold",
     },
-    descriptionDetailFrame: {
-        flexDirection: 'row',
-        height: 55,
-        width: 220,
-        alignItems: 'center',
-        marginBottom: 3,
-        elevation: 5,
-        borderRadius: 10,
-        backgroundColor: "white",
-
-    },
+    
     icon: {
         flex: 1,
     },

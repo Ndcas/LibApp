@@ -12,10 +12,12 @@ export default function App({ navigation }) {
         realm.write(() => {
             realm.delete(loginInfos);
             navigation.reset({
+            navigation.reset({
                 index: 0,
                 routes: [{
                     name: 'Login'
                 }]
+            });
             });
         });
     }
@@ -46,7 +48,7 @@ export default function App({ navigation }) {
             </View>
 
             <View style={styles.recentBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>Management</Text>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>Chức năng</Text>
 
                 <View style={styles.manageBox}>
     
@@ -81,7 +83,7 @@ export default function App({ navigation }) {
                     </View>
                 </Pressable>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({

@@ -13,7 +13,6 @@ export default function App({ navigation }) {
             <Image style={styles.img} source={{ uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl }} />
 
             </View>
-
             <View style={styles.discriptionView}>
                 <Text style ={styles.title}>Tên sách</Text>
                 <Text style={{paddingLeft:30,fontSize:30,fontWeight:'bold'}}>{book.tenDauSach}</Text>
