@@ -47,6 +47,8 @@ export default function App({ navigation }) {
     }
 
     async function login() {
+        console.log("22");
+        
         let dats = await fetch(API_URL + "/login", {
             method: "post",
             body: JSON.stringify({

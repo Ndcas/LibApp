@@ -12,12 +12,10 @@ export default function App({ navigation }) {
         realm.write(() => {
             realm.delete(loginInfos);
             navigation.reset({
-            navigation.reset({
                 index: 0,
                 routes: [{
                     name: 'Login'
                 }]
-            });
             });
         });
     }

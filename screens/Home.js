@@ -35,7 +35,7 @@ export default function App({ navigation }) {
             setDisplayBooks(books);
         }
     }
-
+    
     return (
 
         <View style={styles.container}>
