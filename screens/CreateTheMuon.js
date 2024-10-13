@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Pressable, StyleSheet, Text, View } from 'react-native';
 import { API_URL } from '@env';
 import AutocompleteInput from 'react-native-autocomplete-input';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
 
 export default function App({ navigation }) {
     const [docGias, setDocGias] = useState([]);
@@ -131,13 +135,20 @@ export default function App({ navigation }) {
 
     return (
         <KeyboardAvoidingView style={styles.container}>
+            <Text style={{ fontSize: 30, fontWeight: 'bold', paddingBottom: 10 }}>Tạo phiếu mượn</Text>
             <View style={styles.box}>
-                <View style={styles.inputBox}>
+                <View style ={styles.upperView}>
+                    <View style ={styles.inputFrame}>
+                        <View style ={styles.iconPart}>
+                        <FontAwesomeIcon icon={faUser} size={20} />
+                    </View>
+                    <View style = {styles.inputPart}>
                     <AutocompleteInput
+                        inputContainerStyle ={{borderWidth : 0,marginTop :4}}
                         data={filteredDocGias}
                         value={maDocGia}
                         onChangeText={text => setMaDocGia(text)}
-                        placeholder='Mã độc giả'
+                        placeholder='Mã đọc giả' style ={{fontSize :16,paddingTop :3}}
                         flatListProps={{
                             keyboardShouldPersistTaps: 'always',
                             renderItem: ({ item }) => (
@@ -147,11 +158,20 @@ export default function App({ navigation }) {
                             )
                         }}
                     />
+                    </View>
+                    </View>
+                    <View style ={styles.inputFrame}>
+                        <View style ={styles.iconPart}>
+                        <FontAwesomeIcon icon={faBook} size={20} />
+                        </View>
+                    <View style ={styles.inputPart}>
                     <AutocompleteInput
+                        inputContainerStyle ={{borderWidth : 0,marginTop :4}}
                         data={filteredDauSachs}
                         value={tenDauSach}
                         onChangeText={text => setTenDauSach(text)}
-                        placeholder='Tên đầu sách'
+                        placeholder='Tên đầu sách' style ={{fontSize :16,paddingTop :3}}
+
                         flatListProps={{
                             keyboardShouldPersistTaps: 'always',
                             renderItem: ({ item }) => (
@@ -161,21 +181,34 @@ export default function App({ navigation }) {
                             )
                         }}
                     />
+                    </View>
+                    </View>
+                    <Text style ={{fontSize :13,fontStyle :'italic',paddingTop :4}}>Lưu ý : Trước khi chọn tạo thẻ mượn, cần thêm sách</Text>
+                    </View>
+
+
+                <View style={styles.lowerView}>
+                    <View style ={{flex : 7,flexDirection :'row',gap :7,alignItems:'center',justifyContent :'center'}}>
+                    <Pressable style={styles.button} onPress={() => addSach()}>
+                        <Text style={{ fontWeight: "bold", fontSize: 17 }}>Thêm sách</Text>
+                    </Pressable>
+    
+                    <Pressable style={styles.button} onPress={() => create()}>
+                        <Text style={{ fontWeight: "bold", fontSize: 17 }}>Tạo thẻ mượn</Text>
+                    </Pressable>
+                    </View>
+                    <View style ={{flex :3,justifyContent :'center',alignItems :'center'}}>
+                    {
+                        showMessage ?
+                            <View style ={{width :'60%',height :30,justifyContent : 'center',alignItems :'center'}}>
+                                <Text style={{fontSize :14}}>{messge}</Text>
+                            </View> :
+                            <View></View>
+                    }
+                    </View>
                 </View>
-                <Pressable style={styles.button} onPress={() => addSach()}>
-                    <Text style={{ fontWeight: "bold", fontSize: 15 }}>Thêm sách</Text>
-                </Pressable>
-                <Pressable style={styles.button} onPress={() => create()}>
-                    <Text style={{ fontWeight: "bold", fontSize: 15 }}>Tạo thẻ mượn</Text>
-                </Pressable>
-                {
-                    showMessage ?
-                    <View>
-                        <Text>{messge}</Text>
-                    </View> :
-                    <View></View>
-                }
             </View>
+
         </KeyboardAvoidingView>
     );
 }
@@ -183,19 +216,47 @@ export default function App({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ffbd59',
+        backgroundColor: '#fff2cc',
+        padding: 20,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
+    },
+    box: {
+        width: "100%",
+        height: 350,
+        backgroundColor: "#fff",
+        borderRadius: 13,
+        borderWidth: 0.5,
+        elevation :5
+
+    },
+    upperView :{
+        flex :6 ,
+        alignItems :'center',
+        justifyContent :'center'
+    },
+    lowerView :{
+        flex : 4,
+        justifyContent:'center',
+        gap :3,
+    },
+    inputFrame :{
+        flexDirection :'row',
+        height :50,
+        margin : 7,
+        borderRadius :5,
+        backgroundColor :'white',
+        borderBottomWidth :0.5
+    },
+    iconPart : {
+        flex :1.3,
+        alignItems :'center',
+        justifyContent :'center',
+    },
+    inputPart : {
+        flex :8.7
     },
 
-    box: {
-        width: 200,
-        height: 250,
-        backgroundColor: "#fff",
-        borderRadius: 30,
-        alignItems: "center",
-        padding: 15
-    },
 
     myText: {
         fontWeight: 'bold',
@@ -203,8 +264,7 @@ const styles = StyleSheet.create({
     },
 
     inputBox: {
-        marginTop: 25,
-        gap: 10
+        marginTop: 5
     },
 
     input: {
@@ -218,11 +278,11 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        marginTop: 30,
-        width: 120,
-        backgroundColor: "#ff914d",
+        height: 70,
+        width: 170,
+        backgroundColor: "#fff2cc",
         alignItems: "center",
-        borderRadius: 15,
-        padding: 5
+        borderRadius: 10,
+        justifyContent: 'center',
     },
 });

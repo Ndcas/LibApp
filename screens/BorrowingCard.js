@@ -6,7 +6,7 @@ import { API_URL } from '@env';
 export default function App({ navigation }) {
     const theMuon = useRoute().params.borrowingCard;
     const [docGia, setDocGia] = useState({});
-    const [sachMuon, setSachMuon] = useState([]);
+    const [sachMuon, setSachMuon] = useState(null);
 
     useEffect(() => {
         getInfo();
@@ -49,7 +49,7 @@ export default function App({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text style={{ fontWeight: "bold", fontSize: 18, textAlign: "left", paddingLeft: 35, marginTop: 10 }}>Thông tin người mượn</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 25, marginTop: 70 }}>Thông tin người mượn</Text>
             <View style={styles.box}>
                 <View style={styles.leftBox}>
                     <Text style={styles.leftBoxText}>Họ và tên</Text>
@@ -61,15 +61,20 @@ export default function App({ navigation }) {
                 </View>
             </View>
 
-            <Text style={{ fontWeight: "bold", fontSize: 18, textAlign: "left", paddingLeft: 35, marginTop: 10 }}>Sách mượn</Text>
-            <View style={styles.borrowedBox}>
+            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 25, marginTop: 25 }}>Sách mượn</Text>
+            <View style ={styles.borrowedBox}>
+            <ScrollView 
+            horizontal={true} 
+            showsHorizontalScrollIndicator={false}>
                 {
+                    sachMuon &&
                     sachMuon.map((sach, index) =>
                         <Image key={index} style={styles.img} source={{ uri: 'data:image/' + sach.hinhAnh.format + ';base64,' + sach.hinhAnh.dataUrl }} />
                     )
                 }
+            </ScrollView>
             </View>
-
+            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 25, marginTop: 25 }}>Chi tiết mượn</Text>
             <View style={styles.timeBox}>
                 <View style={styles.leftBox}>
                     <Text style={styles.leftBoxText}>Trạng thái</Text>
@@ -80,35 +85,43 @@ export default function App({ navigation }) {
                     <Text style={styles.rightBoxText}>{formatDate(theMuon.ngayMuon)}</Text>
                 </View>
             </View>
-
-            <View style={styles.buttonBox}>
                 <Pressable style={styles.btnBorrow} onPress={() => traSach()}>
                     <Text style={styles.btnText}>Trả sách</Text>
                 </Pressable>
             </View>
-        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        paddingTop: 50
+        backgroundColor: 'white',
+        padding : 2,
+        alignItems :'flex-start',
+        justifyContent :'flex-start'
+
+    },
+    panel : {
+        height : "76%",
+        width :'100%',
+        backgroundColor : 'white',
+        borderRadius : 15,
+        marginTop :50,
+        elevation : 5
     },
 
     box: {
-        width: "80%",
-        height: 150,
+        width: "90%",
+        height: 100,
         backgroundColor: "#fff",
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: "#b5b5b5",
+        borderRadius: 7,
         alignItems: "center",
         alignSelf: "center",
         padding: 10,
         marginTop: 10,
-        flexDirection: "row"
+        flexDirection: "row",
+        elevation :5,
+        borderWidth : 0.3
     },
 
     leftBox: {
@@ -125,41 +138,56 @@ const styles = StyleSheet.create({
         flex: 1,
         fontWeight: "bold",
         textAlignVertical: "center",
+        fontSize :17,
+
+
     },
 
     rightBoxText: {
         flex: 1,
         textAlign: "right",
         textAlignVertical: "center",
+        fontSize :17
     },
 
     borrowedBox: {
-        width: "80%",
-        height: 180,
+        width: "90%",
+        height: 150,
         marginTop: 10,
-        padding: 10,
-        borderWidth: 1,
         alignSelf: "center",
         flexDirection: "row",
-        gap: 10,
+        alignItems :'center',
+        justifyContent :'center',
+        padding :5,
+        backgroundColor :'white',
+        elevation :3,
+        borderRadius :7,
+
+
     },
 
     img: {
-        flex: 1,
-        height: undefined,
-        width: "30%",
-        borderRadius: 5
+        height: 140,
+        width: 100,
+        borderRadius: 10,
+        marginRight :5
     },
 
     timeBox: {
-        width: "80%",
+        width: "90%",
         height: 100,
-        backgroundColor: "#fff",
+        backgroundColor: "white",
         alignItems: "center",
         alignSelf: "center",
-        padding: 10,
-        marginTop: 20,
+        marginTop: 15,
+        marginBottom :15,
+        padding : 8,
         flexDirection: "row",
+        borderRadius :5,
+        elevation :3,
+        borderWidth :0.3,
+        marginBottom :30
+
     },
 
     buttonBox: {
@@ -171,20 +199,20 @@ const styles = StyleSheet.create({
     },
 
     btnBorrow: {
-        flex: 2,
-        backgroundColor: "#ff914d",
-        borderRadius: 50,
+        backgroundColor: "#fff2cc",
+        borderRadius: 10,
         height: 70,
         alignItems: "center",
         alignSelf: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        width :'90%',
     },
 
     btnCancel: {
         flex: 1,
         backgroundColor: "#ff914d",
         borderRadius: 50,
-        height: 70,
+        height: 20,
         alignItems: "center",
         alignSelf: "center",
         justifyContent: "center"

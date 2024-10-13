@@ -71,12 +71,10 @@ export default function App({ navigation }) {
                 </View>
             </View>
             <Pressable onPress={() => logout()}>
-                    <View style ={{flexDirection:'row',backgroundColor:'white',borderRadius:10,height :40,width :310,elevation:5,marginTop :20}}>
-                    <View style ={{flex :2,justifyContent:'center',alignItems:'center'}}>
-                    <FontAwesomeIcon icon={faDoorOpen} size={20}/>
-                    </View>
-                    <View style ={{flex :8,justifyContent:'center',alignItems:'flex-start'}}>
-                    <Text style={{fontSize:17,fontWeight :'bold'}}>Đăng xuất</Text>
+                    <View style ={{backgroundColor:'white',borderRadius:15,height :45,width :330,elevation:2,marginTop :50}}>
+
+                    <View style ={{flex :8,justifyContent:'center',alignItems:'center',paddingLeft :5}}>
+                    <Text style={{fontSize:19,fontWeight :'bold'}}>Đăng xuất</Text>
                     </View>
                     </View>
                 </Pressable>
@@ -188,7 +186,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         flex : 1,
         opacity : 0.8,
-        elevation :5,
+        elevation :3,
         overflow: 'hidden',
         borderRadius : 15,
         paddingLeft : 7,

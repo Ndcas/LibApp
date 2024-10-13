@@ -57,13 +57,13 @@ export default function App({ navigation }) {
                 </View>
             </View>
             <View>
-                <Pressable onPress={() => logout()}>
-                    <View style ={{flexDirection:'row',backgroundColor:'white',borderRadius:10,height :40,width :310,elevation:5,marginTop :20}}>
+            <Pressable onPress={() => logout()}>
+                    <View style ={{flexDirection:'row',backgroundColor:'white',borderRadius:15,height :45,width :330,elevation:2,marginTop :20,marginTop :40}}>
                     <View style ={{flex :2,justifyContent:'center',alignItems:'center'}}>
-                    <FontAwesomeIcon icon={faDoorOpen} size={20}/>
+                    <FontAwesomeIcon icon={faDoorOpen} size={22}/>
                     </View>
-                    <View style ={{flex :8,justifyContent:'center',alignItems:'flex-start'}}>
-                    <Text style={{fontSize:17,fontWeight :'bold'}}>Đăng xuất</Text>
+                    <View style ={{flex :8,justifyContent:'center',alignItems:'flex-start',paddingLeft :5}}>
+                    <Text style={{fontSize:19,fontWeight :'bold'}}>Đăng xuất</Text>
                     </View>
                     </View>
                 </Pressable>

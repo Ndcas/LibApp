@@ -69,8 +69,8 @@ export default function App({ navigation }) {
                                 <Icon name="user" size={20} />
                             </View>
                             <View style={styles.detail1}>
-                                <Text style={{ opacity: 0.5, fontSize: 10, paddingLeft: 5, paddingTop: 5 }}>Tác giả</Text>
-                                <Text style={{ fontSize: 12, paddingLeft: 5 }}>{book.tacGia}</Text>
+                                <Text style={styles.detailName}>Tác giả</Text>
+                                <Text style={styles.detailText}>{book.tacGia}</Text>
                             </View>
                         </View>
 
@@ -79,8 +79,8 @@ export default function App({ navigation }) {
                             <Icon name="book" size={20} />
                             </View>
                             <View style={styles.detail1}>
-                                <Text style={{ opacity: 0.5, fontSize: 10, paddingLeft: 5, paddingTop: 5 }}>Chuyên ngành</Text>
-                                <Text style={{ fontSize: 12, paddingLeft: 5 }}>{chuyenNganh && chuyenNganh[0].tenChuyenNganh}</Text>
+                                <Text style={styles.detailName}>Chuyên ngành</Text>
+                                <Text style={styles.detailText}>{chuyenNganh && chuyenNganh[0].tenChuyenNganh}</Text>
                             </View>
                         </View>
 
@@ -89,8 +89,8 @@ export default function App({ navigation }) {
                                 <Icon name="print" size={20} />
                             </View>
                             <View style={styles.detail1}>
-                                <Text style={{ opacity: 0.5, fontSize: 10, paddingLeft: 5, paddingTop: 5 }}>Nhà xuất bản</Text>
-                                <Text style={{ fontSize: 12, paddingLeft: 5 }}>{book.nhaXuatBan}</Text>
+                                <Text style={styles.detailName}>Nhà xuất bản</Text>
+                                <Text style={styles.detailText}>{book.nhaXuatBan}</Text>
                             </View>
                         </View>
 
@@ -99,16 +99,16 @@ export default function App({ navigation }) {
                                 <Icon name="pagelines" size={20} />
                             </View>
                             <View style={styles.detail1}>
-                                <Text style={{ opacity: 0.5, fontSize: 10, paddingLeft: 5, paddingTop: 5 }}>Số trang</Text>
-                                <Text style={{ fontSize: 12, paddingLeft: 5 }}>{book.soTrang}</Text>
+                                <Text style={styles.detailName}>Số trang</Text>
+                                <Text style={styles.detailText}>{book.soTrang}</Text>
                             </View>
                         </View>
 
                     </View>
                     </View>
                     <View style = {styles.titleDescription}>
-                    <Text style={{ fontSize: 12, fontWeight: 'bold', paddingLeft: 20, opacity: 0.5, paddingTop: 13 }}>Tên sách</Text>
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', paddingLeft: 20 }}>{book.tenDauSach}</Text>
+                    <Text style={styles.titleName}>Tên sách</Text>
+                    <Text style={styles.titleText}>{book.tenDauSach}</Text>
                     </View>
                 </View>
                 
@@ -124,7 +124,7 @@ export default function App({ navigation }) {
                         listBook &&
                         listBook.map((book) =>
                             <Pressable style={styles.book}>
-                                <View style={{ marginLeft: 10, marginTop: 10, gap: 10, justifyContent: "center" }}>
+                                <View style={{ marginLeft: 10, marginTop: 10, gap: 5, justifyContent: "center" }}>
                                     <Text>
                                         <Text style={styles.myText}>ID:</Text>
                                         {"\t" + book._id}
@@ -155,11 +155,11 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         alignItems :'center',
         backgroundColor: '#fff2cc',
-        padding :10
+        paddingHorizontal : 15
     },
     booklist :{
-        width : 390,
-        height : "60%",
+        width : 375,
+        height : "50%",
         backgroundColor :'white',
         marginTop: 10,
         borderRadius :25,
@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
         padding :10,
     },
     description : {
-        width : 390,
-        height : "30%",
+        width : 375,
+        height : "40%",
         flexDirection :'column',
         backgroundColor :'white',
         marginTop: 15,
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
         width: 210,
         alignItems: 'center',
         marginBottom: 3,
-        borderRadius: 10,
+        borderRadius: 7,
 
 
     },
@@ -248,8 +248,8 @@ const styles = StyleSheet.create({
     },
 
     img: {
-        height: "100%",
-        width: undefined,
+        height: 230,
+        width: 140,
         backgroundColor: "white",
         borderRadius: 15,
         elevation :5
@@ -274,11 +274,10 @@ const styles = StyleSheet.create({
         height: 70,
         padding: 5,
         backgroundColor :'white',
-        marginBottom : 10,
+        marginBottom : 13,
         flexDirection: "row",
-        elevation :5,
-        borderRadius :20,
-        borderColor :'black'
+        elevation :3,
+        borderRadius :5,
     },
 
     myText: {
@@ -289,4 +288,26 @@ const styles = StyleSheet.create({
     icon: {
         flex: 1,
     },
+    detailName : {
+        opacity: 0.5, 
+        fontSize: 10, 
+        paddingLeft: 5, 
+        paddingTop: 5 
+    },
+    detailText : {
+        fontSize: 12, 
+        paddingLeft: 5
+    },
+    titleName : {
+        fontSize: 12, 
+        fontWeight: 'bold', 
+        paddingLeft: 20, 
+        opacity: 0.5, 
+        paddingTop: 13
+    },
+    titleText : {
+        fontSize: 25, 
+        fontWeight: 'bold', 
+        paddingLeft: 20
+    }
 })

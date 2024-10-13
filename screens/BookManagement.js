@@ -27,7 +27,7 @@ export default function App({ navigation }) {
 
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}> 
             <View style ={styles.header}>
             <Text style = {{fontWeight :'bold',fontSize :30}}>Quản lý sách</Text>
             <View style={styles.search}>
@@ -60,7 +60,7 @@ export default function App({ navigation }) {
 
                 </ScrollView>
         </KeyboardAvoidingView>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
