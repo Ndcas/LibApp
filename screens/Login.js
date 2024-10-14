@@ -96,8 +96,8 @@ export default function App({ navigation }) {
         <ImageBackground 
           source={require('../assets/img/Screenshot (18).png')} // Đường dẫn tới hình ảnh của bạn
           style={styles.container}>
-        <Text style ={{paddingLeft : 20,fontSize:50,fontWeight :'bold'}}>My Library</Text>
-        <Text style = {{paddingLeft: 20,fontSize:15,opacity:0.5,paddingTop :5,paddingBottom:20}}>Login to continue using My Library</Text>
+        <Text style ={{paddingLeft : 20,fontSize:60,fontWeight :'bold',color :'black'}}>My Library</Text>
+        <Text style = {{paddingLeft: 20,fontSize:15,opacity:0.5,paddingTop :5,paddingBottom:20}}>Đăng nhập để tiếp tục sử dụng My Library</Text>
         <View style={styles.inputBoxID}>
             <View style ={styles.icon}>
             <FontAwesomeIcon icon ={faUser} size={23} style ={{paddingLeft :15}}></FontAwesomeIcon>
@@ -117,6 +117,8 @@ export default function App({ navigation }) {
             <TextInput style={styles.input} placeholder='Password' placeholderTextColor="#c5c5c5" clearTextOnFocus={true} value={pass} secureTextEntry onChangeText={text => setPass(text)}></TextInput>
             </View>
             </View>
+            <View style ={{}}>
+            <View style ={{paddingTop :15,paddingLeft :22}}>
             {
                     showMessage ?
                     <View>
@@ -124,10 +126,11 @@ export default function App({ navigation }) {
                     </View> :
                     <View></View>
                 }
+                </View>
             <Pressable style={styles.button} onPress={() => login()}>
-                <Text style={{ fontWeight: "bold", fontSize: 25 }}>Đăng nhập</Text>
+                <Text style={{ fontWeight: "bold", fontSize: 30 }}>Đăng nhập</Text>
             </Pressable>
-
+            </View>
 
         </ImageBackground>
         </KeyboardAvoidingView>
@@ -202,19 +205,20 @@ id : {
 },
 
 input: {
-    fontSize: 17,
+    fontSize: 18,
    
 },
 
 button: {
     width : 370,
-    height :70,
+    height :80,
     marginTop : 60,
     borderRadius : 20,
     backgroundColor : "#FCDE70",
     alignItems : "center",
     justifyContent :'center',
     marginLeft :20,
+    elevation :4
 
 },
 });

@@ -1,5 +1,5 @@
 import { useQuery, useRealm } from '@realm/react';
-import { Pressable, Image, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Image, StyleSheet, Text, View ,ImageBackground} from 'react-native';
 import LoginInfo from '../realmSchemas/LoginInfo';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -23,28 +23,36 @@ export default function App({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
+        <ImageBackground 
+          source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+          style={styles.container}>
             <View style={styles.box}>
                 <View style={{ flex: 3.5,justifyContent :'center'}}>
                     <Image style={styles.img} source={require("../assets/img/Blank_profile.webp")} />
                     </View>
                     <View style = {{flex :6.5}}>
                         <View style ={{flex : 3,justifyContent :'center',backgroundColor:'#fff2cc',borderRadius : 10,alignItems:'flex-start',marginLeft :7}}>
-                        <Text style ={{fontSize:23,fontWeight:'bold',paddingLeft:55}}>Đọc giả</Text>
+                        <Text style ={{fontSize:23,fontWeight:'bold',paddingLeft:55}}>Độc giả</Text>
                         </View>
-                        <View style ={{flex : 7,flexDirection :'row'}}>
-                            <View style ={{flex : 1,justifyContent :'flex-start',paddingTop:10}}>
-                        <Text style ={{fontSize : 16,paddingLeft :10,paddingBottom:5}}>Tên đọc giả : {global.user.hoTen}</Text>
-                        <Text style ={{fontSize : 16,paddingLeft :10}}>Mã : {global.user.maDocGia}</Text>
+                        <View style ={{flex : 7,flexDirection :'column'}}>
+
+                        <View style= {{flexDirection :'row',marginTop :15,height :40,width :110,gap: 25}}>
+                        <Text style ={{fontSize : 16,paddingLeft :10,paddingBottom:5}}>Tên độc giả </Text>
+                        <Text style ={{fontSize :16,fontWeight :'bold'}}>{global.user.hoTen}</Text>
+                        </View>
+                        <View style= {{flexDirection :'row',height :40,width :110,gap: 85}}>
+                        <Text style ={{fontSize : 16,paddingLeft :10,paddingBottom:5}}>Mã </Text>
+                        <Text style ={{fontSize :16,fontWeight :'bold'}}>{global.user.maDocGia}</Text>
                         </View>
                         </View>
+                    
                     </View>
         
     
             </View>
 
 
-            <View style={styles.recentBox}>
+            {/* <View style={styles.recentBox}>
                 <Pressable style={{flexDirection: "row", alignItems: "center"}} onPress={() => navigation.navigate("BorrowingCard")}>
                     <Text style={{ flex: 2, fontWeight: "bold", fontSize: 20 }}>Recently added</Text>
                     <Text style={{ flex: 1, fontWeight: "bold", fontSize: 30, textAlign: "right"}}>→</Text>
@@ -55,20 +63,18 @@ export default function App({ navigation }) {
                     <Image style={styles.book} source={require("../assets/img/Blank_img.png")} />
                     <Image style={styles.book} source={require("../assets/img/Blank_img.png")} />
                 </View>
-            </View>
+            </View> */}
             <View>
             <Pressable onPress={() => logout()}>
-                    <View style ={{flexDirection:'row',backgroundColor:'white',borderRadius:15,height :45,width :330,elevation:2,marginTop :20,marginTop :40}}>
-                    <View style ={{flex :2,justifyContent:'center',alignItems:'center'}}>
-                    <FontAwesomeIcon icon={faDoorOpen} size={22}/>
-                    </View>
-                    <View style ={{flex :8,justifyContent:'center',alignItems:'flex-start',paddingLeft :5}}>
+                    <View style ={{backgroundColor:'white',borderRadius:15,height :45,width :300,elevation:5,marginTop :50}}>
+
+                    <View style ={{flex :8,justifyContent:'center',alignItems:'center',paddingLeft :5}}>
                     <Text style={{fontSize:19,fontWeight :'bold'}}>Đăng xuất</Text>
                     </View>
                     </View>
                 </Pressable>
             </View>
-        </View>
+        </ImageBackground>
     );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View, Image, ScrollView,KeyboardAvoidingView,Platform } from 'react-native';
+import {ImageBackground, Pressable, StyleSheet, Text, TextInput, View, Image, ScrollView,KeyboardAvoidingView,Platform } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMagnifyingGlass, width } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 import { API_URL } from '@env';
@@ -28,13 +28,16 @@ export default function App({ navigation }) {
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}> 
-            <View style ={styles.header}>
-            <Text style = {{fontWeight :'bold',fontSize :30}}>Quản lý sách</Text>
+           <ImageBackground 
+          source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+          style={styles.header}>
+            <Text style = {{fontWeight :'bold',fontSize :40}}>Quản lý sách</Text>
+            <Text style = {{fontSize :13,opacity :0.5,paddingLeft :5}}>Quản lý đầu sách và số sách</Text>
             <View style={styles.search}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} style={styles.icon} />
                     <TextInput style={{ flex: 1,paddingLeft : 10 ,fontSize :15}} placeholder='Tìm kiếm' placeholderTextColor="#000000" clearTextOnFocus={true}></TextInput>
                 </View>
-                </View>
+                </ImageBackground>
                 <KeyboardAvoidingView style={styles.list} behavior={Platform.OS === "ios" ? "padding" : "height"}>
                     <ScrollView style = {styles.bookList}>
                     {
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         alignItems : 'flex-start',
         paddingTop : 40,
-        paddingLeft : 10,
+        paddingLeft : 15,
         borderBottomLeftRadius :20,
         borderBottomRightRadius : 20,
         marginBottom :20

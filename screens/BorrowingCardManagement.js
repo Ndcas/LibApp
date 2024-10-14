@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Platform, Pressable, ScrollView, StyleSheet,KeyboardAvoidingView, Text, TextInput, View } from 'react-native';
+import {ImageBackground,Platform, Pressable, ScrollView, StyleSheet,KeyboardAvoidingView, Text, TextInput, View } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 import { API_URL } from '@env';
@@ -75,8 +75,11 @@ export default function App({ navigation }) {
 
     return (
         <KeyboardAvoidingView style={styles.container}behavior={Platform.OS === "ios" ? "padding" : "height"}>
-            <View style={styles.upperView}>
-            <Text style ={{fontSize :30,fontWeight:'bold',paddingLeft :15}}>Quản lý phiếu mượn</Text>
+           <ImageBackground 
+          source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+          style={styles.upperView}>
+            <Text style ={{fontSize :35,fontWeight:'bold',paddingLeft :15}}>Quản lý phiếu mượn</Text>
+            <Text style ={{fontSize :13,opacity :0.5,paddingLeft :18,paddingBottom :13}}>Quản lý danh sách phiếu mượn và phiếu mượn</Text>
             <View style={styles.header}>
                 <View style={styles.search}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} style={styles.icon} />
@@ -99,18 +102,20 @@ export default function App({ navigation }) {
                     </View>
             </View>
             </View>
-            <Pressable style={styles.update}>
+        
+            </ImageBackground>
+
+            <KeyboardAvoidingView style={styles.lowerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <View style ={{flexDirection :'row',gap :60}}>
+            <Text style ={{fontSize :18,fontWeight:'bold',paddingBottom :20}}>Danh sách phiếu mượn</Text>
+            <Pressable>
                 <Pressable style={{}} onPress={() => navigation.navigate("CreateTheMuon")}>
                     <Text style={styles.addText}>
-                        + Thêm phiếu mượn
+                        Thêm phiếu mượn
                     </Text>
                 </Pressable>
             </Pressable>
             </View>
-
-            <KeyboardAvoidingView style={styles.lowerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-            
-            <Text style ={{fontSize :20,fontWeight:'bold',paddingBottom :20}}>Danh sách phiếu mượn</Text>
                 <ScrollView>
                     {
                         showTheMuon &&
@@ -119,7 +124,7 @@ export default function App({ navigation }) {
                                 <Pressable key={index} style={styles.card} onPress={() => navigation.navigate("BorrowingCard", { borrowingCard: theMuon })}>
                                     <Text style={styles.cardIndex}>#{index + 1}</Text>
                                     <View>
-                                        <Text style={styles.cardText}>Mã đọc giả: { docGias.find(docGia => docGia._id === theMuon.docGia)? docGias.find(docGia => docGia._id === theMuon.docGia).maDocGia: 'Không tìm thấy độc giả'}</Text>
+                                        <Text style={styles.cardText}>Mã độc giả: { docGias.find(docGia => docGia._id === theMuon.docGia)? docGias.find(docGia => docGia._id === theMuon.docGia).maDocGia: 'Không tìm thấy độc giả'}</Text>
                                         <Text style={styles.cardText}>Ngày mượn: {formatDate(theMuon.ngayMuon)}</Text>
                                     </View>
                                     <Text style={styles.cardStatus}>{theMuon.tinhTrang}</Text>
@@ -138,18 +143,17 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     upperView :{
-        flex :3,
+        flex :4,
         backgroundColor :'#fff2cc',
         justifyContent:'center'
 
     },
     lowerView  :{
-        flex :7,
+        flex :6,
         backgroundColor :"white",
         padding : 15,
         borderTopLeftRadius :20,
         borderTopRightRadius:20,
-        paddingTop :15,
         marginTop :-30
     },
     header: {
@@ -187,8 +191,10 @@ const styles = StyleSheet.create({
 
     addText: {
         color: "#007bff",
-        fontSize: 18,
-        fontWeight: "bold"
+        fontSize: 15,
+        fontWeight: "bold",
+        elevation :7,
+        paddingTop :3
         
     },
 

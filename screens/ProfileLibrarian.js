@@ -21,14 +21,16 @@ export default function App({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
+        <ImageBackground 
+          source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+          style={styles.container}>
             <View style={styles.box}>
                 <View style={{ flex: 3.5,justifyContent :'center'}}>
                     <Image style={styles.img} source={require("../assets/img/Blank_profile.webp")} />
                     </View>
                     <View style = {{flex :6.5}}>
                         <View style ={{flex : 3,justifyContent :'center',backgroundColor:'#fff2cc',borderRadius : 10,alignItems:'flex-start',marginLeft :7}}>
-                        <Text style ={{fontSize:23,fontWeight:'bold',paddingLeft:55}}>Thủ thư</Text>
+                        <Text style ={{fontSize:23,fontWeight:'bold',paddingLeft:55,color :'#001F3F'}}>Thủ thư</Text>
                         </View>
                         <View style ={{flex : 7,flexDirection :'row'}}>
                             <View style ={{flex : 1,justifyContent :'flex-start',paddingTop:10}}>
@@ -71,14 +73,14 @@ export default function App({ navigation }) {
                 </View>
             </View>
             <Pressable onPress={() => logout()}>
-                    <View style ={{backgroundColor:'white',borderRadius:15,height :45,width :330,elevation:2,marginTop :50}}>
+                    <View style ={{backgroundColor:'white',borderRadius:15,height :45,width :300,elevation:5,marginTop :50}}>
 
                     <View style ={{flex :8,justifyContent:'center',alignItems:'center',paddingLeft :5}}>
                     <Text style={{fontSize:19,fontWeight :'bold'}}>Đăng xuất</Text>
                     </View>
                     </View>
                 </Pressable>
-        </View>
+        </ImageBackground>
     )
 }
 
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff2cc',
         alignItems: 'center',
         paddingTop: 50,
-        justifyContent : 'center'
+        justifyContent : 'center',
     },
 
     box: {

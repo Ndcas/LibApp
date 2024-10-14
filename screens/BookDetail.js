@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image,ImageBackground } from 'react-native';
 import { useRoute } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -9,10 +9,12 @@ export default function App({ navigation }) {
     return (
 
         <View style={styles.container}>
-            <View style={styles.bookView}>
+             <ImageBackground 
+          source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+          style={styles.bookView}>
             <Image style={styles.img} source={{ uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl }} />
 
-            </View>
+            </ImageBackground>
             <View style={styles.discriptionView}>
                 <Text style ={styles.title}>Tên sách</Text>
                 <Text style={{paddingLeft:30,fontSize:30,fontWeight:'bold'}}>{book.tenDauSach}</Text>
@@ -104,7 +106,6 @@ const styles = StyleSheet.create({
         overflow: 'visible',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
-        elevation: 5
     },
     discriptionView: {
         flex: 7,

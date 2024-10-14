@@ -81,13 +81,16 @@ export default function App({ navigation }) {
                     <Text style={styles.leftBoxText}>Thời gian mượn</Text>
                 </View>
                 <View style={styles.rightBox}>
-                    <Text style={styles.rightBoxText}>{theMuon.tinhTrang}</Text>
+                    <Text style={styles.rightBoxTextTinhTrang}>{theMuon.tinhTrang}</Text>
                     <Text style={styles.rightBoxText}>{formatDate(theMuon.ngayMuon)}</Text>
                 </View>
             </View>
+            {
+                theMuon.tinhTrang == "Chua tra" &&
                 <Pressable style={styles.btnBorrow} onPress={() => traSach()}>
                     <Text style={styles.btnText}>Trả sách</Text>
                 </Pressable>
+}
             </View>
     );
 }
@@ -147,7 +150,14 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: "right",
         textAlignVertical: "center",
-        fontSize :17
+        fontSize :17,
+    },
+    rightBoxTextTinhTrang: {
+        flex: 1,
+        textAlign: "right",
+        textAlignVertical: "center",
+        fontSize :17,
+        color :'#007bff'
     },
 
     borrowedBox: {
@@ -200,8 +210,8 @@ const styles = StyleSheet.create({
 
     btnBorrow: {
         backgroundColor: "#fff2cc",
-        borderRadius: 10,
-        height: 70,
+        borderRadius: 20,
+        height: 80,
         alignItems: "center",
         alignSelf: "center",
         justifyContent: "center",

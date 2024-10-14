@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View, Image, Platform, ScrollView } from 'react-native';
+import {ImageBackground, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View, Image, Platform, ScrollView } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
@@ -39,11 +39,13 @@ export default function App({ navigation }) {
     return (
 
         <View style={styles.container}>
-            <View style={styles.descriptionAndSearch}>
+             <ImageBackground 
+          source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+          style={styles.descriptionAndSearch}>
                 <Pressable style={styles.profileBtn} onPress={() => navigation.navigate("ProfileMember")}>
                     <FontAwesomeIcon icon={faUser} style={styles.user} size={20} />
                 </Pressable>
-                <Text style={{ fontSize: 35, fontWeight: 'bold', marginLeft: 15, marginTop: 10 }}>My Library</Text>
+                <Text style={{ fontSize: 40, fontWeight: 'bold', marginLeft: 15, marginTop: 10 }}>My Library</Text>
                 <Text style={{ fontSize: 14, opacity: 0.3, marginLeft: 15, fontStyle: 'italic', marginRight: 15 }}>"Những người khôn ngoan tìm được sự an ủi khỏi những rắc rối của cuộc đời chính từ sách" - Victor Hugo</Text>
                 <View style={styles.search}>
                     <Pressable onPress={() => searchBook()}>
@@ -51,7 +53,7 @@ export default function App({ navigation }) {
                     </Pressable>
                     <TextInput style={{ flex: 1, opacity: 0.7 }} placeholder='Bạn muốn đọc gì ?' placeholderTextColor="#000000" clearTextOnFocus={true} value={txtSearch} onChangeText={text => setTxtSearch(text)} />
                 </View>
-            </View>
+            </ImageBackground>
 
 
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Pressable, StyleSheet, Text, View } from 'react-native';
+import {ImageBackground, KeyboardAvoidingView, Pressable, StyleSheet, Text, View } from 'react-native';
 import { API_URL } from '@env';
 import AutocompleteInput from 'react-native-autocomplete-input';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -134,6 +134,7 @@ export default function App({ navigation }) {
     }
 
     return (
+        
         <KeyboardAvoidingView style={styles.container}>
             <Text style={{ fontSize: 30, fontWeight: 'bold', paddingBottom: 10 }}>Tạo phiếu mượn</Text>
             <View style={styles.box}>
@@ -190,11 +191,11 @@ export default function App({ navigation }) {
                 <View style={styles.lowerView}>
                     <View style ={{flex : 7,flexDirection :'row',gap :7,alignItems:'center',justifyContent :'center'}}>
                     <Pressable style={styles.button} onPress={() => addSach()}>
-                        <Text style={{ fontWeight: "bold", fontSize: 17 }}>Thêm sách</Text>
+                        <Text style={{ fontWeight: "bold", fontSize: 18 }}>Thêm sách</Text>
                     </Pressable>
     
                     <Pressable style={styles.button} onPress={() => create()}>
-                        <Text style={{ fontWeight: "bold", fontSize: 17 }}>Tạo thẻ mượn</Text>
+                        <Text style={{ fontWeight: "bold", fontSize: 18 }}>Tạo phiếu mượn</Text>
                     </Pressable>
                     </View>
                     <View style ={{flex :3,justifyContent :'center',alignItems :'center'}}>
@@ -282,7 +283,7 @@ const styles = StyleSheet.create({
         width: 170,
         backgroundColor: "#fff2cc",
         alignItems: "center",
-        borderRadius: 10,
+        borderRadius: 15,
         justifyContent: 'center',
     },
 });

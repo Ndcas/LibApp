@@ -116,7 +116,7 @@ export default function App({ navigation }) {
                 <View style={{ flexDirection: "row" }}>
                     <Text style={{ flex: 1, fontSize: 24, fontWeight: 'bold', marginTop: 15, paddingLeft: 15 }}>Danh sách sách</Text>
                     <Pressable style={{ flex: 1, justifyContent: "flex-end", alignItems: "flex-end", paddingRight: 10}} onPress={() => createNewBook()}>
-                        <Text style={{ fontSize: 13, marginTop: 15 }}>Thêm sách</Text>
+                        <Text style={{ fontSize: 17, marginTop: 15,fontWeight :'bold',color :'#007bff' }}>Thêm sách</Text>
                     </Pressable>
                 </View>
                 <ScrollView style={styles.bookScrollView}>
@@ -131,7 +131,7 @@ export default function App({ navigation }) {
                                     </Text>
                                     <Text>
                                         <Text style={styles.myText}>Tình trạng:</Text>
-                                        {"\t" + book.tinhTrang}
+                                        <Text style ={{color :'#007bff',fontWeight :'bold'}}>{"\t" + book.tinhTrang}</Text>
                                     </Text>
                                 </View>
                             </Pressable>
@@ -154,15 +154,15 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent : 'center',
         alignItems :'center',
-        backgroundColor: '#fff2cc',
+        backgroundColor: 'white',
         paddingHorizontal : 15
     },
     booklist :{
-        width : 375,
+        width : 390,
         height : "50%",
-        backgroundColor :'white',
+        backgroundColor :'#F4F6FF',
         marginTop: 10,
-        borderRadius :25,
+        borderRadius :15,
         elevation : 5,
     },
     bookScrollView :{
@@ -174,9 +174,9 @@ const styles = StyleSheet.create({
         width : 375,
         height : "40%",
         flexDirection :'column',
-        backgroundColor :'white',
+        backgroundColor :'#F4F6FF',
         marginTop: 15,
-        borderRadius :25,
+        borderRadius :15,
         elevation : 5,
         marginBottom :7
 
@@ -194,10 +194,10 @@ const styles = StyleSheet.create({
         flex : 3
     },
     imagePart: {
-        flex: 3.5,
+        flex: 4,
     },
     descriptionPart: {
-        flex: 6.5,
+        flex: 6,
         flexDirection: 'column',
         paddingTop: 5,
         alignItems: 'center',
@@ -206,11 +206,13 @@ const styles = StyleSheet.create({
     },
     descriptionDetailFrame: {
         flexDirection: 'row',
-        height: 45,
-        width: 210,
+        height: 50,
+        width: 205,
         alignItems: 'center',
-        marginBottom: 3,
-        borderRadius: 7,
+        marginBottom: 5,
+        borderRadius: 10,
+        elevation :2,
+        backgroundColor :'#F4F6FF'
 
 
     },
@@ -248,8 +250,8 @@ const styles = StyleSheet.create({
     },
 
     img: {
-        height: 230,
-        width: 140,
+        height: "100%",
+        width: "100%",
         backgroundColor: "white",
         borderRadius: 15,
         elevation :5
@@ -271,13 +273,13 @@ const styles = StyleSheet.create({
     book: {
         alignItems :'center',
         width: "100%",
-        height: 70,
+        height: 80,
         padding: 5,
         backgroundColor :'white',
         marginBottom : 13,
         flexDirection: "row",
         elevation :3,
-        borderRadius :5,
+        borderRadius :10
     },
 
     myText: {
