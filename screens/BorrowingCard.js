@@ -6,7 +6,7 @@ import { API_URL } from '@env';
 export default function App({ navigation }) {
     const theMuon = useRoute().params.borrowingCard;
     const [docGia, setDocGia] = useState({});
-    const [sachMuon, setSachMuon] = useState(null);
+    const [sachMuon, setSachMuon] = useState([]);
 
     useEffect(() => {
         getInfo();
@@ -14,8 +14,6 @@ export default function App({ navigation }) {
 
     async function getInfo() {
         let docGia = await fetch(API_URL + `/docGia/get?_id=${theMuon.docGia}`);
-        let chiTiet = await fetch(API_URL + `/chiTietTheMuon/getByTheMuon?id=${theMuon._id}`);
-        chiTiet = (await chiTiet.json());
         let sachs = await fetch(API_URL + `/dauSach/getByTheMuon?id=${theMuon._id}`);
         setDocGia((await docGia.json())[0]);
         setSachMuon(await sachs.json());
@@ -62,17 +60,16 @@ export default function App({ navigation }) {
             </View>
 
             <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 25, marginTop: 25 }}>Sách mượn</Text>
-            <View style ={styles.borrowedBox}>
-            <ScrollView 
-            horizontal={true} 
-            showsHorizontalScrollIndicator={false}>
-                {
-                    sachMuon &&
-                    sachMuon.map((sach, index) =>
-                        <Image key={index} style={styles.img} source={{ uri: 'data:image/' + sach.hinhAnh.format + ';base64,' + sach.hinhAnh.dataUrl }} />
-                    )
-                }
-            </ScrollView>
+            <View style={styles.borrowedBox}>
+                <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}>
+                    {
+                        sachMuon.map((sach, index) =>
+                            <Image key={index} style={styles.img} source={{ uri: 'data:image/' + sach.hinhAnh.format + ';base64,' + sach.hinhAnh.dataUrl }} />
+                        )
+                    }
+                </ScrollView>
             </View>
             <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 25, marginTop: 25 }}>Chi tiết mượn</Text>
             <View style={styles.timeBox}>
@@ -90,8 +87,8 @@ export default function App({ navigation }) {
                 <Pressable style={styles.btnBorrow} onPress={() => traSach()}>
                     <Text style={styles.btnText}>Trả sách</Text>
                 </Pressable>
-}
-            </View>
+            }
+        </View>
     );
 }
 
@@ -99,18 +96,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        padding : 2,
-        alignItems :'flex-start',
-        justifyContent :'flex-start'
+        padding: 2,
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start'
 
     },
-    panel : {
-        height : "76%",
-        width :'100%',
-        backgroundColor : 'white',
-        borderRadius : 15,
-        marginTop :50,
-        elevation : 5
+    panel: {
+        height: "76%",
+        width: '100%',
+        backgroundColor: 'white',
+        borderRadius: 15,
+        marginTop: 50,
+        elevation: 5
     },
 
     box: {
@@ -123,8 +120,8 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: 10,
         flexDirection: "row",
-        elevation :5,
-        borderWidth : 0.3
+        elevation: 5,
+        borderWidth: 0.3
     },
 
     leftBox: {
@@ -141,7 +138,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontWeight: "bold",
         textAlignVertical: "center",
-        fontSize :17,
+        fontSize: 17,
 
 
     },
@@ -150,14 +147,14 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: "right",
         textAlignVertical: "center",
-        fontSize :17,
+        fontSize: 17,
     },
     rightBoxTextTinhTrang: {
         flex: 1,
         textAlign: "right",
         textAlignVertical: "center",
-        fontSize :17,
-        color :'#007bff'
+        fontSize: 17,
+        color: '#007bff'
     },
 
     borrowedBox: {
@@ -166,12 +163,12 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignSelf: "center",
         flexDirection: "row",
-        alignItems :'center',
-        justifyContent :'center',
-        padding :5,
-        backgroundColor :'white',
-        elevation :3,
-        borderRadius :7,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 5,
+        backgroundColor: 'white',
+        elevation: 3,
+        borderRadius: 7,
 
 
     },
@@ -180,7 +177,7 @@ const styles = StyleSheet.create({
         height: 140,
         width: 100,
         borderRadius: 10,
-        marginRight :5
+        marginRight: 5
     },
 
     timeBox: {
@@ -190,13 +187,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center",
         marginTop: 15,
-        marginBottom :15,
-        padding : 8,
+        marginBottom: 15,
+        padding: 8,
         flexDirection: "row",
-        borderRadius :5,
-        elevation :3,
-        borderWidth :0.3,
-        marginBottom :30
+        borderRadius: 5,
+        elevation: 3,
+        borderWidth: 0.3,
+        marginBottom: 30
 
     },
 
@@ -215,7 +212,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center",
         justifyContent: "center",
-        width :'90%',
+        width: '90%',
     },
 
     btnCancel: {

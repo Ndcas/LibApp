@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {ImageBackground, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View, Image, Platform, ScrollView } from 'react-native';
+import { ImageBackground, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View, Image, Platform, ScrollView } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { API_URL } from '@env';
 
 export default function App({ navigation }) {
-
     const [txtSearch, setTxtSearch] = useState("");
     const [listBook, setListBook] = useState([]);
     const [displayBooks, setDisplayBooks] = useState([]);
@@ -35,13 +34,13 @@ export default function App({ navigation }) {
             setDisplayBooks(books);
         }
     }
-    
+
     return (
 
         <View style={styles.container}>
-             <ImageBackground 
-          source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
-          style={styles.descriptionAndSearch}>
+            <ImageBackground
+                source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+                style={styles.descriptionAndSearch}>
                 <Pressable style={styles.profileBtn} onPress={() => navigation.navigate("ProfileMember")}>
                     <FontAwesomeIcon icon={faUser} style={styles.user} size={20} />
                 </Pressable>

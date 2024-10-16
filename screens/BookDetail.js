@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image,ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
 import { useRoute } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -9,15 +9,15 @@ export default function App({ navigation }) {
     return (
 
         <View style={styles.container}>
-             <ImageBackground 
-          source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
-          style={styles.bookView}>
-            <Image style={styles.img} source={{ uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl }} />
+            <ImageBackground
+                source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+                style={styles.bookView}>
+                <Image style={styles.img} source={{ uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl }} />
 
             </ImageBackground>
             <View style={styles.discriptionView}>
-                <Text style ={styles.title}>Tên sách</Text>
-                <Text style={{paddingLeft:30,fontSize:30,fontWeight:'bold'}}>{book.tenDauSach}</Text>
+                <Text style={styles.title}>Tên sách</Text>
+                <Text style={{ paddingLeft: 30, fontSize: 30, fontWeight: 'bold' }}>{book.tenDauSach}</Text>
                 <View style={{
                     flexDirection: 'row',
                     height: 70,
@@ -48,7 +48,7 @@ export default function App({ navigation }) {
                     </View>
                     <View style={styles.detail}>
                         <Text style={{ opacity: 0.5 }}>Chuyên ngành</Text>
-                                <Text style={styles.detailDescription}>{book.chuyenNganh.tenChuyenNganh}</Text>
+                        <Text style={styles.detailDescription}>{book.chuyenNganh.tenChuyenNganh}</Text>
                     </View>
 
                 </View>
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         paddingLeft: 30,
         paddingTop: 50,
         paddingRight: 25,
-        opacity:0.5,
+        opacity: 0.5,
     },
 
     author: {

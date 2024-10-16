@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View, ScrollView, Image } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
+import { Pressable, StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { useRoute } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { API_URL } from '@env';
 
 
 export default function App({ navigation }) {
-
     const book = useRoute().params.book;
-
-    const [listBook, setListBook] = useState(null);
-    const [chuyenNganh, setChuyenNganh] = useState(null);
+    const [listBook, setListBook] = useState([]);
+    const [chuyenNganh, setChuyenNganh] = useState({});
 
     async function createNewBook() {
-        let dats = await fetch(API_URL+"/sach/create", {
+        await fetch(API_URL + "/sach/create", {
             method: "post",
             body: JSON.stringify({ dauSachId: book._id }),
             headers: {
@@ -23,15 +19,11 @@ export default function App({ navigation }) {
                 "Content-Type": "application/json"
             }
         });
-        console.log(dats.ok);
-        if (dats.ok) {
-            console.log(dats);
-        }
         getBooks();
     }
 
     async function getBooks() {
-        let data = await fetch(API_URL+`/sach/get?dauSach=${book._id}`);
+        let data = await fetch(API_URL + `/sach/get?dauSach=${book._id}`);
         if (data.ok) {
             let books = await data.json();
             setListBook(books);
@@ -39,10 +31,10 @@ export default function App({ navigation }) {
     }
 
     async function getChuyenNganh() {
-        let data = await fetch(API_URL+`/chuyenNganh/get?_id=${book.chuyenNganh}`);
+        let data = await fetch(API_URL + `/chuyenNganh/get?_id=${book.chuyenNganh}`);
         if (data.ok) {
             let chuyenNganhTemp = await data.json();
-            setChuyenNganh(chuyenNganhTemp);
+            setChuyenNganh(chuyenNganhTemp[0]);
         }
     }
 
@@ -53,7 +45,7 @@ export default function App({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <View style ={styles.description}>
+            <View style={styles.description}>
                 <View style={styles.bookDescription}>
                     {/* Phần hình ảnh trong view */}
                     <View style={styles.imagePart}>
@@ -76,11 +68,11 @@ export default function App({ navigation }) {
 
                         <View style={styles.descriptionDetailFrame}>
                             <View style={styles.icon1}>
-                            <Icon name="book" size={20} />
+                                <Icon name="book" size={20} />
                             </View>
                             <View style={styles.detail1}>
                                 <Text style={styles.detailName}>Chuyên ngành</Text>
-                                <Text style={styles.detailText}>{chuyenNganh && chuyenNganh[0].tenChuyenNganh}</Text>
+                                <Text style={styles.detailText}>{chuyenNganh.tenChuyenNganh}</Text>
                             </View>
                         </View>
 
@@ -105,23 +97,22 @@ export default function App({ navigation }) {
                         </View>
 
                     </View>
-                    </View>
-                    <View style = {styles.titleDescription}>
+                </View>
+                <View style={styles.titleDescription}>
                     <Text style={styles.titleName}>Tên sách</Text>
                     <Text style={styles.titleText}>{book.tenDauSach}</Text>
-                    </View>
                 </View>
-                
-                <View style ={styles.booklist}>
+            </View>
+
+            <View style={styles.booklist}>
                 <View style={{ flexDirection: "row" }}>
                     <Text style={{ flex: 1, fontSize: 24, fontWeight: 'bold', marginTop: 15, paddingLeft: 15 }}>Danh sách sách</Text>
-                    <Pressable style={{ flex: 1, justifyContent: "flex-end", alignItems: "flex-end", paddingRight: 10}} onPress={() => createNewBook()}>
-                        <Text style={{ fontSize: 17, marginTop: 15,fontWeight :'bold',color :'#007bff' }}>Thêm sách</Text>
+                    <Pressable style={{ flex: 1, justifyContent: "flex-end", alignItems: "flex-end", paddingRight: 10 }} onPress={() => createNewBook()}>
+                        <Text style={{ fontSize: 17, marginTop: 15, fontWeight: 'bold', color: '#007bff' }}>Thêm sách</Text>
                     </Pressable>
                 </View>
                 <ScrollView style={styles.bookScrollView}>
                     {
-                        listBook &&
                         listBook.map((book) =>
                             <Pressable style={styles.book}>
                                 <View style={{ marginLeft: 10, marginTop: 10, gap: 5, justifyContent: "center" }}>
@@ -131,7 +122,7 @@ export default function App({ navigation }) {
                                     </Text>
                                     <Text>
                                         <Text style={styles.myText}>Tình trạng:</Text>
-                                        <Text style ={{color :'#007bff',fontWeight :'bold'}}>{"\t" + book.tinhTrang}</Text>
+                                        <Text style={{ color: '#007bff', fontWeight: 'bold' }}>{"\t" + book.tinhTrang}</Text>
                                     </Text>
                                 </View>
                             </Pressable>
@@ -141,10 +132,10 @@ export default function App({ navigation }) {
 
 
                 </ScrollView>
-         
-                </View>
+
+            </View>
         </View>
-        
+
     )
 }
 
@@ -152,46 +143,46 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        justifyContent : 'center',
-        alignItems :'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: 'white',
-        paddingHorizontal : 15
+        paddingHorizontal: 15
     },
-    booklist :{
-        width : 390,
-        height : "50%",
-        backgroundColor :'#F4F6FF',
+    booklist: {
+        width: 390,
+        height: "50%",
+        backgroundColor: '#F4F6FF',
         marginTop: 10,
-        borderRadius :15,
-        elevation : 5,
+        borderRadius: 15,
+        elevation: 5,
     },
-    bookScrollView :{
+    bookScrollView: {
         flexDirection: 'column',
-        marginTop : 14 ,
-        padding :10,
+        marginTop: 14,
+        padding: 10,
     },
-    description : {
-        width : 375,
-        height : "40%",
-        flexDirection :'column',
-        backgroundColor :'#F4F6FF',
+    description: {
+        width: 375,
+        height: "40%",
+        flexDirection: 'column',
+        backgroundColor: '#F4F6FF',
         marginTop: 15,
-        borderRadius :15,
-        elevation : 5,
-        marginBottom :7
+        borderRadius: 15,
+        elevation: 5,
+        marginBottom: 7
 
     },
 
     bookDescription: {
         flexDirection: 'row',
-        flex : 7,
+        flex: 7,
         marginLeft: 10,
         marginTop: 20,
         justifyContent: 'center',
-        alignItems :'center',
+        alignItems: 'center',
     },
-    titleDescription : {
-        flex : 3
+    titleDescription: {
+        flex: 3
     },
     imagePart: {
         flex: 4,
@@ -211,8 +202,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 5,
         borderRadius: 10,
-        elevation :2,
-        backgroundColor :'#F4F6FF'
+        elevation: 2,
+        backgroundColor: '#F4F6FF'
 
 
     },
@@ -254,7 +245,7 @@ const styles = StyleSheet.create({
         width: "100%",
         backgroundColor: "white",
         borderRadius: 15,
-        elevation :5
+        elevation: 5
     },
 
     addBook: {
@@ -271,45 +262,45 @@ const styles = StyleSheet.create({
     },
 
     book: {
-        alignItems :'center',
+        alignItems: 'center',
         width: "100%",
         height: 80,
         padding: 5,
-        backgroundColor :'white',
-        marginBottom : 13,
+        backgroundColor: 'white',
+        marginBottom: 13,
         flexDirection: "row",
-        elevation :3,
-        borderRadius :10
+        elevation: 3,
+        borderRadius: 10
     },
 
     myText: {
         fontSize: 15,
         fontWeight: "bold",
     },
-    
+
     icon: {
         flex: 1,
     },
-    detailName : {
-        opacity: 0.5, 
-        fontSize: 10, 
-        paddingLeft: 5, 
-        paddingTop: 5 
+    detailName: {
+        opacity: 0.5,
+        fontSize: 10,
+        paddingLeft: 5,
+        paddingTop: 5
     },
-    detailText : {
-        fontSize: 12, 
+    detailText: {
+        fontSize: 12,
         paddingLeft: 5
     },
-    titleName : {
-        fontSize: 12, 
-        fontWeight: 'bold', 
-        paddingLeft: 20, 
-        opacity: 0.5, 
+    titleName: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        paddingLeft: 20,
+        opacity: 0.5,
         paddingTop: 13
     },
-    titleText : {
-        fontSize: 25, 
-        fontWeight: 'bold', 
+    titleText: {
+        fontSize: 25,
+        fontWeight: 'bold',
         paddingLeft: 20
     }
 })

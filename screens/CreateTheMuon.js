@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import {ImageBackground, KeyboardAvoidingView, Pressable, StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Pressable, StyleSheet, Text, View } from 'react-native';
 import { API_URL } from '@env';
 import AutocompleteInput from 'react-native-autocomplete-input';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
@@ -134,78 +133,78 @@ export default function App({ navigation }) {
     }
 
     return (
-        
+
         <KeyboardAvoidingView style={styles.container}>
             <Text style={{ fontSize: 30, fontWeight: 'bold', paddingBottom: 10 }}>Tạo phiếu mượn</Text>
             <View style={styles.box}>
-                <View style ={styles.upperView}>
-                    <View style ={styles.inputFrame}>
-                        <View style ={styles.iconPart}>
-                        <FontAwesomeIcon icon={faUser} size={20} />
-                    </View>
-                    <View style = {styles.inputPart}>
-                    <AutocompleteInput
-                        inputContainerStyle ={{borderWidth : 0,marginTop :4}}
-                        data={filteredDocGias}
-                        value={maDocGia}
-                        onChangeText={text => setMaDocGia(text)}
-                        placeholder='Mã đọc giả' style ={{fontSize :16,paddingTop :3}}
-                        flatListProps={{
-                            keyboardShouldPersistTaps: 'always',
-                            renderItem: ({ item }) => (
-                                <Pressable onPress={() => setMaDocGia(item.maDocGia)}>
-                                    <Text>{item.maDocGia + ' ' + item.hoTen}</Text>
-                                </Pressable>
-                            )
-                        }}
-                    />
-                    </View>
-                    </View>
-                    <View style ={styles.inputFrame}>
-                        <View style ={styles.iconPart}>
-                        <FontAwesomeIcon icon={faBook} size={20} />
+                <View style={styles.upperView}>
+                    <View style={styles.inputFrame}>
+                        <View style={styles.iconPart}>
+                            <FontAwesomeIcon icon={faUser} size={20} />
                         </View>
-                    <View style ={styles.inputPart}>
-                    <AutocompleteInput
-                        inputContainerStyle ={{borderWidth : 0,marginTop :4}}
-                        data={filteredDauSachs}
-                        value={tenDauSach}
-                        onChangeText={text => setTenDauSach(text)}
-                        placeholder='Tên đầu sách' style ={{fontSize :16,paddingTop :3}}
+                        <View style={styles.inputPart}>
+                            <AutocompleteInput
+                                inputContainerStyle={{ borderWidth: 0, marginTop: 4 }}
+                                data={filteredDocGias}
+                                value={maDocGia}
+                                onChangeText={text => setMaDocGia(text)}
+                                placeholder='Mã đọc giả' style={{ fontSize: 16, paddingTop: 3 }}
+                                flatListProps={{
+                                    keyboardShouldPersistTaps: 'always',
+                                    renderItem: ({ item }) => (
+                                        <Pressable onPress={() => setMaDocGia(item.maDocGia)}>
+                                            <Text>{item.maDocGia + ' ' + item.hoTen}</Text>
+                                        </Pressable>
+                                    )
+                                }}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.inputFrame}>
+                        <View style={styles.iconPart}>
+                            <FontAwesomeIcon icon={faBook} size={20} />
+                        </View>
+                        <View style={styles.inputPart}>
+                            <AutocompleteInput
+                                inputContainerStyle={{ borderWidth: 0, marginTop: 4 }}
+                                data={filteredDauSachs}
+                                value={tenDauSach}
+                                onChangeText={text => setTenDauSach(text)}
+                                placeholder='Tên đầu sách' style={{ fontSize: 16, paddingTop: 3 }}
 
-                        flatListProps={{
-                            keyboardShouldPersistTaps: 'always',
-                            renderItem: ({ item }) => (
-                                <Pressable onPress={() => setTenDauSach(item.tenDauSach)}>
-                                    <Text>{item.tenDauSach}</Text>
-                                </Pressable>
-                            )
-                        }}
-                    />
+                                flatListProps={{
+                                    keyboardShouldPersistTaps: 'always',
+                                    renderItem: ({ item }) => (
+                                        <Pressable onPress={() => setTenDauSach(item.tenDauSach)}>
+                                            <Text>{item.tenDauSach}</Text>
+                                        </Pressable>
+                                    )
+                                }}
+                            />
+                        </View>
                     </View>
-                    </View>
-                    <Text style ={{fontSize :13,fontStyle :'italic',paddingTop :4}}>Lưu ý : Trước khi chọn tạo thẻ mượn, cần thêm sách</Text>
-                    </View>
+                    <Text style={{ fontSize: 13, fontStyle: 'italic', paddingTop: 4 }}>Lưu ý : Trước khi chọn tạo thẻ mượn, cần thêm sách</Text>
+                </View>
 
 
                 <View style={styles.lowerView}>
-                    <View style ={{flex : 7,flexDirection :'row',gap :7,alignItems:'center',justifyContent :'center'}}>
-                    <Pressable style={styles.button} onPress={() => addSach()}>
-                        <Text style={{ fontWeight: "bold", fontSize: 18 }}>Thêm sách</Text>
-                    </Pressable>
-    
-                    <Pressable style={styles.button} onPress={() => create()}>
-                        <Text style={{ fontWeight: "bold", fontSize: 18 }}>Tạo phiếu mượn</Text>
-                    </Pressable>
+                    <View style={{ flex: 7, flexDirection: 'row', gap: 7, alignItems: 'center', justifyContent: 'center' }}>
+                        <Pressable style={styles.button} onPress={() => addSach()}>
+                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>Thêm sách</Text>
+                        </Pressable>
+
+                        <Pressable style={styles.button} onPress={() => create()}>
+                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>Tạo phiếu mượn</Text>
+                        </Pressable>
                     </View>
-                    <View style ={{flex :3,justifyContent :'center',alignItems :'center'}}>
-                    {
-                        showMessage ?
-                            <View style ={{width :'60%',height :30,justifyContent : 'center',alignItems :'center'}}>
-                                <Text style={{fontSize :14}}>{messge}</Text>
-                            </View> :
-                            <View></View>
-                    }
+                    <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
+                        {
+                            showMessage ?
+                                <View style={{ width: '60%', height: 30, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>{messge}</Text>
+                                </View> :
+                                <View></View>
+                        }
                     </View>
                 </View>
             </View>
@@ -228,34 +227,34 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         borderRadius: 13,
         borderWidth: 0.5,
-        elevation :5
+        elevation: 5
 
     },
-    upperView :{
-        flex :6 ,
-        alignItems :'center',
-        justifyContent :'center'
+    upperView: {
+        flex: 6,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    lowerView :{
-        flex : 4,
-        justifyContent:'center',
-        gap :3,
+    lowerView: {
+        flex: 4,
+        justifyContent: 'center',
+        gap: 3,
     },
-    inputFrame :{
-        flexDirection :'row',
-        height :50,
-        margin : 7,
-        borderRadius :5,
-        backgroundColor :'white',
-        borderBottomWidth :0.5
+    inputFrame: {
+        flexDirection: 'row',
+        height: 50,
+        margin: 7,
+        borderRadius: 5,
+        backgroundColor: 'white',
+        borderBottomWidth: 0.5
     },
-    iconPart : {
-        flex :1.3,
-        alignItems :'center',
-        justifyContent :'center',
+    iconPart: {
+        flex: 1.3,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    inputPart : {
-        flex :8.7
+    inputPart: {
+        flex: 8.7
     },
 
 

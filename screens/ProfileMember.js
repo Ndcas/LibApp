@@ -1,10 +1,6 @@
 import { useQuery, useRealm } from '@realm/react';
-import { Pressable, Image, StyleSheet, Text, View ,ImageBackground} from 'react-native';
+import { Pressable, Image, StyleSheet, Text, View, ImageBackground } from 'react-native';
 import LoginInfo from '../realmSchemas/LoginInfo';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
-
 
 export default function App({ navigation }) {
     const realm = useRealm();
@@ -23,32 +19,32 @@ export default function App({ navigation }) {
     }
 
     return (
-        <ImageBackground 
-          source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
-          style={styles.container}>
+        <ImageBackground
+            source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+            style={styles.container}>
             <View style={styles.box}>
-                <View style={{ flex: 3.5,justifyContent :'center'}}>
+                <View style={{ flex: 3.5, justifyContent: 'center' }}>
                     <Image style={styles.img} source={require("../assets/img/Blank_profile.webp")} />
+                </View>
+                <View style={{ flex: 6.5 }}>
+                    <View style={{ flex: 3, justifyContent: 'center', backgroundColor: '#fff2cc', borderRadius: 10, alignItems: 'flex-start', marginLeft: 7 }}>
+                        <Text style={{ fontSize: 23, fontWeight: 'bold', paddingLeft: 55 }}>Độc giả</Text>
                     </View>
-                    <View style = {{flex :6.5}}>
-                        <View style ={{flex : 3,justifyContent :'center',backgroundColor:'#fff2cc',borderRadius : 10,alignItems:'flex-start',marginLeft :7}}>
-                        <Text style ={{fontSize:23,fontWeight:'bold',paddingLeft:55}}>Độc giả</Text>
-                        </View>
-                        <View style ={{flex : 7,flexDirection :'column'}}>
+                    <View style={{ flex: 7, flexDirection: 'column' }}>
 
-                        <View style= {{flexDirection :'row',marginTop :15,height :40,width :110,gap: 25}}>
-                        <Text style ={{fontSize : 16,paddingLeft :10,paddingBottom:5}}>Tên độc giả </Text>
-                        <Text style ={{fontSize :16,fontWeight :'bold'}}>{global.user.hoTen}</Text>
+                        <View style={{ flexDirection: 'row', marginTop: 15, height: 40, width: 110, gap: 25 }}>
+                            <Text style={{ fontSize: 16, paddingLeft: 10, paddingBottom: 5 }}>Tên độc giả </Text>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{global.user.hoTen}</Text>
                         </View>
-                        <View style= {{flexDirection :'row',height :40,width :110,gap: 85}}>
-                        <Text style ={{fontSize : 16,paddingLeft :10,paddingBottom:5}}>Mã </Text>
-                        <Text style ={{fontSize :16,fontWeight :'bold'}}>{global.user.maDocGia}</Text>
+                        <View style={{ flexDirection: 'row', height: 40, width: 110, gap: 85 }}>
+                            <Text style={{ fontSize: 16, paddingLeft: 10, paddingBottom: 5 }}>Mã </Text>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{global.user.maDocGia}</Text>
                         </View>
-                        </View>
-                    
                     </View>
-        
-    
+
+                </View>
+
+
             </View>
 
 
@@ -65,12 +61,12 @@ export default function App({ navigation }) {
                 </View>
             </View> */}
             <View>
-            <Pressable onPress={() => logout()}>
-                    <View style ={{backgroundColor:'white',borderRadius:15,height :45,width :300,elevation:5,marginTop :50}}>
+                <Pressable onPress={() => logout()}>
+                    <View style={{ backgroundColor: 'white', borderRadius: 15, height: 45, width: 300, elevation: 5, marginTop: 50 }}>
 
-                    <View style ={{flex :8,justifyContent:'center',alignItems:'center',paddingLeft :5}}>
-                    <Text style={{fontSize:19,fontWeight :'bold'}}>Đăng xuất</Text>
-                    </View>
+                        <View style={{ flex: 8, justifyContent: 'center', alignItems: 'center', paddingLeft: 5 }}>
+                            <Text style={{ fontSize: 19, fontWeight: 'bold' }}>Đăng xuất</Text>
+                        </View>
                     </View>
                 </Pressable>
             </View>
@@ -84,7 +80,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff2cc',
         alignItems: 'center',
         paddingTop: 50,
-        justifyContent : 'center'
+        justifyContent: 'center'
     },
 
     box: {
@@ -94,7 +90,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 7,
         flexDirection: 'row',
-        elevation : 8
+        elevation: 8
     },
 
     topLeftBox: {
@@ -112,7 +108,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         padding: 10,
         backgroundColor: "#fff2cc",
-        elevation : 8
+        elevation: 8
     },
 
     bottomLeft: {
@@ -153,12 +149,12 @@ const styles = StyleSheet.create({
 
     userName: {
         fontSize: 25,
-        fontWeight :'bold'
+        fontWeight: 'bold'
     },
 
     img: {
-        height :"100%",
-        width :undefined,
+        height: "100%",
+        width: undefined,
         borderRadius: 20
     },
 
@@ -169,7 +165,7 @@ const styles = StyleSheet.create({
         width: 150,
         alignItems: "center",
         justifyContent: "center",
-        elevation : 5
+        elevation: 5
     },
 
     btnText: {
@@ -183,20 +179,20 @@ const styles = StyleSheet.create({
         marginTop: 7
     },
     imageBackground: {
-        height : 130,
-        width : 150,
+        height: 130,
+        width: 150,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        flex : 1,
-        opacity : 0.8,
-        elevation :5,
+        flex: 1,
+        opacity: 0.8,
+        elevation: 5,
         overflow: 'hidden',
-        borderRadius : 15,
-        paddingLeft : 7,
-        paddingTop : 7
-      },
+        borderRadius: 15,
+        paddingLeft: 7,
+        paddingTop: 7
+    },
     functions: {
-        paddingTop : 15,
+        paddingTop: 15,
     },
     book: {
         flex: 1,

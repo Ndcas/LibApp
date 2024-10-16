@@ -1,8 +1,6 @@
-import { Pressable, Image, StyleSheet, Text, View,ImageBackground } from 'react-native';
+import { Pressable, Image, StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { useRealm, useQuery } from '@realm/react';
 import LoginInfo from '../realmSchemas/LoginInfo';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 
 export default function App({ navigation }) {
     const realm = useRealm();
@@ -21,65 +19,65 @@ export default function App({ navigation }) {
     }
 
     return (
-        <ImageBackground 
-          source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
-          style={styles.container}>
+        <ImageBackground
+            source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+            style={styles.container}>
             <View style={styles.box}>
-                <View style={{ flex: 3.5,justifyContent :'center'}}>
+                <View style={{ flex: 3.5, justifyContent: 'center' }}>
                     <Image style={styles.img} source={require("../assets/img/Blank_profile.webp")} />
+                </View>
+                <View style={{ flex: 6.5 }}>
+                    <View style={{ flex: 3, justifyContent: 'center', backgroundColor: '#fff2cc', borderRadius: 10, alignItems: 'flex-start', marginLeft: 7 }}>
+                        <Text style={{ fontSize: 23, fontWeight: 'bold', paddingLeft: 55, color: '#001F3F' }}>Thủ thư</Text>
                     </View>
-                    <View style = {{flex :6.5}}>
-                        <View style ={{flex : 3,justifyContent :'center',backgroundColor:'#fff2cc',borderRadius : 10,alignItems:'flex-start',marginLeft :7}}>
-                        <Text style ={{fontSize:23,fontWeight:'bold',paddingLeft:55,color :'#001F3F'}}>Thủ thư</Text>
+                    <View style={{ flex: 7, flexDirection: 'row' }}>
+                        <View style={{ flex: 1, justifyContent: 'flex-start', paddingTop: 10 }}>
+                            <Text style={{ fontSize: 16, paddingLeft: 10, paddingBottom: 5 }}>Tên thủ thư</Text>
+                            <Text style={{ fontSize: 16, paddingLeft: 10 }}>Mã</Text>
                         </View>
-                        <View style ={{flex : 7,flexDirection :'row'}}>
-                            <View style ={{flex : 1,justifyContent :'flex-start',paddingTop:10}}>
-                        <Text style ={{fontSize : 16,paddingLeft :10,paddingBottom:5}}>Tên thủ thư</Text>
-                        <Text style ={{fontSize : 16,paddingLeft :10}}>Mã</Text>
-                        </View>
-                        <View style ={{flex : 1,justifyContent :'flex-start',alignItems:'flex-end',paddingTop:10}}>
-                        <Text style ={{fontSize : 16,paddingLeft :10,paddingBottom:5,fontWeight:'bold'}}>{global.user.tenThuThu}</Text>
-                        <Text style ={{fontSize : 16,paddingLeft :10,fontWeight:'bold'}}>{global.user.maThuThu}</Text>
-                            </View>
+                        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end', paddingTop: 10 }}>
+                            <Text style={{ fontSize: 16, paddingLeft: 10, paddingBottom: 5, fontWeight: 'bold' }}>{global.user.tenThuThu}</Text>
+                            <Text style={{ fontSize: 16, paddingLeft: 10, fontWeight: 'bold' }}>{global.user.maThuThu}</Text>
                         </View>
                     </View>
-        
-    
+                </View>
+
+
             </View>
 
             <View style={styles.recentBox}>
                 <Text style={{ fontWeight: "bold", fontSize: 20 }}>Chức năng</Text>
 
                 <View style={styles.manageBox}>
-    
-                    <Pressable style ={styles.functions} onPress={() => navigation.navigate("BookManagement")}>
-                    <ImageBackground 
-                    source={require('../assets/img/Screenshot (22).png')}
-                    style={styles.imageBackground}
-                    >
-                        <Text style={{ fontSize: 15, fontWeight: "bold" }}>Quản lý sách</Text>
+
+                    <Pressable style={styles.functions} onPress={() => navigation.navigate("BookManagement")}>
+                        <ImageBackground
+                            source={require('../assets/img/Screenshot (22).png')}
+                            style={styles.imageBackground}
+                        >
+                            <Text style={{ fontSize: 15, fontWeight: "bold" }}>Quản lý sách</Text>
                         </ImageBackground>
                     </Pressable>
-                    
+
                     <Pressable style={styles.functions} onPress={() => navigation.navigate("BorrowingCardManagement")}>
-                    <ImageBackground 
-                    source={require('../assets/img/Screenshot (24).png')}
-                    style={styles.imageBackground}
-                    >
-                        <Text style={{ fontSize: 15, fontWeight: "bold" }}>Quản lý phiếu mượn</Text>
+                        <ImageBackground
+                            source={require('../assets/img/Screenshot (24).png')}
+                            style={styles.imageBackground}
+                        >
+                            <Text style={{ fontSize: 15, fontWeight: "bold" }}>Quản lý phiếu mượn</Text>
                         </ImageBackground>
                     </Pressable>
 
                 </View>
             </View>
             <Pressable onPress={() => logout()}>
-                    <View style ={{backgroundColor:'white',borderRadius:15,height :45,width :300,elevation:5,marginTop :50}}>
+                <View style={{ backgroundColor: 'white', borderRadius: 15, height: 45, width: 300, elevation: 5, marginTop: 50 }}>
 
-                    <View style ={{flex :8,justifyContent:'center',alignItems:'center',paddingLeft :5}}>
-                    <Text style={{fontSize:19,fontWeight :'bold'}}>Đăng xuất</Text>
+                    <View style={{ flex: 8, justifyContent: 'center', alignItems: 'center', paddingLeft: 5 }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold' }}>Đăng xuất</Text>
                     </View>
-                    </View>
-                </Pressable>
+                </View>
+            </Pressable>
         </ImageBackground>
     )
 }
@@ -90,7 +88,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff2cc',
         alignItems: 'center',
         paddingTop: 50,
-        justifyContent : 'center',
+        justifyContent: 'center',
     },
 
     box: {
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 7,
         flexDirection: 'row',
-        elevation : 8
+        elevation: 8
     },
 
     topLeftBox: {
@@ -118,7 +116,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         padding: 10,
         backgroundColor: "#fff2cc",
-        elevation : 8
+        elevation: 8
     },
 
     bottomLeft: {
@@ -152,12 +150,12 @@ const styles = StyleSheet.create({
 
     userName: {
         fontSize: 25,
-        fontWeight :'bold'
+        fontWeight: 'bold'
     },
 
     img: {
-        height :"100%",
-        width :undefined,
+        height: "100%",
+        width: undefined,
         borderRadius: 20
     },
 
@@ -168,7 +166,7 @@ const styles = StyleSheet.create({
         width: 150,
         alignItems: "center",
         justifyContent: "center",
-        elevation : 5
+        elevation: 5
     },
 
     btnText: {
@@ -182,19 +180,19 @@ const styles = StyleSheet.create({
         marginTop: 7
     },
     imageBackground: {
-        height : 130,
-        width : 150,
+        height: 130,
+        width: 150,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        flex : 1,
-        opacity : 0.8,
-        elevation :3,
+        flex: 1,
+        opacity: 0.8,
+        elevation: 3,
         overflow: 'hidden',
-        borderRadius : 15,
-        paddingLeft : 7,
-        paddingTop : 7
-      },
+        borderRadius: 15,
+        paddingLeft: 7,
+        paddingTop: 7
+    },
     functions: {
-        paddingTop : 15,
+        paddingTop: 15,
     }
 });
