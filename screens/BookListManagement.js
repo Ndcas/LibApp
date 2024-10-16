@@ -112,8 +112,8 @@ export default function App({ navigation }) {
                 </View>
                 <ScrollView style={styles.bookScrollView}>
                     {
-                        listBook.map((book) =>
-                            <Pressable style={styles.book}>
+                        listBook.map((book, index) =>
+                            <Pressable style={styles.book} key={index}>
                                 <View style={{ marginLeft: 10, marginTop: 10, gap: 5, justifyContent: "center" }}>
                                     <Text>
                                         <Text style={styles.myText}>ID:</Text>

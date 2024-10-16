@@ -6,6 +6,8 @@ import { API_URL } from '@env';
 
 export default function App({ navigation }) {
     const [listBook, setListBook] = useState([]);
+    const [displayBook, setDisplayBook] = useState([]);
+    const [search, setSearch] = useState('');
 
     async function getBooks() {
         let data = await fetch(API_URL + "/dauSach/get")
@@ -16,6 +18,19 @@ export default function App({ navigation }) {
                 books[i].hinhAnh = await img.json();
             }
             setListBook(books);
+            setDisplayBook(books);
+        }
+    }
+
+    function searchBook() {
+        if (search.trim() == "") {
+            setDisplayBook(listBook);
+        }
+        else {
+            books = listBook.filter((book) => {
+                return book.tenDauSach.toLowerCase().includes(search.trim().toLowerCase());
+            });
+            setDisplayBook(books);
         }
     }
 
@@ -32,14 +47,16 @@ export default function App({ navigation }) {
                 <Text style={{ fontWeight: 'bold', fontSize: 40 }}>Quản lý sách</Text>
                 <Text style={{ fontSize: 13, opacity: 0.5, paddingLeft: 5 }}>Quản lý đầu sách và số sách</Text>
                 <View style={styles.search}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} style={styles.icon} />
-                    <TextInput style={{ flex: 1, paddingLeft: 10, fontSize: 15 }} placeholder='Tìm kiếm' placeholderTextColor="#000000" clearTextOnFocus={true}></TextInput>
+                    <Pressable onPress={() => searchBook()}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} style={styles.icon} />
+                    </Pressable>
+                    <TextInput style={{ flex: 1, paddingLeft: 10, fontSize: 15 }} placeholder='Tìm kiếm' placeholderTextColor="#000000" clearTextOnFocus={true} value={search} onChangeText={(text) => setSearch(text)}></TextInput>
                 </View>
             </ImageBackground>
             <KeyboardAvoidingView style={styles.list} behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <ScrollView style={styles.bookList}>
                     {
-                        listBook.map((book, index) =>
+                        displayBook.map((book, index) =>
                             <Pressable key={index} style={styles.book} onPress={() => navigation.navigate("BookListManagement", { book: book })}>
                                 <View style={{ flex: 1 }}>
                                     <Image style={styles.img} source={{ uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl }} />

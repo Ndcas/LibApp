@@ -23,7 +23,7 @@ export default function App({ navigation }) {
         getBook();
     }, []);
 
-    async function searchBook() {
+    function searchBook() {
         if (txtSearch.trim() == "") {
             setDisplayBooks(listBook);
         }
