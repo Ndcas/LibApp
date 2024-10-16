@@ -7,7 +7,7 @@ import AutocompleteInput from 'react-native-autocomplete-input';
 
 export default function App({ navigation }) {
     const [listTheMuon, setListTheMuon] = useState([]);
-    const [showTheMuon, setShowTheMuon] = useState(null);
+    const [showTheMuon, setShowTheMuon] = useState([]);
     const [docGias, setDocGias] = useState([]);
     const [maDocGia, setMaDocGia] = useState('');
     const filteredDocGias = filterDocGia();
@@ -118,7 +118,6 @@ export default function App({ navigation }) {
             </View>
                 <ScrollView>
                     {
-                        showTheMuon &&
                         showTheMuon.map((theMuon, index) => {
                             return (
                                 <Pressable key={index} style={styles.card} onPress={() => navigation.navigate("BorrowingCard", { borrowingCard: theMuon })}>

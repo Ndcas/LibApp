@@ -6,7 +6,7 @@ import { API_URL } from '@env';
 export default function App({ navigation }) {
     const theMuon = useRoute().params.borrowingCard;
     const [docGia, setDocGia] = useState({});
-    const [sachMuon, setSachMuon] = useState(null);
+    const [sachMuon, setSachMuon] = useState([]);
 
     useEffect(() => {
         getInfo();
@@ -67,7 +67,6 @@ export default function App({ navigation }) {
             horizontal={true} 
             showsHorizontalScrollIndicator={false}>
                 {
-                    sachMuon &&
                     sachMuon.map((sach, index) =>
                         <Image key={index} style={styles.img} source={{ uri: 'data:image/' + sach.hinhAnh.format + ';base64,' + sach.hinhAnh.dataUrl }} />
                     )

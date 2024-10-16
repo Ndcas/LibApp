@@ -7,7 +7,7 @@ import { API_URL } from '@env';
 
 export default function App({ navigation }) {
 
-    const [listBook, setListBook] = useState(null);
+    const [listBook, setListBook] = useState([]);
 
     async function getBooks() {
         let data = await fetch(API_URL + "/dauSach/get")
@@ -41,7 +41,6 @@ export default function App({ navigation }) {
                 <KeyboardAvoidingView style={styles.list} behavior={Platform.OS === "ios" ? "padding" : "height"}>
                     <ScrollView style = {styles.bookList}>
                     {
-                    listBook &&
                     listBook.map((book, index) =>
                         <Pressable key={index} style={styles.book} onPress={() => navigation.navigate("BookListManagement", {book :book})}>
                             <View style={{ flex: 1 }}>

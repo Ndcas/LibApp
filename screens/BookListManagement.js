@@ -11,7 +11,7 @@ export default function App({ navigation }) {
 
     const book = useRoute().params.book;
 
-    const [listBook, setListBook] = useState(null);
+    const [listBook, setListBook] = useState([]);
     const [chuyenNganh, setChuyenNganh] = useState(null);
 
     async function createNewBook() {
@@ -121,7 +121,6 @@ export default function App({ navigation }) {
                 </View>
                 <ScrollView style={styles.bookScrollView}>
                     {
-                        listBook &&
                         listBook.map((book) =>
                             <Pressable style={styles.book}>
                                 <View style={{ marginLeft: 10, marginTop: 10, gap: 5, justifyContent: "center" }}>
