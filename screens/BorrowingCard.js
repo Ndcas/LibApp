@@ -1,4 +1,4 @@
-import { Pressable, Image, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { Pressable, Image, StyleSheet, Text, View, ScrollView,ImageBackground } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { API_URL } from '@env';
@@ -46,8 +46,11 @@ export default function App({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 25, marginTop: 70 }}>Thông tin người mượn</Text>
+        <ImageBackground
+                source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+                style={styles.container}>
+            <View style ={{borderRadius :20,backgroundColor :'white',elevation :3,padding :8,justifyContent:'center'}}>
+            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 25 }}>Thông tin người mượn</Text>
             <View style={styles.box}>
                 <View style={styles.leftBox}>
                     <Text style={styles.leftBoxText}>Họ và tên</Text>
@@ -59,7 +62,7 @@ export default function App({ navigation }) {
                 </View>
             </View>
 
-            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 25, marginTop: 25 }}>Sách mượn</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 25 }}>Sách mượn</Text>
             <View style={styles.borrowedBox}>
                 <ScrollView
                     horizontal={true}
@@ -71,7 +74,7 @@ export default function App({ navigation }) {
                     }
                 </ScrollView>
             </View>
-            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 25, marginTop: 25 }}>Chi tiết mượn</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 25 }}>Chi tiết mượn</Text>
             <View style={styles.timeBox}>
                 <View style={styles.leftBox}>
                     <Text style={styles.leftBoxText}>Trạng thái</Text>
@@ -88,7 +91,8 @@ export default function App({ navigation }) {
                     <Text style={styles.btnText}>Trả sách</Text>
                 </Pressable>
             }
-        </View>
+            </View>
+        </ImageBackground>
     );
 }
 
@@ -97,8 +101,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         padding: 2,
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start'
+        alignItems: 'center',
+        justifyContent: 'center'
 
     },
     panel: {
@@ -121,7 +125,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: "row",
         elevation: 5,
-        borderWidth: 0.3
+        borderBottomWidth: 0.3
     },
 
     leftBox: {
@@ -167,6 +171,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 5,
         backgroundColor: 'white',
+        borderBottomWidth :0.3,
         elevation: 3,
         borderRadius: 7,
 
@@ -190,9 +195,9 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         padding: 8,
         flexDirection: "row",
-        borderRadius: 5,
+        borderRadius: 7,
         elevation: 3,
-        borderWidth: 0.3,
+        borderBottomWidth :0.3,
         marginBottom: 30
 
     },
@@ -212,7 +217,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center",
         justifyContent: "center",
-        width: '90%',
+        width: 350
     },
 
     btnCancel: {

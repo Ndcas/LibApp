@@ -44,7 +44,7 @@ export default function App({ navigation }) {
             <ImageBackground
                 source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
                 style={styles.header}>
-                <Text style={{ fontWeight: 'bold', fontSize: 40 }}>Quản lý sách</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 35 }}>Quản lý sách</Text>
                 <Text style={{ fontSize: 13, opacity: 0.5, paddingLeft: 5 }}>Quản lý đầu sách và số sách</Text>
                 <View style={styles.search}>
                     <Pressable onPress={() => searchBook()}>
@@ -67,8 +67,8 @@ export default function App({ navigation }) {
                                         <Text style={{ fontSize: 16 }}>{book.tenDauSach}</Text>
                                     </Text>
                                     <Text>
-                                        <Text style={{ fontSize: 14, fontStyle: 'italic' }}>Bởi </Text>
-                                        <Text style={{ fontSize: 14, fontStyle: 'italic' }}>{book.tacGia}</Text>
+                                        <Text style={{ fontSize: 14 }}>Bởi </Text>
+                                        <Text style={{ fontSize: 14 }}>{book.tacGia}</Text>
                                     </Text>
                                 </View>
                             </Pressable>

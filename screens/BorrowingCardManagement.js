@@ -89,7 +89,7 @@ export default function App({ navigation }) {
                                 data={filteredDocGias}
                                 value={maDocGia}
                                 onChangeText={text => filterTheMuon(text)}
-                                placeholder='Tìm kiếm thẻ mượn'
+                                placeholder='Tìm kiếm thẻ mượn' style ={{paddingTop :7}}
                                 flatListProps={{
                                     keyboardShouldPersistTaps: 'always',
                                     renderItem: ({ item }) => (

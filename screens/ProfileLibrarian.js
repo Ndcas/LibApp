@@ -28,7 +28,7 @@ export default function App({ navigation }) {
                 </View>
                 <View style={{ flex: 6.5 }}>
                     <View style={{ flex: 3, justifyContent: 'center', backgroundColor: '#fff2cc', borderRadius: 10, alignItems: 'flex-start', marginLeft: 7 }}>
-                        <Text style={{ fontSize: 23, fontWeight: 'bold', paddingLeft: 55, color: '#001F3F' }}>Thủ thư</Text>
+                        <Text style={{ fontSize: 23, fontWeight: 'bold', paddingLeft: 55, color: 'black' }}>Thủ thư</Text>
                     </View>
                     <View style={{ flex: 7, flexDirection: 'row' }}>
                         <View style={{ flex: 1, justifyContent: 'flex-start', paddingTop: 10 }}>

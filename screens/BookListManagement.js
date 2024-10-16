@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Pressable, StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { ImageBackground,Pressable, StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { useRoute } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { API_URL } from '@env';
