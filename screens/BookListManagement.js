@@ -4,7 +4,6 @@ import { useRoute } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { API_URL } from '@env';
 
-
 export default function App({ navigation }) {
     const book = useRoute().params.book;
     const [listBook, setListBook] = useState([]);

@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 import { API_URL } from '@env';
 
-
 export default function App({ navigation }) {
     const [listBook, setListBook] = useState([]);
 
