@@ -37,10 +37,11 @@ export default function App({ navigation }) {
 
     return (
 
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <ImageBackground
                 source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
                 style={styles.descriptionAndSearch}>
+                <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <Pressable style={styles.profileBtn} onPress={() => navigation.navigate("ProfileMember")}>
                     <FontAwesomeIcon icon={faUser} style={styles.user} size={20} />
                 </Pressable>
@@ -52,13 +53,14 @@ export default function App({ navigation }) {
                     </Pressable>
                     <TextInput style={{ flex: 1, opacity: 0.7 }} placeholder='Bạn muốn đọc gì ?' placeholderTextColor="#000000" clearTextOnFocus={true} value={txtSearch} onChangeText={text => setTxtSearch(text)} />
                 </View>
+                </KeyboardAvoidingView>
             </ImageBackground>
 
 
 
-            <KeyboardAvoidingView
+            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.booklist}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                >
                 <Text style={styles.category}>
                     Tất cả sách
                 </Text>
@@ -87,7 +89,7 @@ export default function App({ navigation }) {
 
 
 
-        </View>
+        </KeyboardAvoidingView>
 
     )
 }

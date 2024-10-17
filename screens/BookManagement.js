@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
-        marginBottom: 20
+        marginBottom: 20,
     },
     list: {
         flex: 6.5,

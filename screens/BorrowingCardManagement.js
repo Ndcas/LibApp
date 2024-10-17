@@ -85,7 +85,7 @@ export default function App({ navigation }) {
                         <FontAwesomeIcon icon={faMagnifyingGlass} style={styles.icon} />
                         <View style={{ backgroundColor: 'transparent', flex: 8, justifyContent: 'center' }}>
                             <AutocompleteInput
-                                inputContainerStyle={{ borderWidth: 0, paddingLeft: 10 }}
+                                inputContainerStyle={{ borderWidth: 0, paddingLeft: 10,marginRight :15 }}
                                 data={filteredDocGias}
                                 value={maDocGia}
                                 onChangeText={text => filterTheMuon(text)}

@@ -115,7 +115,7 @@ export default function App({ navigation }) {
                     </View>
                 </View>
                 <View style={{}}>
-                    <View style={{ paddingTop: 15, paddingLeft: 22 }}>
+                    <View style={{ paddingTop: 15, paddingLeft: 22,height :34,width :300 }}>
                         {
                             showMessage ?
                                 <View>
