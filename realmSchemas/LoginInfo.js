@@ -5,7 +5,8 @@ export default class LoginInfo extends Realm.Object {
         name: 'LoginInfo',
         properties: {
             username: 'string',
-            password: 'string'
+            password: 'string',
+            expireDate: 'date'
         },
         primaryKey: 'username'
     }

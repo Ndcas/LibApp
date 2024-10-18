@@ -19,28 +19,45 @@ export default function App({ navigation }) {
     }, []);
 
     async function tryLogin() {
-        if (loginInfos.length > 0) {
-            let data = await fetch(API_URL + '/loginHash', {
-                method: 'post',
-                body: JSON.stringify({
-                    taiKhoan: loginInfos[0].username,
-                    matKhau: loginInfos[0].password
-                }),
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                }
+        if (loginInfos.length == 0) {
+            return;
+        }
+        let today = new Date();
+        if (loginInfos[0].expireDate < today) {
+            realm.write(() => {
+                realm.delete(loginInfos);
             });
-            if (data.ok) {
-                global.user = await data.json();
-                if (global.user.message == 'Dang nhap thanh cong') {
-                    if (global.user.vaiTro == "Thu thu") {
-                        navigation.replace("ProfileLibrarian");
-                    }
-                    else if (global.user.vaiTro == "Doc gia") {
-                        navigation.replace("Home");
-                    }
+            return;
+        }
+        let data = await fetch(API_URL + '/loginHash', {
+            method: 'post',
+            body: JSON.stringify({
+                taiKhoan: loginInfos[0].username,
+                matKhau: loginInfos[0].password
+            }),
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        });
+        if (data.ok) {
+            global.user = await data.json();
+            if (global.user.message == 'Dang nhap thanh cong') {
+                realm.write(() => {
+                    today.setDate(today.getDate() + 3);
+                    loginInfos[0].expireDate = today;
+                });
+                if (global.user.vaiTro == "Thu thu") {
+                    navigation.replace("ProfileLibrarian");
                 }
+                else if (global.user.vaiTro == "Doc gia") {
+                    navigation.replace("Home");
+                }
+            }
+            else {
+                realm.write(() => {
+                    realm.delete(loginInfos);
+                });
             }
         }
     }
@@ -60,12 +77,15 @@ export default function App({ navigation }) {
         if (dats.ok) {
             global.user = await dats.json();
             if (global.user.message == 'Dang nhap thanh cong') {
+                let date = new Date();
+                date.setDate(date.getDate() + 3);
                 if (global.user.vaiTro == "Thu thu") {
                     realm.write(() => {
                         realm.delete(loginInfos);
                         realm.create('LoginInfo', {
                             username: global.user.maThuThu,
-                            password: global.user.matKhau
+                            password: global.user.matKhau,
+                            expireDate: date
                         });
                     });
                     navigation.replace("ProfileLibrarian");
@@ -75,7 +95,8 @@ export default function App({ navigation }) {
                         realm.delete(loginInfos);
                         realm.create('LoginInfo', {
                             username: global.user.maDocGia,
-                            password: global.user.matKhau
+                            password: global.user.matKhau,
+                            expireDate: date
                         });
                     });
                     navigation.replace("Home");

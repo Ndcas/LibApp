@@ -10,7 +10,7 @@ export default function App({ navigation }) {
     const [search, setSearch] = useState('');
 
     async function getBooks() {
-        let data = await fetch(API_URL + "/dauSach/get")
+        let data = await fetch(API_URL + "/dauSach/get");
         if (data.ok) {
             let books = await data.json();
             for (let i = 0; i < books.length; i++) {
