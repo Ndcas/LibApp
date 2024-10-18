@@ -6,6 +6,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { API_URL } from '@env';
 import { useQuery, useRealm } from '@realm/react';
 import LoginInfo from '../realmSchemas/LoginInfo';
+import { CheckBox } from '@rneui/base';
 
 export default function App({ navigation }) {
     const [showMessage, setShowMessage] = useState(false);
@@ -13,6 +14,7 @@ export default function App({ navigation }) {
     const [pass, setPass] = useState("");
     const realm = useRealm();
     const loginInfos = useQuery(LoginInfo);
+    const [remember, setRemember] = useState(false);
 
     useEffect(() => {
         tryLogin();
@@ -76,33 +78,39 @@ export default function App({ navigation }) {
         });
         if (dats.ok) {
             global.user = await dats.json();
-            if (global.user.message == 'Dang nhap thanh cong') {
-                let date = new Date();
-                date.setDate(date.getDate() + 3);
-                if (global.user.vaiTro == "Thu thu") {
+            if (global.user.message == 'Dang nhap that bai') {
+                setShowMessage(true);
+                return;
+            }
+            let date = new Date();
+            date.setDate(date.getDate() + 3);
+            realm.write(() => {
+                realm.delete(loginInfos);
+            });
+            if (global.user.vaiTro == "Thu thu") {
+                if (remember) {
                     realm.write(() => {
-                        realm.delete(loginInfos);
                         realm.create('LoginInfo', {
                             username: global.user.maThuThu,
                             password: global.user.matKhau,
                             expireDate: date
                         });
                     });
-                    navigation.replace("ProfileLibrarian");
                 }
-                else if (global.user.vaiTro == "Doc gia") {
+                navigation.replace("ProfileLibrarian");
+            }
+            else if (global.user.vaiTro == "Doc gia") {
+                if (remember) {
                     realm.write(() => {
-                        realm.delete(loginInfos);
                         realm.create('LoginInfo', {
                             username: global.user.maDocGia,
                             password: global.user.matKhau,
                             expireDate: date
                         });
                     });
-                    navigation.replace("Home");
                 }
+                navigation.replace("Home");
             }
-            setShowMessage(true);
         }
     }
 
@@ -125,7 +133,6 @@ export default function App({ navigation }) {
                         <TextInput style={styles.input} placeholder='ID' placeholderTextColor="#c5c5c5" clearTextOnFocus={true} value={userName} onChangeText={text => setUserName(text)}></TextInput>
                     </View>
                 </View>
-
                 <View style={styles.inputBoxPassword}>
                     <View style={styles.icon}>
                         <FontAwesomeIcon icon={faEye} size={23} style={{ paddingLeft: 15 }} />
@@ -136,7 +143,8 @@ export default function App({ navigation }) {
                     </View>
                 </View>
                 <View style={{}}>
-                    <View style={{ paddingTop: 15, paddingLeft: 22,height :34,width :300 }}>
+                    <CheckBox checked={remember} onPress={() => setRemember(!remember)} title='Duy trì đăng nhập' containerStyle={{ backgroundColor: 'transparent' }} />
+                    <View style={{ paddingTop: 15, paddingLeft: 22, height: 34, width: 300 }}>
                         {
                             showMessage ?
                                 <View>
@@ -149,7 +157,6 @@ export default function App({ navigation }) {
                         <Text style={{ fontWeight: "bold", fontSize: 30 }}>Đăng nhập</Text>
                     </Pressable>
                 </View>
-
             </ImageBackground>
         </KeyboardAvoidingView>
     );

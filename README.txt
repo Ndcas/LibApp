@@ -1,4 +1,4 @@
-Các thư viện hiện có: React Navigation, Fontawesome icon, Realm, Realm/React, react-native-dotenv, react-native-autocomplete-input
+Các thư viện hiện có: React Navigation, Fontawesome icon, Realm, Realm/React, react-native-dotenv, react-native-autocomplete-input, React Native Elements (rneui)
 
 1. Dùng lệnh npm i để tải các thư viện trước khi chạy dự án
 
