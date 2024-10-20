@@ -45,6 +45,26 @@ export default function App({ navigation }) {
         }
     }
 
+    function tinhTrangColor() {
+        if (theMuon.tinhTrang == 'Da tra') {
+            return { color: 'green' }
+        }
+        if (theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today) {
+            return { color: 'red' }
+        }
+        return { color: '#007bff' }
+    }
+
+    function getTinhTrang() {
+        if (theMuon.tinhTrang == 'Da tra') {
+            return 'Đã trả';
+        }
+        else if (theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today) {
+            return 'Quá hạn';
+        }
+        return 'Chưa trả';
+    }
+
     return (
         <ImageBackground
             source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
@@ -79,10 +99,24 @@ export default function App({ navigation }) {
                     <View style={styles.leftBox}>
                         <Text style={styles.leftBoxText}>Trạng thái</Text>
                         <Text style={styles.leftBoxText}>Thời gian mượn</Text>
+                        {
+                            theMuon.tinhTrang == 'Da tra' ?
+                                <Text style={styles.leftBoxText}>Thời gian trả</Text> :
+                                <Text style={styles.leftBoxText}>Hạn trả sách</Text>
+                        }
                     </View>
                     <View style={styles.rightBox}>
-                        <Text style={styles.rightBoxTextTinhTrang}>{theMuon.tinhTrang}</Text>
+                        <Text style={[styles.rightBoxTextTinhTrang, tinhTrangColor()]}>
+                            {
+                                getTinhTrang()
+                            }
+                        </Text>
                         <Text style={styles.rightBoxText}>{formatDate(theMuon.ngayMuon)}</Text>
+                        {
+                            theMuon.tinhTrang == 'Da tra' ?
+                                <Text style={styles.rightBoxText}>{formatDate(theMuon.ngayTra)}</Text> :
+                                <Text style={styles.rightBoxText}>{formatDate(theMuon.hanTra)}</Text>
+                        }
                     </View>
                 </View>
                 {

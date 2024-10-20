@@ -21,3 +21,5 @@ Các thư viện hiện có: React Navigation, Fontawesome icon, Realm, Realm/Re
 6. Nếu khi pull về xuất hiện thông báo conflict, hãy xem các file bị conflict và sửa sau đó thực hiện cập nhật lại lên GitHub, nếu không biết sửa thì lên nhóm thảo luận
 
 7. Ghi API URL vào file .env
+
+8. Khi thay đổi file .env thì cần xóa folder android để đảm bảo các screen build được cập nhật biến môi trường
