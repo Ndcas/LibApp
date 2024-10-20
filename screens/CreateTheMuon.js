@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Pressable, StyleSheet, Text, View } from 'react-native';
 import { API_URL } from '@env';
 import AutocompleteInput from 'react-native-autocomplete-input';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -41,7 +41,7 @@ export default function App({ navigation }) {
     }
 
     async function getDauSachs() {
-        let response = await fetch(API_URL + '/dauSach/getCoSan');
+        let response = await fetch(API_URL + '/dauSach/getWithHinhAnh?' + new URLSearchParams({ tinhTrang: 'Co san' }));
         if (response.ok) {
             setDauSachs(await response.json());
         }
@@ -61,13 +61,18 @@ export default function App({ navigation }) {
     function addSach() {
         let sach = dauSachs.find((dauSach) => dauSach.tenDauSach == tenDauSach);
         if (sach && !dauSachMuon.find((dauSach) => dauSach == sach)) {
-            setDauSachMuon([...dauSachMuon, sach]);
+            let result = [...dauSachMuon];
+            if (result.length == 3) {
+                result.shift();
+            }
+            result = [...result, sach];
+            setDauSachMuon(result);
             setTenDauSach('');
         }
     }
 
     async function create() {
-        let newDauSachs = await fetch(API_URL + '/dauSach/getCoSan');
+        let newDauSachs = await fetch(API_URL + '/dauSach/getWithHinhAnh?' + new URLSearchParams({ tinhTrang: 'Co san' }));
         newDauSachs = await newDauSachs.json();
         let sachIds = [];
         let ok = true;
@@ -96,27 +101,38 @@ export default function App({ navigation }) {
             let docGia = await fetch(API_URL + `/docGia/get?maDocGia=${maDocGia}`);
             docGia = await docGia.json();
             if (docGia.length == 1) {
-                let thuThu = await fetch(API_URL + `/thuThu/get?maThuThu=${global.user.maThuThu}`);
-                thuThu = await thuThu.json();
-                let response = await fetch(API_URL + '/theMuon/create', {
-                    method: 'post',
-                    body: JSON.stringify({
-                        docGiaId: docGia[0]._id,
-                        thuThuId: thuThu[0]._id,
-                        sachIds: sachIds
-                    }),
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                });
-                response = await response.json();
-                if (response.message == 'Tao thanh cong') {
-                    navigation.popToTop();
+                let theMuon = await fetch(API_URL + '/theMuon/get?' + new URLSearchParams({
+                    tinhTrang: 'Chua tra',
+                    docGia: docGia[0]._id
+                }));
+                theMuon = await theMuon.json();
+                if (theMuon.length > 0) {
+                    setShowMessage(true);
+                    setMessge('Độc giả này vẫn còn sách chưa trả');
                 }
                 else {
-                    setShowMessage(true);
-                    setMessge('Không thể tạo thẻ mượn, hãy thử lại');
+                    let thuThu = await fetch(API_URL + `/thuThu/get?maThuThu=${global.user.maThuThu}`);
+                    thuThu = await thuThu.json();
+                    let response = await fetch(API_URL + '/theMuon/create', {
+                        method: 'post',
+                        body: JSON.stringify({
+                            docGiaId: docGia[0]._id,
+                            thuThuId: thuThu[0]._id,
+                            sachIds: sachIds
+                        }),
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    response = await response.json();
+                    if (response.message == 'Tao thanh cong') {
+                        navigation.popToTop();
+                    }
+                    else {
+                        setShowMessage(true);
+                        setMessge('Không thể tạo thẻ mượn, hãy thử lại');
+                    }
                 }
             }
             else {
@@ -148,7 +164,8 @@ export default function App({ navigation }) {
                                 data={filteredDocGias}
                                 value={maDocGia}
                                 onChangeText={text => setMaDocGia(text)}
-                                placeholder='Mã đọc giả' style={{ fontSize: 16, paddingTop: 3 }}
+                                placeholder='Mã đọc giả'
+                                style={{ fontSize: 16, paddingTop: 3 }}
                                 flatListProps={{
                                     keyboardShouldPersistTaps: 'always',
                                     renderItem: ({ item }) => (
@@ -170,8 +187,8 @@ export default function App({ navigation }) {
                                 data={filteredDauSachs}
                                 value={tenDauSach}
                                 onChangeText={text => setTenDauSach(text)}
-                                placeholder='Tên đầu sách' style={{ fontSize: 16, paddingTop: 3 }}
-
+                                placeholder='Tên đầu sách'
+                                style={{ fontSize: 16, paddingTop: 3 }}
                                 flatListProps={{
                                     keyboardShouldPersistTaps: 'always',
                                     renderItem: ({ item }) => (
@@ -185,8 +202,6 @@ export default function App({ navigation }) {
                     </View>
                     <Text style={{ fontSize: 13, fontStyle: 'italic', paddingTop: 4 }}>Lưu ý : Trước khi chọn tạo thẻ mượn, cần thêm sách</Text>
                 </View>
-
-
                 <View style={styles.lowerView}>
                     <View style={{ flex: 7, flexDirection: 'row', gap: 7, alignItems: 'center', justifyContent: 'center' }}>
                         <Pressable style={styles.button} onPress={() => addSach()}>
@@ -206,9 +221,18 @@ export default function App({ navigation }) {
                                 <View></View>
                         }
                     </View>
+                    <View>
+                        <Text>{dauSachMuon.length}/3</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        {
+                            dauSachMuon.map((dauSach, index) => (
+                                <Image key={index} style={{ width: 50, height: 50 }} source={{ uri: 'data:image/' + dauSach.hinhAnh.format + ';base64,' + dauSach.hinhAnh.dataUrl }} />
+                            ))
+                        }
+                    </View>
                 </View>
             </View>
-
         </KeyboardAvoidingView>
     );
 }

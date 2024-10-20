@@ -10,13 +10,9 @@ export default function App({ navigation }) {
     const [search, setSearch] = useState('');
 
     async function getBooks() {
-        let data = await fetch(API_URL + "/dauSach/get");
+        let data = await fetch(API_URL + "/dauSach/getWithHinhAnh");
         if (data.ok) {
             let books = await data.json();
-            for (let i = 0; i < books.length; i++) {
-                let img = await fetch(API_URL + `/hinhAnh/getById?id=${books[i].hinhAnh}`);
-                books[i].hinhAnh = await img.json();
-            }
             setListBook(books);
             setDisplayBook(books);
         }

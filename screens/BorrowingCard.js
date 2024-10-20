@@ -1,4 +1,4 @@
-import { Pressable, Image, StyleSheet, Text, View, ScrollView,ImageBackground } from 'react-native';
+import { Pressable, Image, StyleSheet, Text, View, ScrollView, ImageBackground } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { API_URL } from '@env';
@@ -47,50 +47,50 @@ export default function App({ navigation }) {
 
     return (
         <ImageBackground
-                source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
-                style={styles.container}>
-            <View style ={{borderRadius :20,backgroundColor :'white',elevation :3,padding :8,justifyContent:'center'}}>
-            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 25 }}>Thông tin người mượn</Text>
-            <View style={styles.box}>
-                <View style={styles.leftBox}>
-                    <Text style={styles.leftBoxText}>Họ và tên</Text>
-                    <Text style={styles.leftBoxText}>Mã độc giả</Text>
+            source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
+            style={styles.container}>
+            <View style={{ borderRadius: 20, backgroundColor: 'white', elevation: 3, padding: 8, justifyContent: 'center' }}>
+                <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 25 }}>Thông tin người mượn</Text>
+                <View style={styles.box}>
+                    <View style={styles.leftBox}>
+                        <Text style={styles.leftBoxText}>Họ và tên</Text>
+                        <Text style={styles.leftBoxText}>Mã độc giả</Text>
+                    </View>
+                    <View style={styles.rightBox}>
+                        <Text style={styles.rightBoxText}>{docGia.hoTen}</Text>
+                        <Text style={styles.rightBoxText}>{docGia.maDocGia}</Text>
+                    </View>
                 </View>
-                <View style={styles.rightBox}>
-                    <Text style={styles.rightBoxText}>{docGia.hoTen}</Text>
-                    <Text style={styles.rightBoxText}>{docGia.maDocGia}</Text>
-                </View>
-            </View>
 
-            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 25 }}>Sách mượn</Text>
-            <View style={styles.borrowedBox}>
-                <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}>
-                    {
-                        sachMuon.map((sach, index) =>
-                            <Image key={index} style={styles.img} source={{ uri: 'data:image/' + sach.hinhAnh.format + ';base64,' + sach.hinhAnh.dataUrl }} />
-                        )
-                    }
-                </ScrollView>
-            </View>
-            <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 25 }}>Chi tiết mượn</Text>
-            <View style={styles.timeBox}>
-                <View style={styles.leftBox}>
-                    <Text style={styles.leftBoxText}>Trạng thái</Text>
-                    <Text style={styles.leftBoxText}>Thời gian mượn</Text>
+                <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 25 }}>Sách mượn</Text>
+                <View style={styles.borrowedBox}>
+                    <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}>
+                        {
+                            sachMuon.map((sach, index) =>
+                                <Image key={index} style={styles.img} source={{ uri: 'data:image/' + sach.hinhAnh.format + ';base64,' + sach.hinhAnh.dataUrl }} />
+                            )
+                        }
+                    </ScrollView>
                 </View>
-                <View style={styles.rightBox}>
-                    <Text style={styles.rightBoxTextTinhTrang}>{theMuon.tinhTrang}</Text>
-                    <Text style={styles.rightBoxText}>{formatDate(theMuon.ngayMuon)}</Text>
+                <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 25 }}>Chi tiết mượn</Text>
+                <View style={styles.timeBox}>
+                    <View style={styles.leftBox}>
+                        <Text style={styles.leftBoxText}>Trạng thái</Text>
+                        <Text style={styles.leftBoxText}>Thời gian mượn</Text>
+                    </View>
+                    <View style={styles.rightBox}>
+                        <Text style={styles.rightBoxTextTinhTrang}>{theMuon.tinhTrang}</Text>
+                        <Text style={styles.rightBoxText}>{formatDate(theMuon.ngayMuon)}</Text>
+                    </View>
                 </View>
-            </View>
-            {
-                theMuon.tinhTrang == "Chua tra" &&
-                <Pressable style={styles.btnBorrow} onPress={() => traSach()}>
-                    <Text style={styles.btnText}>Trả sách</Text>
-                </Pressable>
-            }
+                {
+                    theMuon.tinhTrang == "Chua tra" &&
+                    <Pressable style={styles.btnBorrow} onPress={() => traSach()}>
+                        <Text style={styles.btnText}>Trả sách</Text>
+                    </Pressable>
+                }
             </View>
         </ImageBackground>
     );
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 5,
         backgroundColor: 'white',
-        borderBottomWidth :0.3,
+        borderBottomWidth: 0.3,
         elevation: 3,
         borderRadius: 7,
 
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderRadius: 7,
         elevation: 3,
-        borderBottomWidth :0.3,
+        borderBottomWidth: 0.3,
         marginBottom: 30
 
     },

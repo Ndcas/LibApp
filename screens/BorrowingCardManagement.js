@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 import { API_URL } from '@env';
 import AutocompleteInput from 'react-native-autocomplete-input';
+import { ButtonGroup, color } from '@rneui/base';
 
 export default function App({ navigation }) {
     const [listTheMuon, setListTheMuon] = useState([]);
@@ -11,6 +12,8 @@ export default function App({ navigation }) {
     const [docGias, setDocGias] = useState([]);
     const [maDocGia, setMaDocGia] = useState('');
     const filteredDocGias = filterDocGia();
+    const [filter, setFilter] = useState(0);
+    const today = new Date();
 
     useEffect(() => {
         getListTheMuon();
@@ -49,19 +52,83 @@ export default function App({ navigation }) {
         }
     }
 
-    function filterTheMuon(text) {
+    function filterMaDocGia(text) {
         setMaDocGia(text);
-        if (text.length != 0) {
+        if (text.trim().length > 0) {
             let docGia = docGias.find(docGia => docGia.maDocGia == text);
             if (docGia) {
-                setShowTheMuon(listTheMuon.filter(theMuon => theMuon.docGia == docGia._id));
+                let result = listTheMuon.filter(theMuon => theMuon.docGia == docGia._id);
+                switch (filter) {
+                    case 1:
+                        result = result.filter(theMuon => theMuon.tinhTrang == 'Da tra');
+                        break;
+                    case 2:
+                        result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) >= today);
+                        break;
+                    case 3:
+                        result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today);
+                        break;
+                }
+                setShowTheMuon(result);
             }
             else {
                 setShowTheMuon([]);
             }
         }
         else {
-            setShowTheMuon(listTheMuon);
+            let result = [...listTheMuon];
+            switch (filter) {
+                case 1:
+                    result = result.filter(theMuon => theMuon.tinhTrang == 'Da tra');
+                    break;
+                case 2:
+                    result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) >= today);
+                    break;
+                case 3:
+                    result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today);
+                    break;
+            }
+            setShowTheMuon(result);
+        }
+    }
+
+    function filterTinhTrang(value) {
+        setFilter(value);
+        let result = [...listTheMuon];
+        if (maDocGia.trim().length > 0) {
+            let docGia = docGias.find(docGia => docGia.maDocGia == maDocGia);
+            if (docGia) {
+                result = result.filter(theMuon => theMuon.docGia == docGia._id);
+                switch (value) {
+                    case 1:
+                        result = result.filter(theMuon => theMuon.tinhTrang == 'Da tra');
+                        break;
+                    case 2:
+                        result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) >= today);
+                        break;
+                    case 3:
+                        result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today);
+                        break;
+                }
+                setShowTheMuon(result);
+            }
+            else {
+                setShowTheMuon([]);
+            }
+        }
+        else {
+            switch (value) {
+                case 1:
+                    result = listTheMuon.filter(theMuon => theMuon.tinhTrang == 'Da tra');
+                    break;
+                case 2:
+                    result = listTheMuon.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) >= today);
+                    break;
+                case 3:
+                    result = listTheMuon.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today);
+                    break;
+            }
+            setShowTheMuon(result);
         }
     }
 
@@ -71,6 +138,26 @@ export default function App({ navigation }) {
         let mm = String(date.getMonth() + 1).padStart(2, '0');
         let yyyy = date.getFullYear();
         return `${dd}/${mm}/${yyyy}`;
+    }
+
+    function tinhTrangColor(theMuon) {
+        if (theMuon.tinhTrang == 'Da tra') {
+            return { color: 'green' }
+        }
+        if (theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today) {
+            return { color: 'red' }
+        }
+        return { color: '#007bff' }
+    }
+
+    function getTinhTrang(theMuon) {
+        if (theMuon.tinhTrang == 'Da tra') {
+            return 'Đã trả';
+        }
+        else if (theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today) {
+            return 'Quá hạn';
+        }
+        return 'Chưa trả';
     }
 
     return (
@@ -85,15 +172,15 @@ export default function App({ navigation }) {
                         <FontAwesomeIcon icon={faMagnifyingGlass} style={styles.icon} />
                         <View style={{ backgroundColor: 'transparent', flex: 8, justifyContent: 'center' }}>
                             <AutocompleteInput
-                                inputContainerStyle={{ borderWidth: 0, paddingLeft: 10,marginRight :15 }}
+                                inputContainerStyle={{ borderWidth: 0, paddingLeft: 10, marginRight: 15 }}
                                 data={filteredDocGias}
                                 value={maDocGia}
-                                onChangeText={text => filterTheMuon(text)}
-                                placeholder='Tìm kiếm thẻ mượn' style ={{paddingTop :7}}
+                                onChangeText={text => filterMaDocGia(text)}
+                                placeholder='Tìm kiếm thẻ mượn' style={{ paddingTop: 7 }}
                                 flatListProps={{
                                     keyboardShouldPersistTaps: 'always',
                                     renderItem: ({ item }) => (
-                                        <Pressable onPress={() => filterTheMuon(item.maDocGia)}>
+                                        <Pressable onPress={() => filterMaDocGia(item.maDocGia)}>
                                             <Text>{item.maDocGia + ' ' + item.hoTen}</Text>
                                         </Pressable>
                                     )
@@ -102,7 +189,11 @@ export default function App({ navigation }) {
                         </View>
                     </View>
                 </View>
-
+                <ButtonGroup
+                    buttons={['Tất cả', 'Đã trả', 'Chưa trả', 'Quá hạn']}
+                    selectedIndex={filter}
+                    onPress={(value) => filterTinhTrang(value)}
+                />
             </ImageBackground>
 
             <KeyboardAvoidingView style={styles.lowerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -126,7 +217,11 @@ export default function App({ navigation }) {
                                         <Text style={styles.cardText}>Mã độc giả: {docGias.find(docGia => docGia._id === theMuon.docGia) ? docGias.find(docGia => docGia._id === theMuon.docGia).maDocGia : 'Không tìm thấy độc giả'}</Text>
                                         <Text style={styles.cardText}>Ngày mượn: {formatDate(theMuon.ngayMuon)}</Text>
                                     </View>
-                                    <Text style={styles.cardStatus}>{theMuon.tinhTrang}</Text>
+                                    <Text style={[styles.cardStatus, tinhTrangColor(theMuon)]}>
+                                        {
+                                            getTinhTrang(theMuon)
+                                        }
+                                    </Text>
                                 </Pressable>
                             )
                         })
@@ -232,7 +327,6 @@ const styles = StyleSheet.create({
     cardStatus: {
         flex: 1,
         fontSize: 14,
-        color: "#007bff",
         textAlign: "right",
     },
 });

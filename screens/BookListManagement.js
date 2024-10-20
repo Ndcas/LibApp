@@ -7,7 +7,6 @@ import { API_URL } from '@env';
 export default function App({ navigation }) {
     const book = useRoute().params.book;
     const [listBook, setListBook] = useState([]);
-    const [chuyenNganh, setChuyenNganh] = useState({});
 
     async function createNewBook() {
         await fetch(API_URL + "/sach/create", {
@@ -29,17 +28,8 @@ export default function App({ navigation }) {
         }
     }
 
-    async function getChuyenNganh() {
-        let data = await fetch(API_URL + `/chuyenNganh/get?_id=${book.chuyenNganh}`);
-        if (data.ok) {
-            let chuyenNganhTemp = await data.json();
-            setChuyenNganh(chuyenNganhTemp[0]);
-        }
-    }
-
     useEffect(() => {
         getBooks();
-        getChuyenNganh();
     }, []);
 
     return (
@@ -71,7 +61,7 @@ export default function App({ navigation }) {
                             </View>
                             <View style={styles.detail1}>
                                 <Text style={styles.detailName}>Chuyên ngành</Text>
-                                <Text style={styles.detailText}>{chuyenNganh.tenChuyenNganh}</Text>
+                                <Text style={styles.detailText}>{book.chuyenNganh.tenChuyenNganh}</Text>
                             </View>
                         </View>
 

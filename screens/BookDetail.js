@@ -7,13 +7,11 @@ export default function App({ navigation }) {
     const book = useRoute().params.book;
 
     return (
-
         <View style={styles.container}>
             <ImageBackground
                 source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
                 style={styles.bookView}>
                 <Image style={styles.img} source={{ uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl }} />
-
             </ImageBackground>
             <View style={styles.discriptionView}>
                 <Text style={styles.title}>Tên sách</Text>
@@ -30,7 +28,6 @@ export default function App({ navigation }) {
                     marginLeft: 10,
                     marginTop: 50
                 }}>
-
                     <View style={styles.icon}>
                         <Icon name="user" size={30} style={{ paddingLeft: 10 }} />
                     </View>
@@ -38,10 +35,7 @@ export default function App({ navigation }) {
                         <Text style={{ opacity: 0.5 }}>Tác giả</Text>
                         <Text style={styles.detailDescription}>{book.tacGia}</Text>
                     </View>
-
-
                 </View>
-
                 <View style={styles.descriptionFrame}>
                     <View style={styles.icon}>
                         <Icon name="book" size={30} style={{ paddingLeft: 10 }} />
@@ -50,9 +44,7 @@ export default function App({ navigation }) {
                         <Text style={{ opacity: 0.5 }}>Chuyên ngành</Text>
                         <Text style={styles.detailDescription}>{book.chuyenNganh.tenChuyenNganh}</Text>
                     </View>
-
                 </View>
-
                 <View style={styles.descriptionFrame}>
                     <View style={styles.icon}>
                         <Icon name="print" size={30} style={{ paddingLeft: 10 }} />
@@ -61,9 +53,7 @@ export default function App({ navigation }) {
                         <Text style={{ opacity: 0.5 }}>Nhà xuất bản</Text>
                         <Text style={styles.detailDescription}>{book.nhaXuatBan}</Text>
                     </View>
-
                 </View>
-
                 <View style={styles.descriptionFrame}>
                     <View style={styles.icon}>
                         <Icon name="pagelines" size={30} style={{ paddingLeft: 10 }} />
@@ -72,7 +62,6 @@ export default function App({ navigation }) {
                         <Text style={{ opacity: 0.5 }}>Số trang</Text>
                         <Text style={styles.detailDescription}>{book.soTrang}</Text>
                     </View>
-
                 </View>
             </View>
             <View style={styles.bottomView}></View>

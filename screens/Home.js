@@ -11,7 +11,7 @@ export default function App({ navigation }) {
     const [displayBooks, setDisplayBooks] = useState([]);
 
     async function getBook() {
-        let data = await fetch(API_URL + "/dauSach/getCoSan")
+        let data = await fetch(API_URL + "/dauSach/getWithoutSach")
         if (data.ok) {
             let books = await data.json();
             setListBook(books);
@@ -35,32 +35,50 @@ export default function App({ navigation }) {
         }
     }
 
-    return (
+    function tinhTrangColor(book) {
+        if (book.tinhTrang == 'Co san') {
+            return {
+                color: 'green'
+            }
+        }
+        if (book.tinhTrang == 'Da het') {
+            return {
+                color: 'red'
+            }
+        }
+    }
 
+    function getTinhTrang(book) {
+        if (book.tinhTrang == 'Co san') {
+            return 'Có sẵn';
+        }
+        if (book.tinhTrang == 'Da het') {
+            return 'Đã hết'
+        }
+    }
+
+    return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <ImageBackground
                 source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
                 style={styles.descriptionAndSearch}>
-                <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"}>
-                <Pressable style={styles.profileBtn} onPress={() => navigation.navigate("ProfileMember")}>
-                    <FontAwesomeIcon icon={faUser} style={styles.user} size={20} />
-                </Pressable>
-                <Text style={{ fontSize: 40, fontWeight: 'bold', marginLeft: 15, marginTop: 10 }}>My Library</Text>
-                <Text style={{ fontSize: 14, opacity: 0.3, marginLeft: 15, fontStyle: 'italic', marginRight: 15 }}>"Những người khôn ngoan tìm được sự an ủi khỏi những rắc rối của cuộc đời chính từ sách" - Victor Hugo</Text>
-                <View style={styles.search}>
-                    <Pressable onPress={() => searchBook()}>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} style={{ marginRight: 10 }} />
+                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                    <Pressable style={styles.profileBtn} onPress={() => navigation.navigate("ProfileMember")}>
+                        <FontAwesomeIcon icon={faUser} style={styles.user} size={20} />
                     </Pressable>
-                    <TextInput style={{ flex: 1, opacity: 0.7 }} placeholder='Bạn muốn đọc gì ?' placeholderTextColor="#000000" clearTextOnFocus={true} value={txtSearch} onChangeText={text => setTxtSearch(text)} />
-                </View>
+                    <Text style={{ fontSize: 40, fontWeight: 'bold', marginLeft: 15, marginTop: 10 }}>My Library</Text>
+                    <Text style={{ fontSize: 14, opacity: 0.3, marginLeft: 15, fontStyle: 'italic', marginRight: 15 }}>"Những người khôn ngoan tìm được sự an ủi khỏi những rắc rối của cuộc đời chính từ sách" - Victor Hugo</Text>
+                    <View style={styles.search}>
+                        <Pressable onPress={() => searchBook()}>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} style={{ marginRight: 10 }} />
+                        </Pressable>
+                        <TextInput style={{ flex: 1, opacity: 0.7 }} placeholder='Bạn muốn đọc gì ?' placeholderTextColor="#000000" clearTextOnFocus={true} value={txtSearch} onChangeText={text => setTxtSearch(text)} />
+                    </View>
                 </KeyboardAvoidingView>
             </ImageBackground>
-
-
-
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.booklist}
-                >
+            >
                 <Text style={styles.category}>
                     Tất cả sách
                 </Text>
@@ -75,22 +93,19 @@ export default function App({ navigation }) {
                                     <View style={styles.descriptionPart}>
                                         <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{book.tenDauSach}</Text>
                                         <Text style={{ fontSize: 12, opacity: 0.5 }}> Bởi {book.tacGia}</Text>
-
+                                        <Text style={[tinhTrangColor(book)]}>
+                                            {
+                                                getTinhTrang(book)
+                                            }
+                                        </Text>
                                     </View>
                                 </Pressable>
                             )
-
                         }
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
-
-
-
-
-
         </KeyboardAvoidingView>
-
     )
 }
 
