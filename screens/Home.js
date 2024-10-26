@@ -13,6 +13,7 @@ export default function App({ navigation }) {
     async function getBook() {
         let data = await fetch(API_URL + "/dauSach/getWithoutSach")
         if (data.ok) {
+            console.log("ok");
             let books = await data.json();
             setListBook(books);
             setDisplayBooks(books);
@@ -38,7 +39,11 @@ export default function App({ navigation }) {
     function tinhTrangColor(book) {
         if (book.tinhTrang == 'Co san') {
             return {
-                color: 'green'
+                color: 'green',
+                paddingLeft:3,
+                fontSize:12,
+                fontWeight:'bold',
+                paddingTop :3
             }
         }
         if (book.tinhTrang == 'Da het') {
@@ -91,7 +96,7 @@ export default function App({ navigation }) {
                                         <Image style={{ height: 150, width: 100, borderRadius: 20 }} source={{ uri: 'data:image/' + book.hinhAnh.format + ';base64,' + book.hinhAnh.dataUrl }} />
                                     </View>
                                     <View style={styles.descriptionPart}>
-                                        <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{book.tenDauSach}</Text>
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{book.tenDauSach}</Text>
                                         <Text style={{ fontSize: 12, opacity: 0.5 }}> Bởi {book.tacGia}</Text>
                                         <Text style={[tinhTrangColor(book)]}>
                                             {
@@ -150,7 +155,7 @@ const styles = StyleSheet.create({
 
     search: {
         flexDirection: 'row',
-        width: 370,
+        width: 380,
         height: 60,
         marginTop: 25,
         borderColor: "#000000",

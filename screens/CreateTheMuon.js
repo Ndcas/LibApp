@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Image, KeyboardAvoidingView, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { API_URL } from '@env';
 import AutocompleteInput from 'react-native-autocomplete-input';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -25,6 +25,8 @@ export default function App({ navigation }) {
     async function getDocGias() {
         let response = await fetch(API_URL + '/docGia/get');
         if (response.ok) {
+            console.log("ok");
+            
             setDocGias(await response.json());
         }
     }
@@ -43,6 +45,8 @@ export default function App({ navigation }) {
     async function getDauSachs() {
         let response = await fetch(API_URL + '/dauSach/getWithHinhAnh?' + new URLSearchParams({ tinhTrang: 'Co san' }));
         if (response.ok) {
+            console.log("ok");
+            
             setDauSachs(await response.json());
         }
     }
@@ -70,6 +74,8 @@ export default function App({ navigation }) {
             setTenDauSach('');
         }
     }
+
+
 
     async function create() {
         let newDauSachs = await fetch(API_URL + '/dauSach/getWithHinhAnh?' + new URLSearchParams({ tinhTrang: 'Co san' }));
@@ -151,7 +157,7 @@ export default function App({ navigation }) {
     return (
 
         <KeyboardAvoidingView style={styles.container}>
-            <Text style={{ fontSize: 30, fontWeight: 'bold', paddingBottom: 10 }}>Tạo phiếu mượn</Text>
+            <Text style={{ fontSize: 40, fontWeight: 'bold', paddingBottom: 10 }}>Tạo phiếu mượn</Text>
             <View style={styles.box}>
                 <View style={styles.upperView}>
                     <View style={styles.inputFrame}>
@@ -164,8 +170,8 @@ export default function App({ navigation }) {
                                 data={filteredDocGias}
                                 value={maDocGia}
                                 onChangeText={text => setMaDocGia(text)}
-                                placeholder='Mã đọc giả'
-                                style={{ fontSize: 16, paddingTop: 3 }}
+                                placeholder='Mã độc giả'
+                                style={{ fontSize: 15, paddingTop: 3 }}
                                 flatListProps={{
                                     keyboardShouldPersistTaps: 'always',
                                     renderItem: ({ item }) => (
@@ -178,17 +184,17 @@ export default function App({ navigation }) {
                         </View>
                     </View>
                     <View style={styles.inputFrame}>
-                        <View style={styles.iconPart}>
+                        <View style={styles.iconPartBook}>
                             <FontAwesomeIcon icon={faBook} size={20} />
                         </View>
-                        <View style={styles.inputPart}>
+                        <View style={styles.inputPartBook}>
                             <AutocompleteInput
                                 inputContainerStyle={{ borderWidth: 0, marginTop: 4 }}
                                 data={filteredDauSachs}
                                 value={tenDauSach}
                                 onChangeText={text => setTenDauSach(text)}
                                 placeholder='Tên đầu sách'
-                                style={{ fontSize: 16, paddingTop: 3 }}
+                                style={{ fontSize: 15, paddingTop: 3 }}
                                 flatListProps={{
                                     keyboardShouldPersistTaps: 'always',
                                     renderItem: ({ item }) => (
@@ -199,40 +205,42 @@ export default function App({ navigation }) {
                                 }}
                             />
                         </View>
+                        <View style ={styles.pressPartBook}>
+                        <Pressable onPress={() => addSach()}>
+                            <Text style={{ fontWeight: "bold", fontSize: 16,paddingLeft :20,color :"#007bff" }}>Thêm sách</Text>
+                        </Pressable>
+                        </View>
                     </View>
-                    <Text style={{ fontSize: 13, fontStyle: 'italic', paddingTop: 4 }}>Lưu ý : Trước khi chọn tạo thẻ mượn, cần thêm sách</Text>
+                    <Text style={{ fontSize: 13, fontStyle: 'italic', paddingTop: 8,paddingRight :45 }}>Lưu ý : Trước khi chọn tạo thẻ mượn, cần thêm sách</Text>
                 </View>
                 <View style={styles.lowerView}>
-                    <View style={{ flex: 7, flexDirection: 'row', gap: 7, alignItems: 'center', justifyContent: 'center' }}>
-                        <Pressable style={styles.button} onPress={() => addSach()}>
-                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>Thêm sách</Text>
-                        </Pressable>
-
+                    <View style ={{flex : 9.2}}>
+                    <View style ={{flexDirection :'row',gap :180,marginBottom :3}}>
+                    <Text style ={{fontSize :17,fontWeight :'bold'}}>Sách mượn</Text>
+                    <Text style ={{fontSize : 13,color :'#007bff'}}>Giới hạn {dauSachMuon.length}/3</Text>
+                    </View>
+                    <ScrollView contentContainerStyle ={styles.bookBorrowFrame}>
+                        {
+                            dauSachMuon.map((dauSach, index) => (
+                                <Image key={index} style={{ width: 95, height: 140,borderRadius :15,marginRight :5 }} source={{ uri: 'data:image/' + dauSach.hinhAnh.format + ';base64,' + dauSach.hinhAnh.dataUrl }} />
+                            ))
+                        }
+                    </ScrollView>
                         <Pressable style={styles.button} onPress={() => create()}>
-                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>Tạo phiếu mượn</Text>
+                            <Text style={{ fontWeight: "bold", fontSize: 25 }}>Tạo phiếu mượn</Text>
                         </Pressable>
                     </View>
-                    <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
+                    </View>
+                    <View style = {{flex :0.8}}>
                         {
                             showMessage ?
-                                <View style={{ width: '60%', height: 30, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>{messge}</Text>
+                                <View>
+                                    <Text style={{paddingTop:7, fontSize: 15,paddingLeft :20,fontWeight :'bold',fontStyle :'italic',color:'#f95454' }}>{messge}</Text>
                                 </View> :
                                 <View></View>
                         }
                     </View>
-                    <View>
-                        <Text>{dauSachMuon.length}/3</Text>
                     </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        {
-                            dauSachMuon.map((dauSach, index) => (
-                                <Image key={index} style={{ width: 50, height: 50 }} source={{ uri: 'data:image/' + dauSach.hinhAnh.format + ';base64,' + dauSach.hinhAnh.dataUrl }} />
-                            ))
-                        }
-                    </View>
-                </View>
-            </View>
         </KeyboardAvoidingView>
     );
 }
@@ -247,39 +255,65 @@ const styles = StyleSheet.create({
     },
     box: {
         width: "100%",
-        height: 350,
+        height :500,
         backgroundColor: "#fff",
-        borderRadius: 13,
+        borderRadius: 20,
         borderWidth: 0.5,
         elevation: 5
 
     },
     upperView: {
-        flex: 6,
+        flex: 4,
         alignItems: 'center',
         justifyContent: 'center'
     },
     lowerView: {
-        flex: 4,
+        flex: 6,
         justifyContent: 'center',
+        alignItems :'center',
         gap: 3,
     },
     inputFrame: {
         flexDirection: 'row',
-        height: 50,
+        height: 45,
         margin: 7,
         borderRadius: 5,
         backgroundColor: 'white',
-        borderBottomWidth: 0.5
+        borderBottomWidth: 0.5,
+        alignItems:'center',
     },
     iconPart: {
-        flex: 1.3,
+        flex: 1.5,
         alignItems: 'center',
         justifyContent: 'center',
     },
     inputPart: {
-        flex: 8.7
+        flex: 8.5,
     },
+    pressPartBook :{
+        flex:3
+    },
+    iconPartBook : {
+        flex: 1.5,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    inputPartBook :{
+        flex: 5.5,
+    },
+    bookBorrowFrame :{
+        height :150,
+        width :345,
+        backgroundColor :'white',
+        borderWidth:0.3,
+        flexDirection : 'row',
+        borderRadius : 10,
+        alignItems :'center',
+    },
+    bookBorrow : {
+
+    },  
+
 
 
     myText: {
@@ -302,8 +336,8 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        height: 70,
-        width: 170,
+        height: 80,
+        width: 345,
         backgroundColor: "#fff2cc",
         alignItems: "center",
         borderRadius: 15,

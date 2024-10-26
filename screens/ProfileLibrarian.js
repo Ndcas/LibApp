@@ -71,7 +71,7 @@ export default function App({ navigation }) {
                 </View>
             </View>
             <Pressable onPress={() => logout()}>
-                <View style={{ backgroundColor: 'white', borderRadius: 15, height: 45, width: 300, elevation: 5, marginTop: 50 }}>
+                <View style={{ backgroundColor: 'white', borderRadius: 15, height: 45, width: 330, elevation: 5, marginTop: 50 }}>
 
                     <View style={{ flex: 8, justifyContent: 'center', alignItems: 'center', paddingLeft: 5 }}>
                         <Text style={{ fontSize: 19, fontWeight: 'bold' }}>Đăng xuất</Text>

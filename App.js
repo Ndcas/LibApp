@@ -11,6 +11,8 @@ import BorrowingCardManagement from "./screens/BorrowingCardManagement";
 import BorrowingCardApprove from "./screens/BorrowingCardApprove";
 import CreateTheMuon from "./screens/CreateTheMuon";
 import BookListManagement from "./screens/BookListManagement";
+import BorrowingCardsMember from "./screens/BorrowingCardsMember";
+import BorrowingCardMemberDetails from "./screens/BorrowingCardMemberDetails"
 import test from "./screens/test";
 import { RealmProvider } from '@realm/react';
 import LoginInfo from './realmSchemas/LoginInfo';
@@ -33,6 +35,8 @@ export default function App() {
           <Stack.Screen name="BorrowingCardManagement" component={BorrowingCardManagement} />
           <Stack.Screen name="BorrowingCardApprove" component={BorrowingCardApprove} />
           <Stack.Screen name="CreateTheMuon" component={CreateTheMuon} />
+          <Stack.Screen name="BorrowingCardsMember" component={BorrowingCardsMember} />
+          <Stack.Screen name="BorrowingCardMemberDetails" component={BorrowingCardMemberDetails} />
           <Stack.Screen name="test" component={test} />
         </Stack.Navigator>
       </NavigationContainer>

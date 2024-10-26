@@ -12,6 +12,8 @@ export default function App({ navigation }) {
     async function getBooks() {
         let data = await fetch(API_URL + "/dauSach/getWithHinhAnh");
         if (data.ok) {
+            console.log("ok");
+            
             let books = await data.json();
             setListBook(books);
             setDisplayBook(books);

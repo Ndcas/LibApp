@@ -7,6 +7,7 @@ export default function App({ navigation }) {
     const theMuon = useRoute().params.borrowingCard;
     const [docGia, setDocGia] = useState({});
     const [sachMuon, setSachMuon] = useState([]);
+    const today = new Date();
 
     useEffect(() => {
         getInfo();
@@ -46,7 +47,6 @@ export default function App({ navigation }) {
     }
 
     function tinhTrangColor() {
-        let today = new Date();
         if (theMuon.tinhTrang == 'Da tra') {
             return { color: 'green' }
         }
@@ -57,7 +57,6 @@ export default function App({ navigation }) {
     }
 
     function getTinhTrang() {
-        let today = new Date();
         if (theMuon.tinhTrang == 'Da tra') {
             return 'Đã trả';
         }
@@ -71,8 +70,8 @@ export default function App({ navigation }) {
         <ImageBackground
             source={require('../assets/img/Screenshot (32).png')} // Đường dẫn tới hình ảnh của bạn
             style={styles.container}>
-            <View style={{ borderRadius: 10, backgroundColor: 'white', elevation: 2, padding: 8, justifyContent: 'center' }}>
-                <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 20 }}>Thông tin người mượn</Text>
+            <View style={{ borderRadius: 10, backgroundColor: 'white', elevation: 3, padding: 8, justifyContent: 'center' }}>
+                <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 25 }}>Thông tin người mượn</Text>
                 <View style={styles.box}>
                     <View style={styles.leftBox}>
                         <Text style={styles.leftBoxText}>Họ và tên</Text>
@@ -121,12 +120,6 @@ export default function App({ navigation }) {
                         }
                     </View>
                 </View>
-                {
-                    theMuon.tinhTrang == "Chua tra" &&
-                    <Pressable style={styles.btnBorrow} onPress={() => traSach()}>
-                        <Text style={styles.btnText}>Trả sách</Text>
-                    </Pressable>
-                }
             </View>
         </ImageBackground>
     );
@@ -145,11 +138,9 @@ const styles = StyleSheet.create({
         height: "76%",
         width: '100%',
         backgroundColor: 'white',
-        borderRadius: 10,
+        borderRadius: 15,
         marginTop: 50,
-        elevation: 3,
-        borderWidth :0.5,
-        borderColor :'black'
+        elevation: 5
     },
 
     box: {
@@ -163,7 +154,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: "row",
         elevation: 2,
-        borderBottomWidth: 0.3
     },
 
     leftBox: {

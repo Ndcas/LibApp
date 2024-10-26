@@ -170,28 +170,6 @@ export default function App({ navigation }) {
                 style={styles.upperView}>
                 <Text style={{ fontSize: 35, fontWeight: 'bold', paddingLeft: 15 }}>Quản lý phiếu mượn</Text>
                 <Text style={{ fontSize: 13, opacity: 0.5, paddingLeft: 18, paddingBottom: 13 }}>Quản lý danh sách phiếu mượn và phiếu mượn</Text>
-                <View style={styles.header}>
-                    <View style={styles.search}>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} style={styles.icon} />
-                        <View style={{ backgroundColor: 'transparent', flex: 8, justifyContent: 'center' }}>
-                            <AutocompleteInput
-                                inputContainerStyle={{ borderWidth: 0, paddingLeft: 10, marginRight: 15 }}
-                                data={filteredDocGias}
-                                value={maDocGia}
-                                onChangeText={text => filterMaDocGia(text)}
-                                placeholder='Tìm kiếm thẻ mượn' style={{ paddingTop: 13 }}
-                                flatListProps={{
-                                    keyboardShouldPersistTaps: 'always',
-                                    renderItem: ({ item }) => (
-                                        <Pressable onPress={() => filterMaDocGia(item.maDocGia)}>
-                                            <Text>{item.maDocGia + ' ' + item.hoTen}</Text>
-                                        </Pressable>
-                                    )
-                                }}
-                            />
-                        </View>
-                    </View>
-                </View>
                 <View style ={{flexDirection : 'row',alignItems :'center',marginTop :20,marginLeft :17}}>
                 <FontAwesomeIcon icon={faFilter} style={styles.icon} size={13} />
                 <Text style = {{fontSize :13,paddingLeft :5,opacity :0.7}}>Lọc theo</Text>
@@ -211,19 +189,12 @@ export default function App({ navigation }) {
             <KeyboardAvoidingView style={styles.lowerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <View style={{ flexDirection: 'row', gap: 60 }}>
                     <Text style={{ fontSize: 18, fontWeight: 'bold', paddingBottom: 20 }}>Danh sách phiếu mượn</Text>
-                    <Pressable>
-                        <Pressable style={{}} onPress={() => navigation.navigate("CreateTheMuon")}>
-                            <Text style={styles.addText}>
-                                Thêm phiếu mượn
-                            </Text>
-                        </Pressable>
-                    </Pressable>
                 </View>
                 <ScrollView>
                     {
                         showTheMuon.map((theMuon, index) => {
                             return (
-                                <Pressable key={index} style={styles.card} onPress={() => navigation.navigate("BorrowingCard", { borrowingCard: theMuon })}>
+                                <Pressable key={index} style={styles.card} onPress={() => navigation.navigate("BorrowingCardMemberDetails", { borrowingCard: theMuon })}>
                                     <Text style={styles.cardIndex}>#{index + 1}</Text>
                                     <View>
                                         <Text style={styles.cardText}>Mã độc giả: {docGias.find(docGia => docGia._id === theMuon.docGia) ? docGias.find(docGia => docGia._id === theMuon.docGia).maDocGia : 'Không tìm thấy độc giả'}</Text>
@@ -249,13 +220,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     upperView: {
-        flex: 4,
+        flex: 3.5,
         backgroundColor: '#fff2cc',
         justifyContent: 'center'
 
     },
     lowerView: {
-        flex: 6,
+        flex: 6.5,
         backgroundColor: "white",
         padding: 15,
         borderTopLeftRadius: 20,

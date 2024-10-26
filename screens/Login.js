@@ -43,6 +43,8 @@ export default function App({ navigation }) {
             }
         });
         if (data.ok) {
+            console.log("ok");
+            
             global.user = await data.json();
             if (global.user.message == 'Dang nhap thanh cong') {
                 realm.write(() => {
@@ -77,6 +79,8 @@ export default function App({ navigation }) {
             }
         });
         if (dats.ok) {
+            
+            
             global.user = await dats.json();
             if (global.user.message == 'Dang nhap that bai') {
                 setShowMessage(true);
@@ -143,19 +147,25 @@ export default function App({ navigation }) {
                     </View>
                 </View>
                 <View style={{}}>
-                    <CheckBox checked={remember} onPress={() => setRemember(!remember)} title='Duy trì đăng nhập' containerStyle={{ backgroundColor: 'transparent' }} />
-                    <View style={{ paddingTop: 15, paddingLeft: 22, height: 34, width: 300 }}>
+                    <View style ={{paddingLeft: 3,justifyContent :'center',marginTop :-2}}>
+                    <CheckBox checked={remember} onPress={() => setRemember(!remember)} title='Duy trì đăng nhập' containerStyle={{ backgroundColor: 'transparent' }} 
+                     titleProps={{style : {marginLeft :2,fontSize :14}}} />
+                    </View>
+                    <View style={{marginTop :60}}>
+                        <View style = {{height :20,width :320}}>
                         {
                             showMessage ?
                                 <View>
-                                    <Text>Tài khoản hoặc mật khẩu không đúng</Text>
+                                    <Text style ={{color : 'black',marginLeft :23,fontSize:15}}>Tài khoản hoặc mật khẩu không đúng</Text>
                                 </View> :
                                 <View></View>
                         }
-                    </View>
+                        </View>
+                    
                     <Pressable style={styles.button} onPress={() => login()}>
                         <Text style={{ fontWeight: "bold", fontSize: 30 }}>Đăng nhập</Text>
                     </Pressable>
+                    </View>
                 </View>
             </ImageBackground>
         </KeyboardAvoidingView>
@@ -237,7 +247,7 @@ const styles = StyleSheet.create({
     button: {
         width: 370,
         height: 80,
-        marginTop: 60,
+        marginTop: 10,
         borderRadius: 20,
         backgroundColor: "#FCDE70",
         alignItems: "center",
