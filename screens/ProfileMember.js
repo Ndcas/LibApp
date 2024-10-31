@@ -31,7 +31,6 @@ export default function App({ navigation }) {
                         <Text style={{ fontSize: 23, fontWeight: 'bold', paddingLeft: 55 }}>Độc giả</Text>
                     </View>
                     <View style={{ flex: 7, flexDirection: 'column' }}>
-
                         <View style={{ flexDirection: 'row', marginTop: 15, height: 40, width: 110, gap: 25 }}>
                             <Text style={{ fontSize: 16, paddingLeft: 10, paddingBottom: 5 }}>Tên độc giả </Text>
                             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{global.user.hoTen}</Text>
@@ -41,13 +40,8 @@ export default function App({ navigation }) {
                             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{global.user.maDocGia}</Text>
                         </View>
                     </View>
-
                 </View>
-
-
             </View>
-
-
             {/* <View style={styles.recentBox}>
                 <Pressable style={{flexDirection: "row", alignItems: "center"}} onPress={() => navigation.navigate("BorrowingCard")}>
                     <Text style={{ flex: 2, fontWeight: "bold", fontSize: 20 }}>Recently added</Text>
@@ -73,7 +67,6 @@ export default function App({ navigation }) {
             <View>
                 <Pressable onPress={() => logout()}>
                     <View style={{ backgroundColor: 'white', borderRadius: 15, height: 45, width: 330, elevation: 5, marginTop: 10 }}>
-
                         <View style={{ flex: 8, justifyContent: 'center', alignItems: 'center', paddingLeft: 5 }}>
                             <Text style={{ fontSize: 19, fontWeight: 'bold' }}>Đăng xuất</Text>
                         </View>
@@ -92,7 +85,6 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         justifyContent: 'center'
     },
-
     box: {
         width: 330,
         height: 150,
@@ -102,14 +94,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         elevation: 8
     },
-
     topLeftBox: {
         flex: 5,
         flexDirection: "column",
         alignItems: "center",
         paddingVertical: 10
     },
-
     bottomBox: {
         flex: 2,
         flexDirection: "row",
@@ -120,24 +110,20 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff2cc",
         elevation: 8
     },
-
     bottomLeft: {
         flex: 1,
         flexDirection: "column",
         justifyContent: "center",
         gap: 5
     },
-
     bottomLeftText: {
         fontSize: 18
     },
-
     bottomRight: {
         flex: 1,
         alignItems: "center",
         justifyContent: "center"
     },
-
     bottomRightText: {
         fontWeight: "bold",
         fontSize: 25
@@ -148,26 +134,21 @@ const styles = StyleSheet.create({
         gap: 9,
         marginTop: 7
     },
-
-
     recentBox: {
         height: 200,
         width: 320,
         marginTop: 30,
         padding: 10
     },
-
     userName: {
         fontSize: 25,
         fontWeight: 'bold'
     },
-
     img: {
         height: "100%",
         width: undefined,
         borderRadius: 20
     },
-
     button: {
         flex: 1,
         backgroundColor: "#fff2cc",
@@ -177,11 +158,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         elevation: 5
     },
-
     btnText: {
         fontSize: 15,
     },
-
     manageBox: {
         flexDirection: "row",
         height: "80%",

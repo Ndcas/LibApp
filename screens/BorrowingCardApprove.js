@@ -9,14 +9,14 @@ export default function App({ navigation }) {
 
     const [docGia, setDocGia] = useState({});
 
-    async function getBorrowingCardDetails(){
+    async function getBorrowingCardDetails() {
         console.log(route.params?.borrowingCard);
-        
+
         const data = await fetch(API_URL + `/docGia/get?_id=${route.params?.borrowingCard.docGia}`);
-        if(data.ok){
+        if (data.ok) {
             let docGiatemp = await data.json();
             setDocGia(docGiatemp);
-            
+
         }
     }
 
@@ -24,9 +24,9 @@ export default function App({ navigation }) {
         getBorrowingCardDetails();
     }, []);
 
-    async function traSach(){
+    async function traSach() {
         let data = await fetch(API_URL + `/theMuon/traSach?id=${route.params?.borrowingCard._id}`);
-        if(data.ok){
+        if (data.ok) {
             console.log(data);
         }
     }
@@ -47,14 +47,12 @@ export default function App({ navigation }) {
                     <Text style={styles.rightBoxText}>{docGia[0].gioiTinh}</Text> */}
                 </View>
             </View>
-
             <Text style={{ fontWeight: "bold", fontSize: 18, textAlign: "left", paddingLeft: 35, marginTop: 10 }}>Sách muọn</Text>
             <View style={styles.borrowedBox}>
                 <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
                 <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
                 <Image style={styles.img} source={require("../assets/img/Blank_img.png")} />
             </View>
-
             <View style={styles.timeBox}>
                 <View style={styles.leftBox}>
                     <Text style={styles.leftBoxText}>Thời gian mượn</Text>
@@ -65,7 +63,6 @@ export default function App({ navigation }) {
                     <Text style={styles.rightBoxText}>17:00pm 25/10/2024</Text>
                 </View>
             </View>
-
             <Pressable style={styles.button} onPress={() => traSach()}>
                 <Text style={styles.btnText}>Trả sách</Text>
             </Pressable>
@@ -79,7 +76,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingTop: 50
     },
-
     box: {
         width: "80%",
         height: 150,
@@ -93,29 +89,24 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: "row"
     },
-
     leftBox: {
         flex: 1,
         flexDirection: "column",
     },
-
     rightBox: {
         flex: 1.2,
         flexDirection: "column",
     },
-
     leftBoxText: {
         flex: 1,
         fontWeight: "bold",
         textAlignVertical: "center",
     },
-
     rightBoxText: {
         flex: 1,
         textAlign: "right",
         textAlignVertical: "center",
     },
-
     borrowedBox: {
         width: "80%",
         height: 180,
@@ -126,14 +117,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         gap: 10,
     },
-
     img: {
         flex: 3,
         height: undefined,
         width: "30%",
         borderRadius: 5
     },
-
     timeBox: {
         width: "80%",
         height: 100,
@@ -144,7 +133,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
         flexDirection: "row"
     },
-
     button: {
         backgroundColor: "#ff914d",
         borderRadius: 50,
@@ -155,7 +143,6 @@ const styles = StyleSheet.create({
         marginTop: 30,
         justifyContent: "center"
     },
-
     btnText: {
         fontSize: 25,
         fontWeight: "bold"

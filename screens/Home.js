@@ -40,10 +40,10 @@ export default function App({ navigation }) {
         if (book.tinhTrang == 'Co san') {
             return {
                 color: 'green',
-                paddingLeft:3,
-                fontSize:12,
-                fontWeight:'bold',
-                paddingTop :3
+                paddingLeft: 3,
+                fontSize: 12,
+                fontWeight: 'bold',
+                paddingTop: 3
             }
         }
         if (book.tinhTrang == 'Da het') {
@@ -115,11 +115,9 @@ export default function App({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-
     container: {
         flex: 1,
     },
-
     descriptionAndSearch: {
         flex: 4,
         backgroundColor: '#fff2cc',
@@ -133,8 +131,6 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 30,
         marginTop: -30,
     },
-
-
     detail: {
         flex: 7,
         borderTopLeftRadius: 30,
@@ -144,7 +140,6 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
 
     },
-
     header: {
         flexDirection: "row",
         alignItems: "center",
@@ -152,7 +147,6 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         marginTop: 20
     },
-
     search: {
         flexDirection: 'row',
         width: 380,
@@ -167,8 +161,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: "white",
         elevation: 5
-
-
     },
     searchAndUSer: {
         flex: 2,
@@ -181,13 +173,10 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         justifyContent: 'center',
     },
-
-
     user: {
         margin: 6,
         marginTop: 5
     },
-
     profile: {
         flex: 1,
         height: 50,
@@ -195,7 +184,6 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         borderRadius: 50,
     },
-
     profileBtn: {
         width: 40,
         height: 40,
@@ -206,7 +194,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-
     category: {
         fontWeight: "bold",
         fontSize: 18,
@@ -223,13 +210,11 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         padding: 10
     },
-
     /******************************************************** */
     bookList: {
         marginHorizontal: 20,
         justifyContent: "center",
     },
-
     book: {
         flex: 1,
         marginBottom: 25,
@@ -240,9 +225,7 @@ const styles = StyleSheet.create({
         overflow: 'visible'
 
     },
-
     /****************flexwrap + minWidth = grid **************/
-
     img: {
         width: 100,
         height: 150,

@@ -41,15 +41,10 @@ export default function App({ navigation }) {
                         </View>
                     </View>
                 </View>
-
-
             </View>
-
             <View style={styles.recentBox}>
                 <Text style={{ fontWeight: "bold", fontSize: 20 }}>Chức năng</Text>
-
                 <View style={styles.manageBox}>
-
                     <Pressable style={styles.functions} onPress={() => navigation.navigate("BookManagement")}>
                         <ImageBackground
                             source={require('../assets/img/Screenshot (22).png')}
@@ -58,7 +53,6 @@ export default function App({ navigation }) {
                             <Text style={{ fontSize: 15, fontWeight: "bold" }}>Quản lý sách</Text>
                         </ImageBackground>
                     </Pressable>
-
                     <Pressable style={styles.functions} onPress={() => navigation.navigate("BorrowingCardManagement")}>
                         <ImageBackground
                             source={require('../assets/img/Screenshot (24).png')}
@@ -67,12 +61,10 @@ export default function App({ navigation }) {
                             <Text style={{ fontSize: 15, fontWeight: "bold" }}>Quản lý phiếu mượn</Text>
                         </ImageBackground>
                     </Pressable>
-
                 </View>
             </View>
             <Pressable onPress={() => logout()}>
                 <View style={{ backgroundColor: 'white', borderRadius: 15, height: 45, width: 330, elevation: 5, marginTop: 50 }}>
-
                     <View style={{ flex: 8, justifyContent: 'center', alignItems: 'center', paddingLeft: 5 }}>
                         <Text style={{ fontSize: 19, fontWeight: 'bold' }}>Đăng xuất</Text>
                     </View>
@@ -90,7 +82,6 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         justifyContent: 'center',
     },
-
     box: {
         width: 330,
         height: 150,
@@ -100,14 +91,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         elevation: 8
     },
-
     topLeftBox: {
         flex: 5,
         flexDirection: "column",
         alignItems: "center",
         paddingVertical: 10
     },
-
     bottomBox: {
         flex: 2,
         flexDirection: "row",
@@ -118,47 +107,39 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff2cc",
         elevation: 8
     },
-
     bottomLeft: {
         flex: 1,
         flexDirection: "column",
         justifyContent: "center",
         gap: 5
     },
-
     bottomLeftText: {
         fontSize: 18
     },
-
     bottomRight: {
         flex: 1,
         alignItems: "center",
         justifyContent: "center"
     },
-
     bottomRightText: {
         fontWeight: "bold",
         fontSize: 25
     },
-
     recentBox: {
         height: 200,
         width: 320,
         marginTop: 30,
         padding: 10
     },
-
     userName: {
         fontSize: 25,
         fontWeight: 'bold'
     },
-
     img: {
         height: "100%",
         width: undefined,
         borderRadius: 20
     },
-
     button: {
         flex: 1,
         backgroundColor: "#fff2cc",
@@ -168,11 +149,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         elevation: 5
     },
-
     btnText: {
         fontSize: 15,
     },
-
     manageBox: {
         flexDirection: "row",
         height: "80%",

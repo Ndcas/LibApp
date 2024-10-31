@@ -12,8 +12,6 @@ export default function App({ navigation }) {
     async function getBooks() {
         let data = await fetch(API_URL + "/dauSach/getWithHinhAnh");
         if (data.ok) {
-            console.log("ok");
-            
             let books = await data.json();
             setListBook(books);
             setDisplayBook(books);
@@ -72,7 +70,6 @@ export default function App({ navigation }) {
                             </Pressable>
                         )
                     }
-
                 </ScrollView>
             </KeyboardAvoidingView>
         </KeyboardAvoidingView>
@@ -80,13 +77,11 @@ export default function App({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-
     container: {
         flex: 1,
         backgroundColor: 'white',
 
     },
-
     header: {
         flex: 2.5,
         backgroundColor: "#fff2cc",
@@ -108,7 +103,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
     },
-
     search: {
         flexDirection: "row",
         alignItems: "center",
@@ -122,33 +116,26 @@ const styles = StyleSheet.create({
         elevation: 5,
         backgroundColor: "white"
     },
-
     icon: {
         flex: 1,
         paddingTop: 39,
         paddingLeft: 5,
     },
-
     img: {
         height: "100%",
         width: undefined,
         backgroundColor: "#ff914d",
         borderRadius: 20
     },
-
     addBook: {
         flexDirection: "row",
         marginTop: 10,
         paddingLeft: 10
     },
-
     bookList: {
         flexDirection: "column",
         backgroundColor: "white",
-
-
     },
-
     book: {
         width: "94%",
         height: 170,
@@ -160,7 +147,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         flexDirection: "row",
     },
-
     myText: {
         fontSize: 16,
         fontWeight: "bold",

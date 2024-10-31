@@ -42,8 +42,6 @@ export default function App({ navigation }) {
     async function getListTheMuon() {
         let data = await fetch(API_URL + "/theMuon/get");
         if (data.ok) {
-             console.log("ok");
-            
             let theMuons = await data.json();
             theMuons.sort((a, b) => {
                 let d1 = new Date(a.ngayMuon);
@@ -60,16 +58,16 @@ export default function App({ navigation }) {
         if (text.trim().length > 0) {
             let docGia = docGias.find(docGia => docGia.maDocGia == text);
             if (docGia) {
-                let result = listTheMuon.filter(theMuon => theMuon.docGia == docGia._id);
+                let result = [...listTheMuon];
                 switch (filter) {
                     case 1:
-                        result = result.filter(theMuon => theMuon.tinhTrang == 'Da tra');
+                        result = listTheMuon.filter(theMuon => theMuon.tinhTrang == 'Da tra' && theMuon.docGia == docGia._id);
                         break;
                     case 2:
-                        result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) >= today);
+                        result = listTheMuon.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) >= today && theMuon.docGia == docGia._id);
                         break;
                     case 3:
-                        result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today);
+                        result = listTheMuon.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today && theMuon.docGia == docGia._id);
                         break;
                 }
                 setShowTheMuon(result);
@@ -101,16 +99,16 @@ export default function App({ navigation }) {
         if (maDocGia.trim().length > 0) {
             let docGia = docGias.find(docGia => docGia.maDocGia == maDocGia);
             if (docGia) {
-                result = result.filter(theMuon => theMuon.docGia == docGia._id);
+                let result = [...listTheMuon];
                 switch (value) {
                     case 1:
-                        result = result.filter(theMuon => theMuon.tinhTrang == 'Da tra');
+                        result = result.filter(theMuon => theMuon.tinhTrang == 'Da tra' && theMuon.docGia == docGia._id);
                         break;
                     case 2:
-                        result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) >= today);
+                        result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) >= today && theMuon.docGia == docGia._id);
                         break;
                     case 3:
-                        result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today);
+                        result = result.filter(theMuon => theMuon.tinhTrang == 'Chua tra' && new Date(theMuon.hanTra) < today && theMuon.docGia == docGia._id);
                         break;
                 }
                 setShowTheMuon(result);
@@ -192,22 +190,20 @@ export default function App({ navigation }) {
                         </View>
                     </View>
                 </View>
-                <View style ={{flexDirection : 'row',alignItems :'center',marginTop :20,marginLeft :17}}>
-                <FontAwesomeIcon icon={faFilter} style={styles.icon} size={13} />
-                <Text style = {{fontSize :13,paddingLeft :5,opacity :0.7}}>Lọc theo</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20, marginLeft: 17 }}>
+                    <FontAwesomeIcon icon={faFilter} style={styles.icon} size={13} />
+                    <Text style={{ fontSize: 13, paddingLeft: 5, opacity: 0.7 }}>Lọc theo</Text>
                 </View>
                 <ButtonGroup
-                    buttons={['Tất cả', 'Đã trả', 'Chưa trả', 'Quá hạn']} 
+                    buttons={['Tất cả', 'Đã trả', 'Chưa trả', 'Quá hạn']}
                     selectedIndex={filter}
                     onPress={(value) => filterTinhTrang(value)}
-                    containerStyle ={{ marginHorizontal :13, backgroundColor: "transparent", borderColor: "transparent"}}
-                    buttonContainerStyle={{width: 15, height: 38, borderRadius: 20,marginHorizontal :0.5, backgroundColor: "transparent", borderColor: "transparent"}}
-                    buttonStyle={{backgroundColor: "#F4F6FF", borderRadius: 10}}
-                    selectedButtonStyle={{backgroundColor :'black'}} 
-                    textStyle = {{color :'black'}}/>
-                    
+                    containerStyle={{ marginHorizontal: 13, backgroundColor: "transparent", borderColor: "transparent" }}
+                    buttonContainerStyle={{ width: 15, height: 38, borderRadius: 20, marginHorizontal: 0.5, backgroundColor: "transparent", borderColor: "transparent" }}
+                    buttonStyle={{ backgroundColor: "#F4F6FF", borderRadius: 10 }}
+                    selectedButtonStyle={{ backgroundColor: 'black' }}
+                    textStyle={{ color: 'black' }} />
             </ImageBackground>
-
             <KeyboardAvoidingView style={styles.lowerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <View style={{ flexDirection: 'row', gap: 60 }}>
                     <Text style={{ fontSize: 18, fontWeight: 'bold', paddingBottom: 20 }}>Danh sách phiếu mượn</Text>
@@ -261,14 +257,13 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         marginTop: -30,
-        borderRadius :0.3
+        borderRadius: 0.3
     },
     header: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
     },
-
     search: {
         flexDirection: "row",
         width: '95%',
@@ -282,36 +277,29 @@ const styles = StyleSheet.create({
         elevation: 2,
         alignItems: "center",
         justifyContent: 'center'
-
     },
-
     icon: {
         flex: 2,
         color: '#666',
     },
-
     update: {
         flexDirection: "row",
         marginTop: 10,
         marginLeft: 20
     },
-
     addText: {
         color: "#007bff",
         fontSize: 15,
         fontWeight: "bold",
         elevation: 7,
         paddingTop: 3
-
     },
-
     cardList: {
         marginTop: 20,
         paddingHorizontal: 15,
         backgroundColor: '#fff',
         paddingVertical: 10,
     },
-
     card: {
         width: "100%",
         borderWidth: 1,
@@ -324,19 +312,16 @@ const styles = StyleSheet.create({
         elevation: 2,
         marginBottom: 15
     },
-
     cardIndex: {
         fontSize: 18,
         fontWeight: "bold",
         flex: 1,
         color: "#333",
     },
-
     cardText: {
         fontSize: 16,
         color: "#333",
     },
-
     cardStatus: {
         flex: 1,
         fontSize: 14,

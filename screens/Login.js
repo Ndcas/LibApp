@@ -43,8 +43,6 @@ export default function App({ navigation }) {
             }
         });
         if (data.ok) {
-            console.log("ok");
-            
             global.user = await data.json();
             if (global.user.message == 'Dang nhap thanh cong') {
                 realm.write(() => {
@@ -79,8 +77,6 @@ export default function App({ navigation }) {
             }
         });
         if (dats.ok) {
-            
-            
             global.user = await dats.json();
             if (global.user.message == 'Dang nhap that bai') {
                 setShowMessage(true);
@@ -147,24 +143,23 @@ export default function App({ navigation }) {
                     </View>
                 </View>
                 <View style={{}}>
-                    <View style ={{paddingLeft: 3,justifyContent :'center',marginTop :-2}}>
-                    <CheckBox checked={remember} onPress={() => setRemember(!remember)} title='Duy trì đăng nhập' containerStyle={{ backgroundColor: 'transparent' }} 
-                     titleProps={{style : {marginLeft :2,fontSize :14}}} />
+                    <View style={{ paddingLeft: 3, justifyContent: 'center', marginTop: -2 }}>
+                        <CheckBox checked={remember} onPress={() => setRemember(!remember)} title='Duy trì đăng nhập' containerStyle={{ backgroundColor: 'transparent' }}
+                            titleProps={{ style: { marginLeft: 2, fontSize: 14 } }} />
                     </View>
-                    <View style={{marginTop :60}}>
-                        <View style = {{height :20,width :320}}>
-                        {
-                            showMessage ?
-                                <View>
-                                    <Text style ={{color : 'black',marginLeft :23,fontSize:15}}>Tài khoản hoặc mật khẩu không đúng</Text>
-                                </View> :
-                                <View></View>
-                        }
+                    <View style={{ marginTop: 60 }}>
+                        <View style={{ height: 20, width: 320 }}>
+                            {
+                                showMessage ?
+                                    <View>
+                                        <Text style={{ color: 'black', marginLeft: 23, fontSize: 15 }}>Tài khoản hoặc mật khẩu không đúng</Text>
+                                    </View> :
+                                    <View></View>
+                            }
                         </View>
-                    
-                    <Pressable style={styles.button} onPress={() => login()}>
-                        <Text style={{ fontWeight: "bold", fontSize: 30 }}>Đăng nhập</Text>
-                    </Pressable>
+                        <Pressable style={styles.button} onPress={() => login()}>
+                            <Text style={{ fontWeight: "bold", fontSize: 30 }}>Đăng nhập</Text>
+                        </Pressable>
                     </View>
                 </View>
             </ImageBackground>
@@ -187,7 +182,6 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         backgroundColor: "#FCDE70",
     },
-
     box: {
         width: 200,
         height: 250,
@@ -196,12 +190,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 15
     },
-
     myText: {
         fontWeight: 'bold',
         fontSize: 25
     },
-
     inputBoxID: {
         marginTop: 25,
         paddingLeft: 10,
@@ -238,12 +230,10 @@ const styles = StyleSheet.create({
         flex: 10,
 
     },
-
     input: {
         fontSize: 18,
 
     },
-
     button: {
         width: 370,
         height: 80,
@@ -254,6 +244,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginLeft: 20,
         elevation: 4
-
     },
 });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ImageBackground,Pressable, StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { Pressable, StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { useRoute } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { API_URL } from '@env';
@@ -23,7 +23,7 @@ export default function App({ navigation }) {
     async function getBooks() {
         let data = await fetch(API_URL + `/sach/get?dauSach=${book._id}`);
         if (data.ok) {
-            console.log("ok");       
+            console.log("ok");
             let books = await data.json();
             setListBook(books);
         }
@@ -44,8 +44,6 @@ export default function App({ navigation }) {
                     {/* Phần mô tả trong view */}
                     <View style={styles.descriptionPart}>
                         {/* Các thành phần trong mô tả */}
-
-
                         <View style={styles.descriptionDetailFrame}>
                             <View style={styles.icon1}>
                                 <Icon name="user" size={20} />
@@ -55,7 +53,6 @@ export default function App({ navigation }) {
                                 <Text style={styles.detailText}>{book.tacGia}</Text>
                             </View>
                         </View>
-
                         <View style={styles.descriptionDetailFrame}>
                             <View style={styles.icon1}>
                                 <Icon name="book" size={20} />
@@ -65,7 +62,6 @@ export default function App({ navigation }) {
                                 <Text style={styles.detailText}>{book.chuyenNganh.tenChuyenNganh}</Text>
                             </View>
                         </View>
-
                         <View style={styles.descriptionDetailFrame}>
                             <View style={styles.icon1}>
                                 <Icon name="print" size={20} />
@@ -75,7 +71,6 @@ export default function App({ navigation }) {
                                 <Text style={styles.detailText}>{book.nhaXuatBan}</Text>
                             </View>
                         </View>
-
                         <View style={styles.descriptionDetailFrame}>
                             <View style={styles.icon1}>
                                 <Icon name="pagelines" size={20} />
@@ -85,7 +80,6 @@ export default function App({ navigation }) {
                                 <Text style={styles.detailText}>{book.soTrang}</Text>
                             </View>
                         </View>
-
                     </View>
                 </View>
                 <View style={styles.titleDescription}>
@@ -93,7 +87,6 @@ export default function App({ navigation }) {
                     <Text style={styles.titleText}>{book.tenDauSach}</Text>
                 </View>
             </View>
-
             <View style={styles.booklist}>
                 <View style={{ flexDirection: "row" }}>
                     <Text style={{ flex: 1, fontSize: 24, fontWeight: 'bold', marginTop: 15, paddingLeft: 15 }}>Danh sách sách</Text>
@@ -119,18 +112,13 @@ export default function App({ navigation }) {
 
                         )
                     }
-
-
                 </ScrollView>
-
             </View>
         </View>
-
     )
 }
 
 const styles = StyleSheet.create({
-
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -162,7 +150,6 @@ const styles = StyleSheet.create({
         marginBottom: 7
 
     },
-
     bookDescription: {
         flexDirection: 'row',
         flex: 7,
@@ -197,15 +184,11 @@ const styles = StyleSheet.create({
 
 
     },
-
-
-
     header: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
     },
-
     search: {
         flexDirection: "row",
         flex: 5,
@@ -218,7 +201,6 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         fontSize: 15,
     },
-
     icon1: {
         flex: 1,
         paddingLeft: 5,
@@ -229,7 +211,6 @@ const styles = StyleSheet.create({
         flex: 6,
         justifyContent: 'center',
     },
-
     img: {
         height: "100%",
         width: "100%",
@@ -237,12 +218,10 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         elevation: 5
     },
-
     addBook: {
         flexDirection: "row",
         marginTop: 10
     },
-
     bookList: {
         flexDirection: "column",
         gap: 10,
@@ -250,7 +229,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         height: "80%"
     },
-
     book: {
         alignItems: 'center',
         width: "100%",
@@ -262,12 +240,10 @@ const styles = StyleSheet.create({
         elevation: 3,
         borderRadius: 10
     },
-
     myText: {
         fontSize: 15,
         fontWeight: "bold",
     },
-
     icon: {
         flex: 1,
     },

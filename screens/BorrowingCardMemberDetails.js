@@ -1,4 +1,4 @@
-import { Pressable, Image, StyleSheet, Text, View, ScrollView, ImageBackground } from 'react-native';
+import { Image, StyleSheet, Text, View, ScrollView, ImageBackground } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { API_URL } from '@env';
@@ -29,21 +29,6 @@ export default function App({ navigation }) {
         let mm = String(date.getMonth() + 1).padStart(2, '0');
         let yyyy = date.getFullYear();
         return `${hh}:${MM}:${ss} ${dd}/${mm}/${yyyy}`;
-    }
-
-    async function traSach() {
-        let result = await fetch(API_URL + `/theMuon/traSach?id=${theMuon._id}`);
-        result = await result.json();
-        if (result.message == 'Tra sach thanh cong') {
-            routes = navigation.getState().routes.slice(0, -2);
-            routes = [...routes, {
-                name: 'BorrowingCardManagement'
-            }];
-            navigation.reset({
-                index: routes.length - 1,
-                routes: routes
-            });
-        }
     }
 
     function tinhTrangColor() {
@@ -82,7 +67,6 @@ export default function App({ navigation }) {
                         <Text style={styles.rightBoxText}>{docGia.maDocGia}</Text>
                     </View>
                 </View>
-
                 <Text style={{ fontWeight: "bold", fontSize: 25, textAlign: "left", paddingLeft: 5, marginTop: 25 }}>Sách mượn</Text>
                 <View style={styles.borrowedBox}>
                     <ScrollView
@@ -142,7 +126,6 @@ const styles = StyleSheet.create({
         marginTop: 50,
         elevation: 5
     },
-
     box: {
         width: "90%",
         height: 100,
@@ -155,26 +138,20 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         elevation: 2,
     },
-
     leftBox: {
         flex: 1,
         flexDirection: "column",
     },
-
     rightBox: {
         flex: 1.2,
         flexDirection: "column",
     },
-
     leftBoxText: {
         flex: 1,
         fontWeight: "bold",
         textAlignVertical: "center",
         fontSize: 17,
-
-
     },
-
     rightBoxText: {
         flex: 1,
         textAlign: "right",
@@ -188,7 +165,6 @@ const styles = StyleSheet.create({
         fontSize: 17,
         color: '#007bff'
     },
-
     borrowedBox: {
         width: "90%",
         height: 150,
@@ -201,17 +177,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         elevation: 2,
         borderRadius: 7,
-
-
     },
-
     img: {
         height: 140,
         width: 100,
         borderRadius: 10,
         marginRight: 5
     },
-
     timeBox: {
         width: "90%",
         height: 100,
@@ -225,9 +197,7 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         elevation: 2,
         marginBottom: 30
-
     },
-
     buttonBox: {
         flexDirection: "row",
         width: "80%",
@@ -235,7 +205,6 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         gap: 10,
     },
-
     btnBorrow: {
         backgroundColor: "#fff2cc",
         borderRadius: 20,
@@ -245,7 +214,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         width: 350
     },
-
     btnCancel: {
         flex: 1,
         backgroundColor: "#ff914d",
@@ -255,7 +223,6 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         justifyContent: "center"
     },
-
     btnText: {
         fontSize: 25,
         fontWeight: "bold"
