@@ -13,7 +13,6 @@ export default function App({ navigation }) {
     async function getBook() {
         let data = await fetch(API_URL + "/dauSach/getWithoutSach")
         if (data.ok) {
-            console.log("ok");
             let books = await data.json();
             setListBook(books);
             setDisplayBooks(books);
@@ -81,9 +80,7 @@ export default function App({ navigation }) {
                     </View>
                 </KeyboardAvoidingView>
             </ImageBackground>
-            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
-                style={styles.booklist}
-            >
+            <View style={styles.booklist}>
                 <Text style={styles.category}>
                     Tất cả sách
                 </Text>
@@ -109,7 +106,7 @@ export default function App({ navigation }) {
                         }
                     </View>
                 </ScrollView>
-            </KeyboardAvoidingView>
+            </View>
         </KeyboardAvoidingView>
     )
 }

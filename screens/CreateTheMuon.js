@@ -157,7 +157,7 @@ export default function App({ navigation }) {
             <Text style={{ fontSize: 40, fontWeight: 'bold', paddingBottom: 10 }}>Tạo phiếu mượn</Text>
             <View style={styles.box}>
                 <View style={styles.upperView}>
-                    <View style={styles.inputFrame}>
+                    <View style={[styles.inputFrame, { zIndex: 99 }]}>
                         <View style={styles.iconPart}>
                             <FontAwesomeIcon icon={faUser} size={20} />
                         </View>
@@ -180,7 +180,7 @@ export default function App({ navigation }) {
                             />
                         </View>
                     </View>
-                    <View style={styles.inputFrame}>
+                    <View style={[styles.inputFrame, { zIndex: 99 }]}>
                         <View style={styles.iconPartBook}>
                             <FontAwesomeIcon icon={faBook} size={20} />
                         </View>

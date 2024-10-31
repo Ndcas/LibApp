@@ -13,15 +13,7 @@ export default function App({ navigation }) {
 
     useEffect(() => {
         getListTheMuon();
-        getDocGias();
     }, []);
-
-    async function getDocGias() {
-        let response = await fetch(API_URL + '/docGia/get');
-        if (response.ok) {
-            setDocGias(await response.json());
-        }
-    }
 
     async function getListTheMuon() {
         let data = await fetch(API_URL + "/theMuon/get");
@@ -114,7 +106,6 @@ export default function App({ navigation }) {
                                 <Pressable key={index} style={styles.card} onPress={() => navigation.navigate("BorrowingCardMemberDetails", { borrowingCard: theMuon })}>
                                     <Text style={styles.cardIndex}>#{index + 1}</Text>
                                     <View>
-                                        <Text style={styles.cardText}>Mã độc giả: {docGias.find(docGia => docGia._id === theMuon.docGia) ? docGias.find(docGia => docGia._id === theMuon.docGia).maDocGia : 'Không tìm thấy độc giả'}</Text>
                                         <Text style={styles.cardText}>Ngày mượn: {formatDate(theMuon.ngayMuon)}</Text>
                                     </View>
                                     <Text style={[styles.cardStatus, tinhTrangColor(theMuon)]}>
